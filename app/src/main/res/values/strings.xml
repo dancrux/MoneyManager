@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Money Manager</string>
+    <string name="title_home">Home</string>
+    <string name="title_income">Income</string>
+    <string name="title_expenses">Expenses</string>
+    <string name="title_received">Received</string>
+    <string name="title_sent">Sent</string>
+</resources>

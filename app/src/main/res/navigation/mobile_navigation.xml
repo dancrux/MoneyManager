@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.cruxrepublic.moneymanager.ui.home.HomeFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/navigation_income"
+        android:name="com.cruxrepublic.moneymanager.ui.income.IncomeFragment"
+        android:label="@string/title_income"
+        tools:layout="@layout/fragment_income" />
+
+    <fragment
+        android:id="@+id/navigation_expense"
+        android:name="com.cruxrepublic.moneymanager.ui.expense.ExpenseFragment"
+        android:label="@string/title_expenses"
+        tools:layout="@layout/fragment_expense" />
+    <fragment
+        android:id="@+id/navigation_received"
+        android:name="com.cruxrepublic.moneymanager.ui.received.ReceivedFragment"
+        android:label="@string/title_received"
+        tools:layout="@layout/received_fragment" />
+    <fragment
+        android:id="@+id/navigation_sent"
+        android:name="com.cruxrepublic.moneymanager.ui.sent.SentFragment"
+        android:label="@string/title_sent"
+        tools:layout="@layout/sent_fragment" />
+
+</navigation>
