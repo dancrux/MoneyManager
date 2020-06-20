@@ -15,7 +15,11 @@
         android:id="@+id/navigation_income"
         android:name="com.cruxrepublic.moneymanager.ui.income.IncomeFragment"
         android:label="@string/title_income"
-        tools:layout="@layout/fragment_income" />
+        tools:layout="@layout/fragment_income" >
+        <action
+            android:id="@+id/action_navigation_income_to_navigation_add_income"
+            app:destination="@id/navigation_add_income" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_expense"
@@ -32,5 +36,11 @@
         android:name="com.cruxrepublic.moneymanager.ui.sent.SentFragment"
         android:label="@string/title_sent"
         tools:layout="@layout/sent_fragment" />
+
+    <dialog
+        android:id="@+id/navigation_add_income"
+        android:name="com.cruxrepublic.moneymanager.ui.income.AddIncomeDialogFragment"
+        android:label="AddIncome"
+        tools:layout="@layout/fragment_item_list_dialog_list_dialog" />
 
 </navigation>

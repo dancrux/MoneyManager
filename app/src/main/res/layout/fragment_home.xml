@@ -1,21 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:paddingTop="?attr/actionBarSize"
+
     tools:context=".ui.home.HomeFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/totalFundsCard"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="130dp"
         app:cardBackgroundColor="@color/colorAshLight"
         app:cardCornerRadius="18dp"
         app:cardElevation="5dp"
         app:cardUseCompatPadding="true"
         app:contentPadding="4dp"
-        app:layout_constraintBottom_toTopOf="@+id/incomeCard"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -68,7 +72,8 @@
         app:cardUseCompatPadding="true"
         app:contentPadding="4dp"
         app:layout_constraintBottom_toTopOf="@+id/receivedCard"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/totalFundsCard" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/expenseCard"
@@ -113,5 +118,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/receivedCard"
         app:layout_constraintTop_toTopOf="@+id/receivedCard" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

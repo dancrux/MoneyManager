@@ -1,22 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     tools:context=".ui.expense.ExpenseFragment">
 
-    <TextView
-        android:id="@+id/text_notifications"
+    <data>
+        <variable
+            name="expenseViewModel"
+            type="com.cruxrepublic.moneymanager.ui.expense.ExpenseViewModel"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/addExpenseFab"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="60dp"
+        android:text="@string/add_expenses"
+        android:translationZ="6dp"
+        app:backgroundTint="@color/colorAccent"
+        app:elevation="6dp"
+        app:icon="@drawable/ic_baseline_add_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:shapeAppearance="@style/ShapeAppearance.MaterialComponents.MediumComponent">
+
+    </com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/expensesRecycler"
+        android:layout_width="409dp"
+        android:layout_height="729dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginEnd="1dp"
+        android:elevation="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        app:layout_constraintTop_toTopOf="parent"
+        tools:listitem="@layout/item_view" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

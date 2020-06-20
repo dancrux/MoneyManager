@@ -22,10 +22,10 @@ class ExpenseFragment : Fragment() {
         expenseViewModel =
                 ViewModelProvider(this).get(ExpenseViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_expense, container, false)
-        val textView: TextView = root.findViewById(R.id.text_notifications)
-        expenseViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })
+//        val textView: TextView = root.findViewById(R.id.text_notifications)
+//        expenseViewModel.text.observe(viewLifecycleOwner, Observer {
+//            textView.text = it
+//        })
         return root
     }
 }

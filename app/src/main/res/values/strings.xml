@@ -5,4 +5,7 @@
     <string name="title_expenses">Expenses</string>
     <string name="title_received">Received</string>
     <string name="title_sent">Sent</string>
+    <string name="add_expenses">Add Expenses</string>
+    <string name="add_income">Add Income</string>
+    <string name="send_money">Send Money</string>
 </resources>
