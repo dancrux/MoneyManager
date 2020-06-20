@@ -25,7 +25,11 @@
         android:id="@+id/navigation_expense"
         android:name="com.cruxrepublic.moneymanager.ui.expense.ExpenseFragment"
         android:label="@string/title_expenses"
-        tools:layout="@layout/fragment_expense" />
+        tools:layout="@layout/fragment_expense" >
+        <action
+            android:id="@+id/action_navigation_expense_to_navigation_add_expense"
+            app:destination="@id/navigation_add_expense" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_received"
         android:name="com.cruxrepublic.moneymanager.ui.received.ReceivedFragment"
@@ -35,12 +39,32 @@
         android:id="@+id/navigation_sent"
         android:name="com.cruxrepublic.moneymanager.ui.sent.SentFragment"
         android:label="@string/title_sent"
-        tools:layout="@layout/sent_fragment" />
+        tools:layout="@layout/sent_fragment" >
+        <action
+            android:id="@+id/action_navigation_sent_to_navigation_send_money"
+            app:destination="@id/navigation_send_money" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="com.cruxrepublic.moneymanager.ui.profile.ProfileFragment"
+        android:label="@string/title_profile"
+        tools:layout="@layout/profile_fragment" />
 
     <dialog
         android:id="@+id/navigation_add_income"
         android:name="com.cruxrepublic.moneymanager.ui.income.AddIncomeDialogFragment"
-        android:label="AddIncome"
-        tools:layout="@layout/fragment_item_list_dialog_list_dialog" />
+        android:label="@string/title_add_income"
+        tools:layout="@layout/fragment_add_income_dialog" />
+    <dialog
+        android:id="@+id/navigation_add_expense"
+        android:name="com.cruxrepublic.moneymanager.ui.expense.AddExpenseDialogFragment"
+        android:label="@string/title_expenses"
+        tools:layout="@layout/fragment_add_expense_dialog_list_dialog" />
+    <dialog
+        android:id="@+id/navigation_send_money"
+        android:name="com.cruxrepublic.moneymanager.ui.sent.SendDialogFragment"
+        android:label="@string/title_sent"
+        tools:layout="@layout/fragment_send_dialog_list_dialog" />
 
 </navigation>

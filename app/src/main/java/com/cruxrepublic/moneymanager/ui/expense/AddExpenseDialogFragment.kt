@@ -1,14 +1,17 @@
-package com.cruxrepublic.moneymanager.ui.income
+package com.cruxrepublic.moneymanager.ui.expense
 
 import android.os.Bundle
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import com.cruxrepublic.moneymanager.R
 
-//// TODO: Customize parameter argument names
-//const val ARG_ITEM_COUNT = "item_count"
+// TODO: Customize parameter argument names
+const val ARG_ITEM_COUNT = "item_count"
 
 /**
  *
@@ -16,16 +19,16 @@ import com.cruxrepublic.moneymanager.R
  *
  * You can show this modal bottom sheet from your activity like this:
  * <pre>
- *    AddIncomeDialogFragment.newInstance(30).show(supportFragmentManager, "dialog")
+ *    AddExpenseDialogFragment.newInstance(30).show(supportFragmentManager, "dialog")
  * </pre>
  */
-class AddIncomeDialogFragment : BottomSheetDialogFragment() {
+class AddExpenseDialogFragment : BottomSheetDialogFragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_add_income_dialog, container, false)
+        return inflater.inflate(R.layout.fragment_add_expense_dialog_list_dialog, container, false)
     }
 
 //    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -40,7 +43,7 @@ class AddIncomeDialogFragment : BottomSheetDialogFragment() {
 //        parent: ViewGroup
 //    ) : RecyclerView.ViewHolder(
 //        inflater.inflate(
-//            R.layout.fragment_item_list_dialog_list_dialog_item,
+//            R.layout.fragment_add_expense_dialog_list_dialog_item,
 //            parent,
 //            false
 //        )
@@ -68,8 +71,8 @@ class AddIncomeDialogFragment : BottomSheetDialogFragment() {
 //    companion object {
 //
 //        // TODO: Customize parameters
-//        fun newInstance(itemCount: Int): AddIncomeDialogFragment =
-//            AddIncomeDialogFragment().apply {
+//        fun newInstance(itemCount: Int): AddExpenseDialogFragment =
+//            AddExpenseDialogFragment().apply {
 //                arguments = Bundle().apply {
 //                    putInt(ARG_ITEM_COUNT, itemCount)
 //                }

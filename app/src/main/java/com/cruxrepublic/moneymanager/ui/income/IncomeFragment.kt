@@ -37,10 +37,13 @@ class IncomeFragment : Fragment() {
 //        })
 
         binding.addIncomeFab.setOnClickListener {
-
+//            val view = layoutInflater.inflate(R.layout.fragment_add_income_dialog, null)
+//            val dialog = activity?.let { it1 -> BottomSheetDialog(it1) }
+//            dialog?.setContentView(view)
+//            dialog?.show()
+//            val addIncomeDialog = AddIncomeDialogFragment()
             val action = IncomeFragmentDirections.actionNavigationIncomeToNavigationAddIncome()
             NavHostFragment.findNavController(this).navigate(action)
-
         }
         return binding.root
     }

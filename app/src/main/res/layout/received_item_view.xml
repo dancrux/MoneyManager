@@ -7,12 +7,11 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardBackgroundColor="@color/colorAshLight"
+        app:cardBackgroundColor="@color/colorWhite"
         app:cardCornerRadius="18dp"
         app:cardElevation="5dp"
         app:cardUseCompatPadding="true"
-        app:contentPadding="4dp"
-        >
+        app:contentPadding="4dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -26,7 +25,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="4dp"
                 android:text="Reason"
-                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textColor="@color/colorPrimary"
                 app:layout_constraintBottom_toTopOf="@id/receivedAmountText"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -41,6 +40,7 @@
                 android:layout_marginEnd="4dp"
                 android:text="Amount"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/colorForeground"
                 app:layout_constraintBottom_toTopOf="@id/receivedDateTimeText"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
