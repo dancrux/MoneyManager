@@ -48,7 +48,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
-                    android:text="Total Funds"
+                    android:fontFamily="sans-serif"
+                    android:text="@string/total_funds"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large"
                     android:textColor="@color/colorPrimary"
                     app:layout_constraintBottom_toTopOf="@id/totalFigureText"
@@ -62,7 +63,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
-                    android:text="25,0000"
+                    android:text="0.00"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large"
                     android:textColor="@android:color/black"
                     android:textSize="20sp"
@@ -89,7 +90,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent">
 
                 <ImageView
                     android:id="@+id/incomeImage"
@@ -107,7 +108,7 @@
                     android:id="@+id/incomeCardText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Total Income"
+                    android:text="@string/total_income"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     android:textColor="@color/colorPrimary"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -119,7 +120,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="45,000"
+                    android:text="0.00"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     android:textColor="@android:color/black"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -145,7 +146,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent">
 
                 <ImageView
                     android:id="@+id/expenseImage"
@@ -163,7 +164,7 @@
                     android:id="@+id/expenseCardText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Total Expenses"
+                    android:text="@string/total_expenses"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     android:textColor="@color/colorPrimary"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -175,7 +176,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="12,000"
+                    android:text="0.00"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     android:textColor="@android:color/black"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -219,7 +220,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
-                    android:text="Total Amount Received"
+                    android:text="@string/total_amount_received"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     android:textColor="@color/colorPrimary"
 
@@ -232,7 +233,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="30,000"
+                    android:text="0.00"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     android:textColor="@android:color/black"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -258,7 +259,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent">
 
                 <ImageView
                     android:id="@+id/sentImage"
@@ -277,7 +278,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
-                    android:text="Total Amount Sent"
+                    android:text="@string/total_amount_sent"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     android:textColor="@color/colorPrimary"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -289,7 +290,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="5,000"
+                    android:text="0.00"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     android:textColor="@android:color/black"
                     app:layout_constraintEnd_toEndOf="parent"
