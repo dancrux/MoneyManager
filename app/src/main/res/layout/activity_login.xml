@@ -2,12 +2,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.login.LoginActivity">
+    tools:context=".ui.auth.LoginActivity">
 
     <data>
         <variable
-            name="loginViewModel"
-            type="com.cruxrepublic.moneymanager.ui.login.LoginViewModel" />
+            name="authViewModel"
+            type="com.cruxrepublic.moneymanager.ui.auth.AuthViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -59,6 +59,7 @@
         android:layout_marginEnd="16dp"
         android:inputType="textEmailAddress"
         android:hint="@string/e_mail_text"
+        android:text="@{authViewModel.email}"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageView2"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
@@ -70,6 +71,7 @@
         android:layout_marginTop="32dp"
         android:inputType="textPassword"
         android:hint="@string/password_text"
+        android:text="@{authViewModel.password}"
         app:layout_constraintEnd_toEndOf="@+id/emailEditText"
         app:layout_constraintStart_toEndOf="@+id/imageView3"
         app:layout_constraintTop_toBottomOf="@+id/emailEditText" />
@@ -82,6 +84,7 @@
         android:layout_marginTop="44dp"
         android:layout_marginEnd="16dp"
         android:text="@string/sign_in_text"
+        android:onClick="@{() ->authViewModel.signin()}"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passwordEditText" />
@@ -94,6 +97,7 @@
         android:text="@string/not_registered_text"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@color/colorPrimary"
+        android:onClick="@{authViewModel::onSignUpTextClicked}"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/loginButton"
         app:layout_constraintStart_toStartOf="@+id/loginButton"
@@ -109,6 +113,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/passwordEditText"
         app:srcCompat="@android:drawable/ic_secure" />
+
+        <ProgressBar
+            android:id="@+id/progressBarIn"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_centerInParent="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

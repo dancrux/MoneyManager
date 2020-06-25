@@ -40,4 +40,5 @@
     <string name="sign_up">Sign Up</string>
     <string name="registered_sign_in_here">Already Registered? \n SignIn Here</string>
     <string name="phone_number">Phone Number</string>
+    <string name="sign_out">Sign Out</string>
 </resources>
