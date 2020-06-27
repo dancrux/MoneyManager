@@ -8,11 +8,11 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-class AuthViewModel(private val repository: UserRepository): ViewModel() {
+class AuthViewModel(private val repository: UserRepository) : ViewModel() {
 
 
-//    var auth: FirebaseAuth = FirebaseAuth.getInstance()
-    var email : String? = null
+    //    var auth: FirebaseAuth = FirebaseAuth.getInstance()
+    var email: String? = null
     var password: String? = null
     var firstName: String = ""
     var surname: String = ""
@@ -30,32 +30,40 @@ class AuthViewModel(private val repository: UserRepository): ViewModel() {
     }
 
     fun onSignUpButtonClick(view: View) {
-       authListener?.validateFields()
+        authListener?.validateFields()
         authListener?.onStarted()
-
-            val disposable = repository.register(email!!,password!!)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                    authListener?.onSuccess()
-                }, {
-                    authListener?.onFailure(it.message!!)
-                })
+        val disposable = repository.register(
+            email!!,
+            password!!,
+            firstName,
+            surname,
+            country,
+            age,
+            phoneNumber,
+            sex
+        )
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                authListener?.onSuccess()
+            }, {
+                authListener?.onFailure(it.message!!)
+            })
         disposables.add(disposable)
     }
 
-    fun signin() {
+    fun signin(view: View) {
         authListener?.validateFields()
         authListener?.onStarted()
-//        val disposable = repository.register(email!!, password!!)
-//            .subscribeOn(Schedulers.io())
-//            .observeOn(AndroidSchedulers.mainThread())
-//            .subscribe({
-//                authListener?.onSuccess()
-//            }, {
-//                authListener?.onFailure(it.message!!)
-//            })
-//        disposables.add(disposable)
+        val disposable = repository.login(email!!, password!!)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                authListener?.onSuccess()
+            }, {
+                authListener?.onFailure(it.message!!)
+            })
+        disposables.add(disposable)
     }
 
     fun onSignUpTextClicked(view: View) {
@@ -99,8 +107,6 @@ class AuthViewModel(private val repository: UserRepository): ViewModel() {
 //            }
 //
 //    }
-
-
 
 
 }

@@ -34,18 +34,18 @@ class LoginActivity() : AppCompatActivity(), AuthListener, KodeinAware {
     override fun validateFields() {
         binding.emailEditText.text.trim()
         binding.passwordEditText.text.trim()
-        if (binding.emailEditText.text.isNullOrEmpty()){
+        if (binding.emailEditText.text.toString().isEmpty()){
             binding.emailEditText.error = "Email is Required"
             binding.emailEditText.requestFocus()
             return
 
         }
-        if ( !Patterns.EMAIL_ADDRESS.matcher( binding.emailEditText.text).matches()){
+        if ( !Patterns.EMAIL_ADDRESS.matcher(binding.emailEditText.text.toString()).matches()){
             binding.emailEditText.error = "Enter First Name"
             binding.emailEditText.requestFocus()
             return
         }
-        if (binding.passwordEditText.text.isNullOrEmpty() ||  binding.passwordEditText.text.length < 6){
+        if (binding.passwordEditText.text.toString().isEmpty() ||  binding.passwordEditText.text.toString().length < 6){
             binding.passwordEditText.error = "Enter First Name"
             binding.passwordEditText.requestFocus()
             return
@@ -62,6 +62,7 @@ class LoginActivity() : AppCompatActivity(), AuthListener, KodeinAware {
     }
 
     override fun onFailure(message: String) {
+        progressBarIn.visibility = View.GONE
         toast(message)
     }
     override fun onStart() {

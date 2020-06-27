@@ -1,6 +1,7 @@
 package com.cruxrepublic.moneymanager.ui.main
 
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
@@ -54,7 +55,7 @@ class MainActivity : AppCompatActivity() , KodeinAware , NavigationView.OnNaviga
 
         val navController = findNavController(R.id.nav_host_fragment)
 //        NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout)
-        NavigationUI.setupWithNavController(navView, navController)
+        //NavigationUI.setupWithNavController(navView, navController)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(setOf(
@@ -64,7 +65,7 @@ class MainActivity : AppCompatActivity() , KodeinAware , NavigationView.OnNaviga
             R.id.navigation_received,
             R.id.navigation_sent,
             R.id.navigation_profile
-        ))
+        ), drawerLayout)
         setupActionBarWithNavController(navController, appBarConfiguration)
         bottomNavView.setupWithNavController(navController)
     }
@@ -72,8 +73,10 @@ class MainActivity : AppCompatActivity() , KodeinAware , NavigationView.OnNaviga
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             R.id.navigation_sign_out -> {
+                Log.e("Main", "Logout Clicked")
                 mainViewModel.logout()
                 startLoginActivity()
+                return false
             }
         }
         drawerLayout.closeDrawer(GravityCompat.START)
