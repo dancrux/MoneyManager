@@ -1,6 +1,7 @@
 package com.cruxrepublic.moneymanager.data
 
 import com.cruxrepublic.moneymanager.data.model.LoggedInUser
+import io.reactivex.Completable
 
 /**
  * Class that requests authentication and user information from the remote data source and
@@ -29,7 +30,7 @@ class UserRepository(private val firebase: FireBaseDataSource) {
 //        // handle login
 //        val result = dataSource.login(username, password)
 
-   suspend fun register(
+   fun register(
         email: String,
         password: String,
         firstName: String,
@@ -37,20 +38,22 @@ class UserRepository(private val firebase: FireBaseDataSource) {
         country: String,
         age: String,
         phoneNumber: String,
-        sex: String) {
+        sex: String): Completable{
        firebase.firstName =firstName
        firebase.surname = surname
        firebase.country = country
        firebase.age = age
        firebase.phoneNumber = phoneNumber
        firebase.sex = sex
-         firebase.register(email, password)
+          return firebase.register(email, password)
     }
 
 
     fun currentUser() = firebase.currentUser()
 
     fun logout() = firebase.logout()
+
+//    fun isNewUser() = firebase.isNewUser()
 
 
 //    private fun setLoggedInUser(loggedInUser: LoggedInUser) {

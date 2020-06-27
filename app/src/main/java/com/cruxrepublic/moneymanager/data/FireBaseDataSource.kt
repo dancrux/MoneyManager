@@ -1,11 +1,13 @@
 package com.cruxrepublic.moneymanager.data
 
-import com.cruxrepublic.moneymanager.data.model.LoggedInUser
+import android.util.Log
 import com.cruxrepublic.moneymanager.data.model.User
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import io.reactivex.Completable
-import java.io.IOException
+
 
 /**
  * Class that handles authentication w/ login credentials and retrieves user information.
@@ -28,17 +30,29 @@ class FireBaseDataSource() {
     var errorMessage = ""
     private lateinit  var user: User
 
-    fun login(email: String, password: String) {
-    firebaseAuth.signInWithEmailAndPassword(email,password)
+//    fun login(email: String, password: String) {
+//    firebaseAuth.signInWithEmailAndPassword(email,password)
+//        .addOnCompleteListener {task->
+//            if (task.isSuccessful)
+//                task.isComplete
+//
+//            else task.exception
+//
+//    }
+//
+//    }
+fun login(email: String, password: String) = Completable.create { emitter ->
+    firebaseAuth.signInWithEmailAndPassword(email, password)
         .addOnCompleteListener {
-            if (it.isSuccessful)
-                it.isComplete
+            if (!emitter.isDisposed) {
+                if (it.isSuccessful)
+                    emitter.onComplete()
+                else emitter.onError(it.exception ?: Exception("An error occurred"))
+            }
+        }
 
-            else it.exception
+}
 
-    }
-
-    }
 
 //    fun login(email: String, password: String) = Completable.create {
 //            emitter ->  firebaseAuth.signInWithEmailAndPassword(email,password)
@@ -53,28 +67,53 @@ class FireBaseDataSource() {
 //
 //    }
 
-    fun register(email: String, password: String) {
+//    fun register(email: String, password: String) {
+//        firebaseAuth.createUserWithEmailAndPassword(email, password)
+//            .addOnCompleteListener {
+//
+//                    if (it.isSuccessful) {
+//                         user = User(firstName, surname, email,country, phoneNumber,sex,age)
+//                        firebaseAuth.currentUser?.uid?.let {uid->
+//                            firebaseDatabase.getReference("users")
+//                                .child(uid).setValue(user).addOnCompleteListener {task->
+//                                    if (task.isSuccessful) {
+//                                        task.isComplete
+//                                    } else
+//                                       task.exception
+//                                }
+//
+//                        }
+//                    }
+//
+//                }
+//
+//            }
+
+    fun register(email: String, password: String) = Completable.create { emitter ->
         firebaseAuth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener {
-
+                if (!emitter.isDisposed) {
                     if (it.isSuccessful) {
-                         user = User(firstName, surname, email,country, phoneNumber,sex,age)
-                        firebaseAuth.currentUser?.uid?.let {uid->
-                            firebaseDatabase.getReference("users")
-                                .child(uid).setValue(user).addOnCompleteListener {
-                                    if (it.isSuccessful) {
-                                        it.isComplete
+                        user = User(email, firstName, surname, country, age, phoneNumber, sex)
+
+                        FirebaseAuth.getInstance().currentUser?.uid?.let { uid ->
+                            FirebaseDatabase.getInstance().getReference("Users")
+                                .child(uid).setValue(user).addOnCompleteListener { t ->
+                                    if (t.isSuccessful) {
+                                        emitter.onComplete()
                                     } else
-                                       it.exception
+                                        emitter.onError(t.exception ?: Exception("An error occurred"))
                                 }
 
                         }
+                    } else {
+                        emitter.onError(it.exception ?: Exception("An error occurred"))
                     }
-
                 }
 
             }
 
+    }
 //    private fun writeNewUser(userId: String, firstName: String, email: String?
 //                             , surname: String, sex: String, country: String, age: String,
 //                             phoneNumber: String) {
@@ -109,6 +148,14 @@ class FireBaseDataSource() {
 //
 //    }
     fun logout() = firebaseAuth.signOut()
+//    fun isNewUser() = completeListener
+//    private var completeListener =
+//        OnCompleteListener<AuthResult> { task ->
+//            if (task.isSuccessful) {
+//               task.result!!.additionalUserInfo!!.isNewUser
+////                Log.d("MyTAG", "onComplete: " + if (isNew) "new user" else "old user")
+//            }
+//        }
 
     fun currentUser()= firebaseAuth.currentUser
 }

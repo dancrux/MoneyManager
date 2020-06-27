@@ -102,26 +102,11 @@ class SignUpActivity() : AppCompatActivity(), KodeinAware,
     override fun onSuccess() {
         progressBarIn.visibility = View.GONE
        startMainActivity()
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("Welcome")
-        builder.setMessage("Add Your First Income")
-        builder.setCancelable(true)
 
-        builder.setPositiveButton("Add"){
-            dialog, which ->  showAddIncome()
-        }
-        val alertDialog = builder.create()
-        alertDialog.show()
     }
 
     override fun onFailure(message: String) {
         toast(message)
     }
-    private fun showAddIncome(){
-        val view = layoutInflater.inflate(R.layout.fragment_add_income_dialog, null)
-            val dialog = BottomSheetDialog(this)
-        dialog.setContentView(view)
-        dialog.show()
 
-    }
 }

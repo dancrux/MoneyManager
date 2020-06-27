@@ -3,6 +3,7 @@ package com.cruxrepublic.moneymanager.ui.main
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.Toolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
@@ -21,6 +22,8 @@ import com.cruxrepublic.moneymanager.data.UserRepository
 import com.cruxrepublic.moneymanager.databinding.ActivityMainBinding
 import com.cruxrepublic.moneymanager.ui.auth.AuthViewModelFactory
 import com.cruxrepublic.moneymanager.ui.utils.startLoginActivity
+import com.cruxrepublic.moneymanager.ui.utils.startMainActivity
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.view.*
@@ -28,7 +31,7 @@ import org.kodein.di.KodeinAware
 import org.kodein.di.android.kodein
 import org.kodein.di.generic.instance
 
-class MainActivity : AppCompatActivity() ,KodeinAware, NavigationView.OnNavigationItemSelectedListener{
+class MainActivity : AppCompatActivity() ,KodeinAware,MainInterface, NavigationView.OnNavigationItemSelectedListener{
 
     override val kodein by kodein()
     private val factory by instance<MainViewModelFactory>()
@@ -45,6 +48,7 @@ class MainActivity : AppCompatActivity() ,KodeinAware, NavigationView.OnNavigati
 //        val factory = MainViewModelFactory(repository  )
         mainViewModel = ViewModelProvider(this, factory).get(MainViewModel::class.java)
         binding.mainViewModel = mainViewModel
+        mainViewModel.mainInterface = this
 
         val toolbar: Toolbar = binding.container.toolbar
         setSupportActionBar(toolbar)
@@ -87,5 +91,30 @@ class MainActivity : AppCompatActivity() ,KodeinAware, NavigationView.OnNavigati
         }
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
+    }
+    override fun onStart() {
+        super.onStart()
+      mainViewModel.firstLogin()
+
+    }
+    private fun showAddIncome(){
+        val view = layoutInflater.inflate(R.layout.fragment_add_income_dialog, null)
+        val dialog = BottomSheetDialog(this)
+        dialog.setContentView(view)
+        dialog.show()
+
+    }
+
+    override fun promptNewUser() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Welcome")
+        builder.setMessage("Add Your First Income")
+        builder.setCancelable(true)
+
+        builder.setPositiveButton("Add"){
+                dialog, which ->  showAddIncome()
+        }
+        val alertDialog = builder.create()
+        alertDialog.show()
     }
 }

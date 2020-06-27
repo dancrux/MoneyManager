@@ -5,6 +5,7 @@ import android.view.View
 import androidx.lifecycle.ViewModel
 import com.cruxrepublic.moneymanager.data.UserRepository
 import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.AuthResult
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -34,66 +35,91 @@ class AuthViewModel(private val repo: UserRepository ): ViewModel() {
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
     private val disposables = CompositeDisposable()
 
+
     val user by lazy {
         repository.currentUser()
     }
 
-    fun onSignUpButtonClick(view: View) {
-        if (authListener.validateFields()){
-            authListener.onStarted()
-        }else return
-        uiScope.launch {
-            try {
-                val authResponse = repository.register(
-                    email,
-                    password,
-                    firstName,
-                    surname,
-                    country,
-                    age,
-                    phoneNumber,
-                    sex)
-                authResponse.let {  authListener.onSuccess() }
-
-            }catch (e: ApiException){
-                authListener.onFailure(e.message!!)
-            }
-
-            }
 
 
-    }
-
-    fun signin() {
-        if (authListener.validateFields()) {
-            authListener.onStarted()
-        } else return
-        uiScope.launch {
-            try {
-                val authResponse = repository.login(email, password)
-                authResponse.let { authListener.onSuccess() }
-
-            } catch (e: ApiException) {
-                authListener.onFailure(e.message!!)
-            }
-
-        }
-    }
-
-//        fun signin() {
+//    fun onSignUpButtonClick(view: View) {
 //        if (authListener.validateFields()){
 //            authListener.onStarted()
 //        }else return
-//        val disposable = repository.register(email, password)
-//            .subscribeOn(Schedulers.io())
-//            .observeOn(AndroidSchedulers.mainThread())
-//            .subscribe({
-//                authListener.onSuccess()
-//            }, {
-//                authListener.onFailure(it.message!!)
-//            })
-//        disposables.add(disposable)
+//        uiScope.launch {
+//            try {
+//                val authResponse = repository.register(
+//                    email,
+//                    password,
+//                    firstName,
+//                    surname,
+//                    country,
+//                    age,
+//                    phoneNumber,
+//                    sex)
+//                authResponse.let {  authListener.onSuccess() }
+//
+//            }catch (e: ApiException){
+//                authListener.onFailure(e.message!!)
+//            }
+//
+//            }
+//
+//
 //    }
+    fun onSignUpButtonClick(view: View) {
+        authListener?.validateFields()
+        authListener?.onStarted()
+        val disposable = repository.register(
+            email!!,
+            password!!,
+            firstName,
+            surname,
+            country,
+            age,
+            phoneNumber,
+            sex
+        )
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                authListener?.onSuccess()
+            }, {
+                authListener?.onFailure(it.message!!)
+            })
+        disposables.add(disposable)
+    }
+
+
+//    fun signin(view: View) {
+//        if (authListener.validateFields()) {
+//            authListener.onStarted()
+//        } else return
+//        uiScope.launch {
+//            try {
+//                val authResponse = repository.login(email, password)
+//                authResponse.let { authListener.onSuccess() }
+//
+//            } catch (e: ApiException) {
+//                authListener.onFailure(e.message!!)
+//            }
+//
+//        }
+//    }
+
+    fun signin(view: View) {
+        authListener?.validateFields()
+        authListener?.onStarted()
+        val disposable = repository.login(email, password)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                authListener?.onSuccess()
+            }, {
+                authListener?.onFailure(it.message!!)
+            })
+        disposables.add(disposable)
+    }
 
         fun onSignUpTextClicked(view: View) {
             Intent(view.context, SignUpActivity::class.java).also {
@@ -112,6 +138,8 @@ class AuthViewModel(private val repo: UserRepository ): ViewModel() {
             super.onCleared()
             disposables.dispose()
         }
+
+
 //    private fun registerUser(email: String, password: String){
 //        auth.createUserWithEmailAndPassword(email, password)
 //            .addOnCompleteListener(){task ->
