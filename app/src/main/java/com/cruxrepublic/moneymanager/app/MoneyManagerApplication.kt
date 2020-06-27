@@ -3,6 +3,7 @@ package com.cruxrepublic.moneymanager.app
 import android.app.Application
 import com.cruxrepublic.moneymanager.data.FireBaseDataSource
 import com.cruxrepublic.moneymanager.data.UserRepository
+import com.cruxrepublic.moneymanager.ui.auth.AuthListener
 import com.cruxrepublic.moneymanager.ui.auth.AuthViewModelFactory
 import com.cruxrepublic.moneymanager.ui.main.MainViewModelFactory
 import org.kodein.di.Kodein
@@ -18,9 +19,10 @@ class MoneyManagerApplication: Application(), KodeinAware {
     override val kodein = Kodein.lazy {
         import(androidXModule(this@MoneyManagerApplication))
 
+
         bind() from singleton { FireBaseDataSource()}
         bind() from singleton { UserRepository(instance()) }
-        bind() from provider { AuthViewModelFactory(instance()) }
+        bind() from provider { AuthViewModelFactory(instance())}
         bind() from provider { MainViewModelFactory(instance()) }
 
     }

@@ -3,7 +3,7 @@
     package="com.cruxrepublic.moneymanager">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
+<!--    android:name=".app.MoneyManagerApplication"-->
     <application
         android:name=".app.MoneyManagerApplication"
         android:allowBackup="true"

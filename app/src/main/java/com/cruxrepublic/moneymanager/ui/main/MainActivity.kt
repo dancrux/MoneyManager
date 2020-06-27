@@ -16,7 +16,10 @@ import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.cruxrepublic.moneymanager.R
+import com.cruxrepublic.moneymanager.data.FireBaseDataSource
+import com.cruxrepublic.moneymanager.data.UserRepository
 import com.cruxrepublic.moneymanager.databinding.ActivityMainBinding
+import com.cruxrepublic.moneymanager.ui.auth.AuthViewModelFactory
 import com.cruxrepublic.moneymanager.ui.utils.startLoginActivity
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main.*
@@ -25,16 +28,21 @@ import org.kodein.di.KodeinAware
 import org.kodein.di.android.kodein
 import org.kodein.di.generic.instance
 
-class MainActivity : AppCompatActivity() , KodeinAware , NavigationView.OnNavigationItemSelectedListener{
+class MainActivity : AppCompatActivity() ,KodeinAware, NavigationView.OnNavigationItemSelectedListener{
 
     override val kodein by kodein()
     private val factory by instance<MainViewModelFactory>()
     private lateinit var mainViewModel : MainViewModel
     private lateinit var binding: ActivityMainBinding
+    private lateinit var repo: UserRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this,R.layout.activity_main)
+
+//        val firebaseDataSource= FireBaseDataSource()
+//        val repository = UserRepository(firebaseDataSource)
+//        val factory = MainViewModelFactory(repository  )
         mainViewModel = ViewModelProvider(this, factory).get(MainViewModel::class.java)
         binding.mainViewModel = mainViewModel
 
@@ -54,7 +62,7 @@ class MainActivity : AppCompatActivity() , KodeinAware , NavigationView.OnNaviga
 
         val navController = findNavController(R.id.nav_host_fragment)
 //        NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout)
-        NavigationUI.setupWithNavController(navView, navController)
+//        NavigationUI.setupWithNavController(toolbar, navController)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(setOf(
@@ -74,6 +82,7 @@ class MainActivity : AppCompatActivity() , KodeinAware , NavigationView.OnNaviga
             R.id.navigation_sign_out -> {
                 mainViewModel.logout()
                 startLoginActivity()
+                return false
             }
         }
         drawerLayout.closeDrawer(GravityCompat.START)

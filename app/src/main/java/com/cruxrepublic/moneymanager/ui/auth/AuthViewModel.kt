@@ -4,16 +4,22 @@ import android.content.Intent
 import android.view.View
 import androidx.lifecycle.ViewModel
 import com.cruxrepublic.moneymanager.data.UserRepository
+import com.google.android.gms.common.api.ApiException
+import com.google.firebase.auth.AuthResult
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
-class AuthViewModel(private val repository: UserRepository): ViewModel() {
+class AuthViewModel(private val repo: UserRepository ): ViewModel() {
 
 
 //    var auth: FirebaseAuth = FirebaseAuth.getInstance()
-    var email : String? = null
-    var password: String? = null
+    var email : String = ""
+    var password: String = ""
     var firstName: String = ""
     var surname: String = ""
     var country: String = ""
@@ -22,7 +28,10 @@ class AuthViewModel(private val repository: UserRepository): ViewModel() {
     var sex = ""
     var errorMessage = ""
 
-    var authListener: AuthListener? = null
+    lateinit var authListener: AuthListener
+    private var repository = repo
+    private var viewModelJob = Job()
+    private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
     private val disposables = CompositeDisposable()
 
     val user by lazy {
@@ -30,51 +39,79 @@ class AuthViewModel(private val repository: UserRepository): ViewModel() {
     }
 
     fun onSignUpButtonClick(view: View) {
-       authListener?.validateFields()
-        authListener?.onStarted()
+        if (authListener.validateFields()){
+            authListener.onStarted()
+        }else return
+        uiScope.launch {
+            try {
+                val authResponse = repository.register(
+                    email,
+                    password,
+                    firstName,
+                    surname,
+                    country,
+                    age,
+                    phoneNumber,
+                    sex)
+                authResponse.let {  authListener.onSuccess() }
 
-            val disposable = repository.register(email!!,password!!)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                    authListener?.onSuccess()
-                }, {
-                    authListener?.onFailure(it.message!!)
-                })
-        disposables.add(disposable)
+            }catch (e: ApiException){
+                authListener.onFailure(e.message!!)
+            }
+
+            }
+
+
     }
 
     fun signin() {
-        authListener?.validateFields()
-        authListener?.onStarted()
-//        val disposable = repository.register(email!!, password!!)
+        if (authListener.validateFields()) {
+            authListener.onStarted()
+        } else return
+        uiScope.launch {
+            try {
+                val authResponse = repository.login(email, password)
+                authResponse.let { authListener.onSuccess() }
+
+            } catch (e: ApiException) {
+                authListener.onFailure(e.message!!)
+            }
+
+        }
+    }
+
+//        fun signin() {
+//        if (authListener.validateFields()){
+//            authListener.onStarted()
+//        }else return
+//        val disposable = repository.register(email, password)
 //            .subscribeOn(Schedulers.io())
 //            .observeOn(AndroidSchedulers.mainThread())
 //            .subscribe({
-//                authListener?.onSuccess()
+//                authListener.onSuccess()
 //            }, {
-//                authListener?.onFailure(it.message!!)
+//                authListener.onFailure(it.message!!)
 //            })
 //        disposables.add(disposable)
-    }
+//    }
 
-    fun onSignUpTextClicked(view: View) {
-        Intent(view.context, SignUpActivity::class.java).also {
-            view.context.startActivity(it)
+        fun onSignUpTextClicked(view: View) {
+            Intent(view.context, SignUpActivity::class.java).also {
+                view.context.startActivity(it)
+            }
+
         }
 
-    }
-
-    fun onSignInTextClicked(view: View) {
-        Intent(view.context, LoginActivity::class.java).also {
-            view.context.startActivity(it)
+        fun onSignInTextClicked(view: View) {
+            Intent(view.context, LoginActivity::class.java).also {
+                view.context.startActivity(it)
+            }
         }
-    }
 
-    override fun onCleared() {
-        super.onCleared()
-        disposables.dispose()
-    }
+       override fun onCleared() {
+            super.onCleared()
+            disposables.dispose()
+        }
 //    private fun registerUser(email: String, password: String){
 //        auth.createUserWithEmailAndPassword(email, password)
 //            .addOnCompleteListener(){task ->
@@ -101,6 +138,5 @@ class AuthViewModel(private val repository: UserRepository): ViewModel() {
 //    }
 
 
+    }
 
-
-}

@@ -48,7 +48,7 @@
         android:ems="10"
         android:hint="Age"
         android:inputType="number"
-        android:text="@{authViewModel.age}"
+        android:text="@={authViewModel.age}"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/phoneEdit" />
@@ -63,7 +63,7 @@
         android:ems="10"
         android:hint="@string/phone_number"
         android:inputType="number"
-        android:text="@{authViewModel.phoneNumber}"
+        android:text="@={authViewModel.phoneNumber}"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/emailEdit" />
@@ -109,7 +109,7 @@
         android:ems="10"
         android:hint="First Name"
         android:inputType="textPersonName"
-        android:text="@{authViewModel.firstName}"
+        android:text="@={authViewModel.firstName}"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/signupText" />
@@ -126,7 +126,7 @@
         android:ems="10"
         android:hint="Surname"
         android:inputType="textPersonName"
-        android:text="@{authViewModel.surname}"
+        android:text="@={authViewModel.surname}"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/firstNameEdit" />
@@ -155,8 +155,8 @@
         android:layout_marginEnd="8dp"
         android:ems="10"
         android:hint="@string/e_mail_text"
-        android:inputType="textPersonName"
-        android:text="@{authViewModel.email}"
+        android:inputType="textEmailAddress"
+        android:text="@={authViewModel.email}"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/surnameEdit" />
@@ -171,7 +171,7 @@
         android:ems="10"
         android:hint="Country"
         android:inputType="textPersonName"
-        android:text="@{authViewModel.country}"
+        android:text="@={authViewModel.country}"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ageEdit" />
@@ -186,7 +186,7 @@
         android:ems="10"
         android:hint="Sex"
         android:inputType="textPersonName"
-        android:text="@{authViewModel.sex}"
+        android:text="@={authViewModel.sex}"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/countryEdit" />

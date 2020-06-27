@@ -7,23 +7,29 @@ import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.getInstance
 import com.cruxrepublic.moneymanager.R
+import com.cruxrepublic.moneymanager.data.FireBaseDataSource
+import com.cruxrepublic.moneymanager.data.UserRepository
 import com.cruxrepublic.moneymanager.databinding.ActivitySignUpBinding
 import com.cruxrepublic.moneymanager.ui.utils.startMainActivity
 import com.cruxrepublic.moneymanager.ui.utils.toast
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase.getInstance
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import org.kodein.di.android.kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.generic.instance
 
-class SignUpActivity : AppCompatActivity(),
-    AuthListener, KodeinAware {
+class SignUpActivity() : AppCompatActivity(), KodeinAware,
+    AuthListener {
 
     private lateinit var binding: ActivitySignUpBinding
     private lateinit var authViewModel: AuthViewModel
     override val kodein by kodein()
     private val factory by instance<AuthViewModelFactory>()
+    private var mAuth: FirebaseAuth? = null
 
 
 
@@ -31,57 +37,60 @@ class SignUpActivity : AppCompatActivity(),
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_sign_up)
 
+//        val firebaseDataSource= FireBaseDataSource()
+//        val repository = UserRepository(firebaseDataSource)
+//        val factory = AuthViewModelFactory(repository ,  this)
         authViewModel = ViewModelProvider(this, factory).get(AuthViewModel::class.java)
         binding.authViewModel = authViewModel
-
         authViewModel.authListener = this
-
+        mAuth = FirebaseAuth.getInstance()
     }
 
-    override fun validateFields(){
+    override fun validateFields(): Boolean{
             binding.emailEdit.text.trim()
            binding.passwordEdit.text.trim()
             if (binding.firstNameEdit.text.isNullOrEmpty()){
                 binding.firstNameEdit.error = "Enter First Name"
                 binding.firstNameEdit.requestFocus()
-                return
+                return false
             }
             if ( binding.surnameEdit.text.isNullOrEmpty()){
                 binding.surnameEdit.error = "Enter Surname Name"
                 binding.surnameEdit.requestFocus()
-                return
+                return false
             }
         if (binding.emailEdit.text.isNullOrEmpty()){
                 binding.emailEdit.error = "Email is Required"
                 binding.emailEdit.requestFocus()
-                return
+                return false
 
             }
         if ( !Patterns.EMAIL_ADDRESS.matcher( binding.emailEdit.text).matches()){
-                binding.emailEdit.error = "Enter First Name"
+                binding.emailEdit.error = "Invalid Email"
                 binding.emailEdit.requestFocus()
-                return
+                return false
             }
         if (binding.phoneEdit.text.isNullOrEmpty() ||  binding.phoneEdit.text.length < 10){
-                binding.phoneEdit.error = "Enter First Name"
+                binding.phoneEdit.error = "Invalid Phone Number"
                 binding.phoneEdit.requestFocus()
-                return
+                return false
             }
         if ( binding.ageEdit.text.isNullOrEmpty() ){
-                binding.ageEdit.error = "Enter First Name"
+                binding.ageEdit.error = "Enter Your Age"
                 binding.ageEdit.requestFocus()
-                return
+                return false
             }
         if (binding.countryEdit.text.isNullOrEmpty() ){
-                binding.countryEdit.error = "Enter First Name"
+                binding.countryEdit.error = "Enter Your Country"
                 binding.countryEdit.requestFocus()
-                return
+                return false
             }
         if (binding.passwordEdit.text.isNullOrEmpty() ||  binding.passwordEdit.text.length < 6){
-                binding.passwordEdit.error = "Enter First Name"
+                binding.passwordEdit.error = "Invalid Password"
                 binding.passwordEdit.requestFocus()
-                return
+                return false
             }
+        return true
 
         }
 

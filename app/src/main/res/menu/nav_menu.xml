@@ -25,12 +25,12 @@
     <group android:checkableBehavior="single">
 
 
-    <item android:title="Communicate">
+    <item android:title="Extras">
         <menu >
             <item
-        android:id="@+id/navigation_sign_out"
-        android:icon="@drawable/ic_baseline_send_24"
-        android:title="@string/sign_out" />
+                android:id="@+id/navigation_sign_out"
+                android:icon="@drawable/ic_baseline_send_24"
+                android:title="@string/sign_out" />
 </menu>
     </item>
     </group>

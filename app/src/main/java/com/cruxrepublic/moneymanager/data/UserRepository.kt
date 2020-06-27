@@ -29,7 +29,24 @@ class UserRepository(private val firebase: FireBaseDataSource) {
 //        // handle login
 //        val result = dataSource.login(username, password)
 
-    fun register(email: String, password: String) = firebase.register(email, password)
+   suspend fun register(
+        email: String,
+        password: String,
+        firstName: String,
+        surname: String,
+        country: String,
+        age: String,
+        phoneNumber: String,
+        sex: String) {
+       firebase.firstName =firstName
+       firebase.surname = surname
+       firebase.country = country
+       firebase.age = age
+       firebase.phoneNumber = phoneNumber
+       firebase.sex = sex
+         firebase.register(email, password)
+    }
+
 
     fun currentUser() = firebase.currentUser()
 
