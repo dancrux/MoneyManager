@@ -68,8 +68,9 @@ class AuthViewModel(private val repo: UserRepository ): ViewModel() {
 //
 //    }
     fun onSignUpButtonClick(view: View) {
-        authListener?.validateFields()
-        authListener?.onStarted()
+    if (authListener.validateFields()) {
+            authListener.onStarted()
+        } else return
         val disposable = repository.register(
             email!!,
             password!!,
@@ -83,9 +84,10 @@ class AuthViewModel(private val repo: UserRepository ): ViewModel() {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                authListener?.onSuccess()
+                authListener.onSuccess()
             }, {
-                authListener?.onFailure(it.message!!)
+                authListener.notSuccessful()
+                authListener.onFailure(it.message!!)
             })
         disposables.add(disposable)
     }
@@ -108,15 +110,17 @@ class AuthViewModel(private val repo: UserRepository ): ViewModel() {
 //    }
 
     fun signin(view: View) {
-        authListener?.validateFields()
-        authListener?.onStarted()
+        if (authListener.validateFields()) {
+            authListener.onStarted()
+        } else return
         val disposable = repository.login(email, password)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                authListener?.onSuccess()
+                authListener.onSuccess()
             }, {
-                authListener?.onFailure(it.message!!)
+                authListener.notSuccessful()
+                authListener.onFailure(it.message!!)
             })
         disposables.add(disposable)
     }

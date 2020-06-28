@@ -6,5 +6,6 @@ interface AuthListener {
     fun validateFields() : Boolean
     fun onStarted()
     fun onSuccess()
+    fun notSuccessful()
     fun onFailure(message: String)
 }

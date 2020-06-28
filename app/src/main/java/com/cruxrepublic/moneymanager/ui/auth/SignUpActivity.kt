@@ -105,6 +105,10 @@ class SignUpActivity() : AppCompatActivity(), KodeinAware,
 
     }
 
+    override fun notSuccessful() {
+        progressBarIn.visibility = View.GONE
+    }
+
     override fun onFailure(message: String) {
         toast(message)
     }

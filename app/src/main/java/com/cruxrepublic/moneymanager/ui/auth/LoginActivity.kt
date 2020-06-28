@@ -72,6 +72,10 @@ class LoginActivity() : AppCompatActivity(), KodeinAware, AuthListener {
         startMainActivity()
     }
 
+    override fun notSuccessful() {
+        progressBarIn.visibility = View.GONE
+    }
+
     override fun onFailure(message: String) {
         toast(message)
     }
