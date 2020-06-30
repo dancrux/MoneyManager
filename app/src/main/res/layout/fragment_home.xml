@@ -19,7 +19,7 @@
             android:id="@+id/totalFundsCard"
             android:layout_width="match_parent"
             android:layout_height="130dp"
-            app:cardBackgroundColor="@color/colorWhite"
+            app:cardBackgroundColor="@color/colorPrimary"
             app:cardCornerRadius="18dp"
             app:cardElevation="5dp"
             app:cardUseCompatPadding="true"
@@ -51,7 +51,7 @@
                     android:fontFamily="sans-serif"
                     android:text="@string/total_funds"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                    android:textColor="@color/colorPrimary"
+                    android:textColor="@color/colorWhite"
                     app:layout_constraintBottom_toTopOf="@id/totalFigureText"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/totalImage"
@@ -65,7 +65,7 @@
                     android:layout_marginTop="8dp"
                     android:text="0.00"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                    android:textColor="@android:color/black"
+                    android:textColor="@android:color/background_light"
                     android:textSize="20sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/totalFundsText"
@@ -122,7 +122,7 @@
                     android:layout_marginTop="8dp"
                     android:text="0.00"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:textColor="@android:color/black"
+                    android:textColor="@color/colorForeground"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/incomeCardText" />
@@ -178,7 +178,8 @@
                     android:layout_marginTop="8dp"
                     android:text="0.00"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:textColor="@android:color/black"
+                    android:textColor="@color/colorForeground"
+
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/expenseCardText" />
@@ -223,7 +224,6 @@
                     android:text="@string/total_amount_received"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     android:textColor="@color/colorPrimary"
-
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -235,7 +235,7 @@
                     android:layout_marginTop="8dp"
                     android:text="0.00"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:textColor="@android:color/black"
+                    android:textColor="@color/colorForeground"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/receivedCardText" />
@@ -292,7 +292,7 @@
                     android:layout_marginTop="8dp"
                     android:text="0.00"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:textColor="@android:color/black"
+                    android:textColor="@color/colorForeground"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/sentCardText" />

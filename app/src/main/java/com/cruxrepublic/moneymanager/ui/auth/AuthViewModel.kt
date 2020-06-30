@@ -22,12 +22,14 @@ class AuthViewModel(private val repo: UserRepository ): ViewModel() {
     var email : String = ""
     var password: String = ""
     var firstName: String = ""
-    var surname: String = ""
+    var surname:  String = ""
     var country: String = ""
     var age: String = ""
     var phoneNumber = ""
     var sex = ""
-    var errorMessage = ""
+
+
+
 
     lateinit var authListener: AuthListener
     private var repository = repo
@@ -72,10 +74,10 @@ class AuthViewModel(private val repo: UserRepository ): ViewModel() {
             authListener.onStarted()
         } else return
         val disposable = repository.register(
-            email!!,
-            password!!,
-            firstName,
-            surname,
+            email,
+            password,
+            firstName!!,
+            surname!!,
             country,
             age,
             phoneNumber,

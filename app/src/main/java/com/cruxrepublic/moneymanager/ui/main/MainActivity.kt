@@ -23,6 +23,7 @@ import com.cruxrepublic.moneymanager.databinding.ActivityMainBinding
 import com.cruxrepublic.moneymanager.ui.auth.AuthViewModelFactory
 import com.cruxrepublic.moneymanager.ui.utils.startLoginActivity
 import com.cruxrepublic.moneymanager.ui.utils.startMainActivity
+import com.cruxrepublic.moneymanager.ui.utils.toast
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main.*
@@ -94,7 +95,7 @@ class MainActivity : AppCompatActivity() ,KodeinAware,MainInterface, NavigationV
     }
     override fun onStart() {
         super.onStart()
-      mainViewModel.firstLogin()
+      mainViewModel.checkIsNewUser()
 
     }
     private fun showAddIncome(){
@@ -107,7 +108,7 @@ class MainActivity : AppCompatActivity() ,KodeinAware,MainInterface, NavigationV
 
     override fun promptNewUser() {
         val builder = AlertDialog.Builder(this)
-        builder.setTitle("Welcome")
+        builder.setTitle("Welcome!")
         builder.setMessage("Add Your First Income")
         builder.setCancelable(true)
 
@@ -116,5 +117,9 @@ class MainActivity : AppCompatActivity() ,KodeinAware,MainInterface, NavigationV
         }
         val alertDialog = builder.create()
         alertDialog.show()
+    }
+
+    override fun promptOldUser(message: String) {
+        toast(message)
     }
 }

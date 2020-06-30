@@ -1,13 +1,11 @@
 package com.cruxrepublic.moneymanager.ui.main
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.cruxrepublic.moneymanager.data.UserRepository
 import com.google.android.gms.tasks.OnCompleteListener
-import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
-import kotlin.properties.Delegates
+import com.google.firebase.auth.FirebaseUserMetadata
 
 
 class MainViewModel(private val repository: UserRepository
@@ -25,17 +23,10 @@ class MainViewModel(private val repository: UserRepository
 //        view.context.startLoginActivity()
     }
 
-   fun firstLogin(){
-        var completeListener =
-           OnCompleteListener<AuthResult> { task ->
-               if (task.isSuccessful) {
-                 val isNew = task.result!!.additionalUserInfo!!.isNewUser
-                   if(isNew){
-                       mainInterface.promptNewUser()
-                   }
-//                Log.d("MyTAG", "onComplete: " + if (isNew) "new user" else "old user")
-               }
-           }
+   fun checkIsNewUser(){
+       if (repository.checkIsNewUser())
+           mainInterface.promptNewUser()
+       else mainInterface.promptOldUser("Welcome Back")
    }
 
 

@@ -26,25 +26,22 @@ class UserRepository(private val firebase: FireBaseDataSource) {
      fun login(email: String, password: String) = firebase.login(email, password)
 
 
-//    fun login(username: String, password: String): Result<LoggedInUser> {
-//        // handle login
-//        val result = dataSource.login(username, password)
-
    fun register(
         email: String,
         password: String,
         firstName: String,
         surname: String,
-        country: String,
-        age: String,
         phoneNumber: String,
+        age: String,
+        country: String,
         sex: String): Completable{
        firebase.firstName =firstName
        firebase.surname = surname
-       firebase.country = country
-       firebase.age = age
        firebase.phoneNumber = phoneNumber
+       firebase.age = age
+       firebase.country = country
        firebase.sex = sex
+
           return firebase.register(email, password)
     }
 
@@ -53,8 +50,7 @@ class UserRepository(private val firebase: FireBaseDataSource) {
 
     fun logout() = firebase.logout()
 
-//    fun isNewUser() = firebase.isNewUser()
-
+    fun checkIsNewUser() = firebase.checkIsNewUser()
 
 //    private fun setLoggedInUser(loggedInUser: LoggedInUser) {
 //        this.user = loggedInUser

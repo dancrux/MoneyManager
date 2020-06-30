@@ -5,6 +5,7 @@ import com.cruxrepublic.moneymanager.data.model.User
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUserMetadata
 import com.google.firebase.database.FirebaseDatabase
 import io.reactivex.Completable
 
@@ -20,14 +21,15 @@ class FireBaseDataSource() {
     private val firebaseDatabase = FirebaseDatabase.getInstance()
 
     var email : String = ""
-
-    var firstName: String = ""
-    var surname: String = ""
+    var firstName: String? = null
+    var surname: String? = null
     var country: String = ""
     var age: String = ""
     var phoneNumber = ""
     var sex = ""
-    var errorMessage = ""
+    var userid: String = firebaseAuth.currentUser?.uid.toString()
+    var id = userid.filter { it.isDigit() }
+
     private lateinit  var user: User
 
 //    fun login(email: String, password: String) {
@@ -94,10 +96,10 @@ fun login(email: String, password: String) = Completable.create { emitter ->
             .addOnCompleteListener {
                 if (!emitter.isDisposed) {
                     if (it.isSuccessful) {
-                        user = User(email, firstName, surname, country, age, phoneNumber, sex)
+                        user = User( firstName, surname,id,email, phoneNumber, age, country, sex)
 
-                        FirebaseAuth.getInstance().currentUser?.uid?.let { uid ->
-                            FirebaseDatabase.getInstance().getReference("Users")
+                        firebaseAuth.currentUser?.uid?.let { uid ->
+                            firebaseDatabase.getReference("Users")
                                 .child(uid).setValue(user).addOnCompleteListener { t ->
                                     if (t.isSuccessful) {
                                         emitter.onComplete()
@@ -148,14 +150,13 @@ fun login(email: String, password: String) = Completable.create { emitter ->
 //
 //    }
     fun logout() = firebaseAuth.signOut()
-//    fun isNewUser() = completeListener
-//    private var completeListener =
-//        OnCompleteListener<AuthResult> { task ->
-//            if (task.isSuccessful) {
-//               task.result!!.additionalUserInfo!!.isNewUser
-////                Log.d("MyTAG", "onComplete: " + if (isNew) "new user" else "old user")
-//            }
-//        }
+
+
+   fun checkIsNewUser(): Boolean{
+       val metadata: FirebaseUserMetadata? = firebaseAuth.currentUser?.metadata
+       return metadata?.creationTimestamp == metadata?.lastSignInTimestamp
+
+   }
 
     fun currentUser()= firebaseAuth.currentUser
 }
