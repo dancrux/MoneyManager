@@ -1,6 +1,9 @@
 package com.cruxrepublic.moneymanager.data
 
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import com.cruxrepublic.moneymanager.data.model.Income
 import com.cruxrepublic.moneymanager.data.model.User
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.AuthResult
@@ -8,6 +11,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUserMetadata
 import com.google.firebase.database.FirebaseDatabase
 import io.reactivex.Completable
+import java.lang.reflect.Array.get
 
 
 /**
@@ -19,6 +23,10 @@ class FireBaseDataSource() {
 ////    }
     private val firebaseAuth = FirebaseAuth.getInstance()
     private val firebaseDatabase = FirebaseDatabase.getInstance()
+
+    private val _result = MutableLiveData<java.lang.Exception?>()
+    val result: LiveData<java.lang.Exception?>
+        get() = _result
 
     var email : String = ""
     var firstName: String? = null
@@ -98,9 +106,9 @@ fun login(email: String, password: String) = Completable.create { emitter ->
                     if (it.isSuccessful) {
                         user = User( firstName, surname,id,email, phoneNumber, age, country, sex)
 
-                        firebaseAuth.currentUser?.uid?.let { uid ->
+                        firebaseAuth.currentUser?.uid?.let { id ->
                             firebaseDatabase.getReference("Users")
-                                .child(uid).setValue(user).addOnCompleteListener { t ->
+                                .child(id).child("user Info").setValue(user).addOnCompleteListener { t ->
                                     if (t.isSuccessful) {
                                         emitter.onComplete()
                                     } else
@@ -116,39 +124,9 @@ fun login(email: String, password: String) = Completable.create { emitter ->
             }
 
     }
-//    private fun writeNewUser(userId: String, firstName: String, email: String?
-//                             , surname: String, sex: String, country: String, age: String,
-//                             phoneNumber: String) {
-//        val user = User(firstName, surname, email,country, phoneNumber,sex,age)
-//        database.child("users").child(userId).setValue(user)
-//    }
 
-//    fun register(email: String, password: String)= Completable.create { emitter ->
-//        firebaseAuth.createUserWithEmailAndPassword(email, password)
-//            .addOnCompleteListener {
-//                if (!emitter.isDisposed) {
-//                    if (it.isSuccessful) {
-//
-//                        user = User(
-//                            email, firstName, surname, country, age, phoneNumber, sex
-//                        )
-//                        firebaseAuth.currentUser?.uid?.let {
-//                            firebaseDatabase.getReference("Users")
-//                                .child(it).setValue(user).addOnCompleteListener {
-//                                    if (it.isSuccessful) {
-//                                        emitter.onComplete()
-//                                    } else
-//                                        emitter.onError(it.exception!!)
-//                                }
-//
-//                        }
-//                    }
-//
-//                }
-//
-//            }
-//
-//    }
+
+
     fun logout() = firebaseAuth.signOut()
 
 
@@ -157,6 +135,19 @@ fun login(email: String, password: String) = Completable.create { emitter ->
        return metadata?.creationTimestamp == metadata?.lastSignInTimestamp
 
    }
+
+    fun addIncome(income: Income){
+        firebaseAuth.currentUser?.uid?.let {id ->
+            firebaseDatabase.getReference("Income")
+                .child(id).setValue(income).addOnCompleteListener {
+                    if (it.isSuccessful) {
+                        _result.value = null
+                    } else
+                        _result.value = it.exception
+                }
+
+        }
+    }
 
     fun currentUser()= firebaseAuth.currentUser
 }

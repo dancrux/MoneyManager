@@ -4,26 +4,29 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.widget.Toolbar
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.cruxrepublic.moneymanager.R
-import com.cruxrepublic.moneymanager.data.FireBaseDataSource
 import com.cruxrepublic.moneymanager.data.UserRepository
 import com.cruxrepublic.moneymanager.databinding.ActivityMainBinding
-import com.cruxrepublic.moneymanager.ui.auth.AuthViewModelFactory
+import com.cruxrepublic.moneymanager.ui.home.HomeFragmentDirections
+import com.cruxrepublic.moneymanager.ui.income.AddIncomeDialogFragment
+import com.cruxrepublic.moneymanager.ui.income.IncomeFragmentDirections
 import com.cruxrepublic.moneymanager.ui.utils.startLoginActivity
-import com.cruxrepublic.moneymanager.ui.utils.startMainActivity
 import com.cruxrepublic.moneymanager.ui.utils.toast
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main.*
@@ -31,6 +34,7 @@ import kotlinx.android.synthetic.main.content_main.view.*
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.kodein
 import org.kodein.di.generic.instance
+
 
 class MainActivity : AppCompatActivity() ,KodeinAware,MainInterface, NavigationView.OnNavigationItemSelectedListener{
 
@@ -99,11 +103,18 @@ class MainActivity : AppCompatActivity() ,KodeinAware,MainInterface, NavigationV
 
     }
     private fun showAddIncome(){
-        val view = layoutInflater.inflate(R.layout.fragment_add_income_dialog, null)
-        val dialog = BottomSheetDialog(this)
-        dialog.setContentView(view)
-        dialog.show()
+//        val view = layoutInflater.inflate(R.layout.fragment_add_income_dialog, null)
+//        val dialog = BottomSheetDialog(this)
+//        dialog.setContentView(view)
+//        dialog.show()
 
+        val addIncomeDialogFragment = AddIncomeDialogFragment()
+        val manager: FragmentManager = supportFragmentManager
+        val transaction: FragmentTransaction = manager.beginTransaction()
+        transaction.add(R.id.addIncome,
+                addIncomeDialogFragment , "addIncome")
+        transaction.addToBackStack(null)
+        transaction.commit()
     }
 
     override fun promptNewUser() {
@@ -122,4 +133,5 @@ class MainActivity : AppCompatActivity() ,KodeinAware,MainInterface, NavigationV
     override fun promptOldUser(message: String) {
         toast(message)
     }
+
 }

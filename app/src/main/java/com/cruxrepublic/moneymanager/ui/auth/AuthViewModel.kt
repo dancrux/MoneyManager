@@ -17,7 +17,6 @@ import kotlinx.coroutines.launch
 
 class AuthViewModel(private val repo: UserRepository ): ViewModel() {
 
-
 //    var auth: FirebaseAuth = FirebaseAuth.getInstance()
     var email : String = ""
     var password: String = ""
@@ -27,9 +26,6 @@ class AuthViewModel(private val repo: UserRepository ): ViewModel() {
     var age: String = ""
     var phoneNumber = ""
     var sex = ""
-
-
-
 
     lateinit var authListener: AuthListener
     private var repository = repo
@@ -41,8 +37,6 @@ class AuthViewModel(private val repo: UserRepository ): ViewModel() {
     val user by lazy {
         repository.currentUser()
     }
-
-
 
 //    fun onSignUpButtonClick(view: View) {
 //        if (authListener.validateFields()){

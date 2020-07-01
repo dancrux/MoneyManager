@@ -1,6 +1,6 @@
 package com.cruxrepublic.moneymanager.data
 
-import com.cruxrepublic.moneymanager.data.model.LoggedInUser
+import com.cruxrepublic.moneymanager.data.model.Income
 import io.reactivex.Completable
 
 /**
@@ -11,7 +11,7 @@ import io.reactivex.Completable
 class UserRepository(private val firebase: FireBaseDataSource) {
 
     // in-memory cache of the loggedInUser object
-//    var user: LoggedInUser? = null
+//    var user: Income? = null
 //        private set
 
 //    val isLoggedIn: Boolean
@@ -24,6 +24,7 @@ class UserRepository(private val firebase: FireBaseDataSource) {
 //    }
 
      fun login(email: String, password: String) = firebase.login(email, password)
+
 
 
    fun register(
@@ -52,7 +53,12 @@ class UserRepository(private val firebase: FireBaseDataSource) {
 
     fun checkIsNewUser() = firebase.checkIsNewUser()
 
-//    private fun setLoggedInUser(loggedInUser: LoggedInUser) {
+    fun addIncome(sourceOfIncome: String, amount: String, time: String) {
+        val income = Income(sourceOfIncome, amount, time)
+        firebase.addIncome(income)
+    }
+
+//    private fun setLoggedInUser(loggedInUser: Income) {
 //        this.user = loggedInUser
 //        // If user credentials will be cached in local storage, it is recommended it be encrypted
 //        // @see https://developer.android.com/training/articles/keystore

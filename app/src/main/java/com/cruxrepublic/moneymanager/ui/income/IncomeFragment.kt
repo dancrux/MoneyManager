@@ -13,12 +13,18 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import com.cruxrepublic.moneymanager.R
 import com.cruxrepublic.moneymanager.databinding.FragmentIncomeBinding
+import com.cruxrepublic.moneymanager.ui.auth.AuthViewModelFactory
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.x.kodein
+import org.kodein.di.generic.instance
 
-class IncomeFragment : Fragment() {
+class IncomeFragment : Fragment(), KodeinAware {
 
     private lateinit var incomeViewModel: IncomeViewModel
     lateinit var binding: FragmentIncomeBinding
+    override val kodein by kodein()
+    private val factory by instance<IncomeViewModelFactory>()
 
 
     override fun onCreateView(
@@ -29,7 +35,7 @@ class IncomeFragment : Fragment() {
         binding = DataBindingUtil.inflate(
             inflater,R.layout.fragment_income, container, false
         )
-        incomeViewModel = ViewModelProvider(this).get(IncomeViewModel::class.java)
+        incomeViewModel = ViewModelProvider(this, factory).get(IncomeViewModel::class.java)
         binding.incomeViewModel = incomeViewModel
 //        val textView: TextView = root.findViewById(R.id.text_dashboard)
 //        incomeViewModel.text.observe(viewLifecycleOwner, Observer {
