@@ -64,7 +64,7 @@
         android:id="@+id/navigation_add_expense"
         android:name="com.cruxrepublic.moneymanager.ui.expense.AddExpenseDialogFragment"
         android:label="@string/title_expenses"
-        tools:layout="@layout/fragment_add_expense_dialog_list_dialog" />
+        tools:layout="@layout/fragment_add_expense_dialog" />
     <dialog
         android:id="@+id/navigation_send_money"
         android:name="com.cruxrepublic.moneymanager.ui.sent.SendDialogFragment"

@@ -81,7 +81,7 @@ class LoginActivity() : AppCompatActivity(), KodeinAware, AuthListener {
     }
     override fun onStart() {
         super.onStart()
-        authViewModel.user?.let {
+        if (authViewModel.user != null) {
             startMainActivity()
         }
     }

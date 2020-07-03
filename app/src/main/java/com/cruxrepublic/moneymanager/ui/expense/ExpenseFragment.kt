@@ -10,13 +10,21 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.cruxrepublic.moneymanager.R
 import com.cruxrepublic.moneymanager.databinding.FragmentExpenseBinding
+import com.cruxrepublic.moneymanager.ui.income.IncomeViewModelFactory
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.x.kodein
+import org.kodein.di.generic.instance
 
-class ExpenseFragment : Fragment() {
+class ExpenseFragment : Fragment(), KodeinAware {
 
     private lateinit var expenseViewModel: ExpenseViewModel
     private lateinit var binding: FragmentExpenseBinding
+    override val kodein by kodein()
+    private val factory by instance<ExpenseViewModelFactory>()
+    private val adapter = ExpensesAdapter()
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -26,7 +34,7 @@ class ExpenseFragment : Fragment() {
 
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_expense, container, false)
 
-        expenseViewModel = ViewModelProvider(this).get(ExpenseViewModel::class.java)
+        expenseViewModel = ViewModelProvider(this, factory).get(ExpenseViewModel::class.java)
         binding.expenseViewModel = expenseViewModel
 
         binding.addExpenseFab.setOnClickListener {
@@ -38,5 +46,16 @@ class ExpenseFragment : Fragment() {
 //            textView.text = it
 //        })
         return binding.root
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        binding.expensesRecycler.adapter = adapter
+        binding.expensesRecycler.layoutManager = LinearLayoutManager(this.activity)
+
+        expenseViewModel.fetchExpenses()
+        expenseViewModel.expenseList.observe(viewLifecycleOwner, Observer {
+            adapter.setExpense(it)
+        })
     }
 }

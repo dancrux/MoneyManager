@@ -127,7 +127,6 @@ class AddIncomeDialogFragment : BottomSheetDialogFragment(), AuthListener, Kodei
 //        }
 //    }
 //
-//    companion object {
-//
+
 
 }

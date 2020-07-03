@@ -2,6 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:paddingTop="?attr/actionBarSize"
     tools:context=".ui.expense.ExpenseFragment">
 
     <data>
@@ -31,17 +32,19 @@
 
     </com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/expensesRecycler"
-        android:layout_width="409dp"
-        android:layout_height="729dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginEnd="1dp"
-        android:elevation="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/income_item_view" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/expensesRecycler"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="32dp"
+            android:elevation="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:listitem="@layout/income_item_view" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

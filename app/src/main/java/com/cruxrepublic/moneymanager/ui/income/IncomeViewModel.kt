@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.cruxrepublic.moneymanager.data.UserRepository
+import com.cruxrepublic.moneymanager.data.model.Income
 import com.cruxrepublic.moneymanager.ui.auth.AuthListener
 import com.google.android.gms.common.api.ApiException
 import kotlinx.coroutines.CoroutineScope
@@ -18,9 +19,12 @@ class IncomeViewModel(private val repository: UserRepository) : ViewModel() {
     var sourceOfIncome: String = ""
     var amount: String = ""
 
+   private var  incomeData = MutableLiveData<Income>()
+
     lateinit var authListener: AuthListener
     private var viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
+    var incomeList = repository.allIncome
     fun addIncome(view: View) {
         if (authListener.validateFields()) {
             authListener.onStarted()
@@ -39,10 +43,18 @@ class IncomeViewModel(private val repository: UserRepository) : ViewModel() {
 
         }
     }
+
+    fun fetchIncome(){
+       repository.fetchIncome()
+    }
     private fun formatTime(): String {
         val dateFormat = DateFormat.getDateTimeInstance()
         val date = Date()
         val dateTime = dateFormat.format(date)
         return dateTime.toString()
+    }
+    override fun onCleared() {
+        super.onCleared()
+        viewModelJob.cancel()
     }
 }

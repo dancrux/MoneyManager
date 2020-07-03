@@ -18,7 +18,7 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/senderIdText"
+                android:id="@+id/sourceText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
@@ -27,13 +27,13 @@
                 android:text="Reason"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textColor="@color/colorPrimary"
-                app:layout_constraintBottom_toTopOf="@id/receivedAmountText"
+                app:layout_constraintBottom_toTopOf="@id/amountText"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/receivedAmountText"
+                android:id="@+id/amountText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
@@ -41,12 +41,12 @@
                 android:text="@string/amount"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="@color/colorForeground"
-                app:layout_constraintBottom_toTopOf="@id/receivedDateTimeText"
+                app:layout_constraintBottom_toTopOf="@id/incomeDateTimeText"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
-                android:id="@+id/receivedDateTimeText"
+                android:id="@+id/incomeDateTimeText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"

@@ -1,7 +1,10 @@
 package com.cruxrepublic.moneymanager.data
 
+import androidx.lifecycle.LiveData
+import com.cruxrepublic.moneymanager.data.model.Expense
 import com.cruxrepublic.moneymanager.data.model.Income
 import io.reactivex.Completable
+import kotlin.math.exp
 
 /**
  * Class that requests authentication and user information from the remote data source and
@@ -10,21 +13,12 @@ import io.reactivex.Completable
 
 class UserRepository(private val firebase: FireBaseDataSource) {
 
-    // in-memory cache of the loggedInUser object
-//    var user: Income? = null
-//        private set
 
-//    val isLoggedIn: Boolean
-//        get() = user != null
-//
-//    init {
-//        // If user credentials will be cached in local storage, it is recommended it be encrypted
-//        // @see https://developer.android.com/training/articles/keystore
-//        user = null
-//    }
+    var income: String = ""
+    var allIncome = firebase.income
+    var allExpenses = firebase.expenses
 
      fun login(email: String, password: String) = firebase.login(email, password)
-
 
 
    fun register(
@@ -54,9 +48,16 @@ class UserRepository(private val firebase: FireBaseDataSource) {
     fun checkIsNewUser() = firebase.checkIsNewUser()
 
     fun addIncome(sourceOfIncome: String, amount: String, time: String) {
-        val income = Income(sourceOfIncome, amount, time)
+      val income = Income(sourceOfIncome = sourceOfIncome, amount = amount, time = time, id = income)
         firebase.addIncome(income)
     }
+    fun addExpenses(reasonForExpenses: String, amount: String, time: String) {
+        val expense = Expense(reasonForExpenses = reasonForExpenses, amount = amount, time = time, id = income)
+        firebase.addExpense(expense)
+    }
+    fun fetchIncome()  = firebase.fetchIncome()
+
+    fun fetchExpenses() = firebase.fetchExpenses()
 
 //    private fun setLoggedInUser(loggedInUser: Income) {
 //        this.user = loggedInUser

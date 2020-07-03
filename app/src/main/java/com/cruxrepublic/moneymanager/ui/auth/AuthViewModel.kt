@@ -15,7 +15,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class AuthViewModel(private val repo: UserRepository ): ViewModel() {
+class AuthViewModel(private val repo: UserRepository): ViewModel() {
 
 //    var auth: FirebaseAuth = FirebaseAuth.getInstance()
     var email : String = ""

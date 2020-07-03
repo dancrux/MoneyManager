@@ -5,6 +5,7 @@ import com.cruxrepublic.moneymanager.data.FireBaseDataSource
 import com.cruxrepublic.moneymanager.data.UserRepository
 import com.cruxrepublic.moneymanager.ui.auth.AuthListener
 import com.cruxrepublic.moneymanager.ui.auth.AuthViewModelFactory
+import com.cruxrepublic.moneymanager.ui.expense.ExpenseViewModelFactory
 import com.cruxrepublic.moneymanager.ui.income.IncomeViewModelFactory
 import com.cruxrepublic.moneymanager.ui.main.MainViewModelFactory
 import org.kodein.di.Kodein
@@ -26,6 +27,7 @@ class MoneyManagerApplication: Application(), KodeinAware {
         bind() from provider { AuthViewModelFactory(instance())}
         bind() from provider { MainViewModelFactory(instance()) }
         bind() from provider { IncomeViewModelFactory(instance()) }
+        bind() from provider { ExpenseViewModelFactory(instance()) }
 
     }
 }

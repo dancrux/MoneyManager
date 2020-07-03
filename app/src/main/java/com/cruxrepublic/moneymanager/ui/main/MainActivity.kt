@@ -1,5 +1,6 @@
 package com.cruxrepublic.moneymanager.ui.main
 
+import android.app.Activity
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -13,6 +14,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation.findNavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -107,14 +109,7 @@ class MainActivity : AppCompatActivity() ,KodeinAware,MainInterface, NavigationV
 //        val dialog = BottomSheetDialog(this)
 //        dialog.setContentView(view)
 //        dialog.show()
-
-        val addIncomeDialogFragment = AddIncomeDialogFragment()
-        val manager: FragmentManager = supportFragmentManager
-        val transaction: FragmentTransaction = manager.beginTransaction()
-        transaction.add(R.id.addIncome,
-                addIncomeDialogFragment , "addIncome")
-        transaction.addToBackStack(null)
-        transaction.commit()
+       findNavController(R.id.nav_host_fragment).navigate(R.id.action_navigation_home_to_navigation_add_income)
     }
 
     override fun promptNewUser() {

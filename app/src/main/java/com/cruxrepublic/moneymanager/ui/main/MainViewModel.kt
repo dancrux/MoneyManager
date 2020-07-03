@@ -29,8 +29,4 @@ class MainViewModel(private val repository: UserRepository
        else mainInterface.promptOldUser("Welcome Back")
    }
 
-
-
-
-
 }
