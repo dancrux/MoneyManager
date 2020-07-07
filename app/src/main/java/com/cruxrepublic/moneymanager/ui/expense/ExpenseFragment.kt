@@ -41,6 +41,8 @@ class ExpenseFragment : Fragment(), KodeinAware {
             val action = ExpenseFragmentDirections.actionNavigationExpenseToNavigationAddExpense()
             NavHostFragment.findNavController(this).navigate(action)
         }
+
+
 //        val textView: TextView = root.findViewById(R.id.text_notifications)
 //        expenseViewModel.text.observe(viewLifecycleOwner, Observer {
 //            textView.text = it
@@ -52,7 +54,6 @@ class ExpenseFragment : Fragment(), KodeinAware {
         super.onActivityCreated(savedInstanceState)
         binding.expensesRecycler.adapter = adapter
         binding.expensesRecycler.layoutManager = LinearLayoutManager(this.activity)
-
         expenseViewModel.fetchExpenses()
         expenseViewModel.expenseList.observe(viewLifecycleOwner, Observer {
             adapter.setExpense(it)

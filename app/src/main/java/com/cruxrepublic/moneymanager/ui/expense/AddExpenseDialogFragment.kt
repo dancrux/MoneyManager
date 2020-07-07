@@ -84,6 +84,10 @@ class AddExpenseDialogFragment : BottomSheetDialogFragment(), AuthListener, Kode
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 
+    override fun getGender() {
+        TODO("Not yet implemented")
+    }
+
 
 //    companion object {
 //

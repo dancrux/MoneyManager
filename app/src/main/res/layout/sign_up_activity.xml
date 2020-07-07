@@ -145,7 +145,7 @@
         android:text="@={authViewModel.password}"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sexEdit" />
+        app:layout_constraintTop_toBottomOf="@+id/genderSpinner" />
 
     <EditText
         android:id="@+id/emailEdit"
@@ -177,20 +177,32 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ageEdit" />
 
-    <EditText
-        android:id="@+id/sexEdit"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:ems="10"
-        android:hint="Sex"
-        android:inputType="textPersonName"
-        android:text="@={authViewModel.sex}"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/countryEdit" />
+<!--    <EditText-->
+<!--        android:id="@+id/sexEdit"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="8dp"-->
+<!--        android:layout_marginTop="8dp"-->
+<!--        android:layout_marginEnd="8dp"-->
+<!--        android:ems="10"-->
+<!--        android:hint="Sex"-->
+<!--        android:inputType="textPersonName"-->
+<!--        android:text="@={authViewModel.sex}"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/countryEdit" />-->
+
+        <Spinner
+            android:id="@+id/genderSpinner"
+            android:layout_width="0dp"
+            android:layout_height="46dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:prompt="@string/sign_up"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/countryEdit" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

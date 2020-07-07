@@ -46,7 +46,7 @@
         tools:layout="@layout/sent_fragment" >
         <action
             android:id="@+id/action_navigation_sent_to_navigation_send_money"
-            app:destination="@id/navigation_send_money" />
+            app:destination="@id/navigation_send_money"/>
     </fragment>
 
     <fragment

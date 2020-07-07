@@ -40,10 +40,7 @@ class IncomeFragment : Fragment(), KodeinAware {
         )
         incomeViewModel = ViewModelProvider(this, factory).get(IncomeViewModel::class.java)
         binding.incomeViewModel = incomeViewModel
-//        val textView: TextView = root.findViewById(R.id.text_dashboard)
-//        incomeViewModel.text.observe(viewLifecycleOwner, Observer {
-//            textView.text = it
-//        })
+
 
 
         binding.addIncomeFab.setOnClickListener {
@@ -62,7 +59,6 @@ class IncomeFragment : Fragment(), KodeinAware {
 
         binding.incomeRecycler.adapter = adapter
         binding.incomeRecycler.layoutManager = LinearLayoutManager(this.activity)
-
         incomeViewModel.fetchIncome()
         incomeViewModel.incomeList.observe(viewLifecycleOwner, Observer {
             adapter.setIncome(it)

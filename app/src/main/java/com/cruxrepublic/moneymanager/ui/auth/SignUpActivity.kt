@@ -1,50 +1,54 @@
 package com.cruxrepublic.moneymanager.ui.auth
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Patterns
 import android.view.View
-import androidx.appcompat.app.AlertDialog
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.getInstance
 import com.cruxrepublic.moneymanager.R
-import com.cruxrepublic.moneymanager.data.FireBaseDataSource
-import com.cruxrepublic.moneymanager.data.UserRepository
-import com.cruxrepublic.moneymanager.databinding.ActivitySignUpBinding
+import com.cruxrepublic.moneymanager.databinding.SignUpActivityBinding
 import com.cruxrepublic.moneymanager.ui.utils.startMainActivity
 import com.cruxrepublic.moneymanager.ui.utils.toast
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.FirebaseDatabase.getInstance
-import kotlinx.android.synthetic.main.activity_sign_up.*
-import org.kodein.di.android.kodein
+import kotlinx.android.synthetic.main.sign_up_activity.*
 import org.kodein.di.KodeinAware
+import org.kodein.di.android.kodein
 import org.kodein.di.generic.instance
 
-class SignUpActivity() : AppCompatActivity(), KodeinAware,
+
+class SignUpActivity() : AppCompatActivity(), KodeinAware, AdapterView.OnItemSelectedListener,
     AuthListener {
 
-    private lateinit var binding: ActivitySignUpBinding
+    private lateinit var binding: SignUpActivityBinding
     private lateinit var authViewModel: AuthViewModel
     override val kodein by kodein()
     private val factory by instance<AuthViewModelFactory>()
     private var mAuth: FirebaseAuth? = null
 
-
+    var sex: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_sign_up)
+        binding = DataBindingUtil.setContentView(this, R.layout.sign_up_activity)
 
 //        val firebaseDataSource= FireBaseDataSource()
 //        val repository = UserRepository(firebaseDataSource)
-//        val factory = AuthViewModelFactory(repository ,  this)
+//        val factory = AuthViewModelFactory(repository, this)
         authViewModel = ViewModelProvider(this, factory).get(AuthViewModel::class.java)
         binding.authViewModel = authViewModel
         authViewModel.authListener = this
-        mAuth = FirebaseAuth.getInstance()
+
+        ArrayAdapter.createFromResource(this, R.array.gender_spinner,
+            android.R.layout.simple_spinner_item).also { arrayAdapter ->
+            arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            binding.genderSpinner.adapter = arrayAdapter
+            genderSpinner.onItemSelectedListener = this
+        }
     }
+
 
     override fun validateFields(): Boolean{
             binding.emailEdit.text.trim()
@@ -102,7 +106,6 @@ class SignUpActivity() : AppCompatActivity(), KodeinAware,
     override fun onSuccess() {
         progressBarIn.visibility = View.GONE
        startMainActivity()
-
     }
 
     override fun notSuccessful() {
@@ -112,5 +115,23 @@ class SignUpActivity() : AppCompatActivity(), KodeinAware,
     override fun onFailure(message: String) {
         toast(message)
     }
+
+    override fun getGender() {
+
+    }
+
+    override fun onNothingSelected(parent: AdapterView<*>?) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long){
+        when(parent!!.id){
+            R.id.genderSpinner -> if (!parent.selectedItem.toString().equals("Gender",
+                    ignoreCase = true)){
+                authViewModel.sex = parent.selectedItem.toString()
+            }
+        }
+    }
+
 
 }

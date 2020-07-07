@@ -41,4 +41,10 @@
     <string name="registered_sign_in_here">Already Registered? \n SignIn Here</string>
     <string name="phone_number">Phone Number</string>
     <string name="sign_out">Sign Out</string>
+
+    <string-array name="gender_spinner">
+        <item>Gender</item>
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
 </resources>

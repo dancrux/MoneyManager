@@ -43,7 +43,7 @@ class FireBaseDataSource() {
     var phoneNumber = ""
     var sex = ""
     var userid: String = firebaseAuth.currentUser?.uid.toString()
-    var id = userid.filter { it.isDigit() }
+    var id = userid.filter { it.isUpperCase() }
 
     private lateinit  var user: User
 

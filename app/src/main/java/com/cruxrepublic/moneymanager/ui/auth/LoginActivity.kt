@@ -79,6 +79,11 @@ class LoginActivity() : AppCompatActivity(), KodeinAware, AuthListener {
     override fun onFailure(message: String) {
         toast(message)
     }
+
+    override fun getGender() {
+        TODO("Not yet implemented")
+    }
+
     override fun onStart() {
         super.onStart()
         if (authViewModel.user != null) {

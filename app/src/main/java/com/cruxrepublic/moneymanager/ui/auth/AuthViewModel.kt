@@ -2,18 +2,17 @@ package com.cruxrepublic.moneymanager.ui.auth
 
 import android.content.Intent
 import android.view.View
+import android.widget.AdapterView
+import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import com.cruxrepublic.moneymanager.data.UserRepository
-import com.google.android.gms.common.api.ApiException
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.firebase.auth.AuthResult
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
+
 
 class AuthViewModel(private val repo: UserRepository): ViewModel() {
 
@@ -63,6 +62,16 @@ class AuthViewModel(private val repo: UserRepository): ViewModel() {
 //
 //
 //    }
+
+    fun onItemSelected(
+        parent: AdapterView<*>,
+        view: View?,
+        position: Int,
+        id: Long
+    ) {
+        val text = parent.getItemAtPosition(position).toString()
+        Toast.makeText(parent.context, text, Toast.LENGTH_SHORT).show()
+    }
     fun onSignUpButtonClick(view: View) {
     if (authListener.validateFields()) {
             authListener.onStarted()
@@ -138,33 +147,6 @@ class AuthViewModel(private val repo: UserRepository): ViewModel() {
             super.onCleared()
             disposables.dispose()
         }
-
-
-//    private fun registerUser(email: String, password: String){
-//        auth.createUserWithEmailAndPassword(email, password)
-//            .addOnCompleteListener(){task ->
-//                if (task.isSuccessful){
-//                    val user = User(
-//                        email, firstName, surname, country, age, phoneNumber, sex
-//                    )
-//
-//                    FirebaseAuth.getInstance().currentUser?.uid?.let {
-//                        FirebaseDatabase.getInstance().getReference("Users")
-//                            .child(it).setValue(user).addOnCompleteListener {
-//                                if (task.isSuccessful){
-//                                    authListener?.onSuccess()
-//                                }
-//                            }
-//                    }
-//
-//                }else {
-//                    errorMessage = task.exception?.message.toString()
-//                    authListener?.onFailure(errorMessage)
-//                }
-//            }
-//
-//    }
-
 
     }
 
