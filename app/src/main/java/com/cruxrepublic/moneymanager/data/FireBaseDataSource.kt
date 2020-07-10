@@ -2,15 +2,12 @@ package com.cruxrepublic.moneymanager.data
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.cruxrepublic.moneymanager.data.model.Expense
-import com.cruxrepublic.moneymanager.data.model.Income
-import com.cruxrepublic.moneymanager.data.model.User
+import com.cruxrepublic.moneymanager.data.model.*
+import com.google.android.gms.common.util.Strings
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.FirebaseUserMetadata
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
 import io.reactivex.Completable
 
 
@@ -24,6 +21,7 @@ class FireBaseDataSource() {
     private val firebaseAuth = FirebaseAuth.getInstance()
     private val firebaseDatabase = FirebaseDatabase.getInstance()
 
+    private lateinit var query: Query
     private val _result = MutableLiveData<java.lang.Exception?>()
     val result: LiveData<java.lang.Exception?>
         get() = _result
@@ -42,8 +40,9 @@ class FireBaseDataSource() {
     var age: String = ""
     var phoneNumber = ""
     var sex = ""
-    var userid: String = firebaseAuth.currentUser?.uid.toString()
-    var id = userid.filter { it.isUpperCase() }
+    var id: String = ""
+
+
 
     private lateinit  var user: User
 
@@ -112,11 +111,13 @@ fun login(email: String, password: String) = Completable.create { emitter ->
             .addOnCompleteListener {
                 if (!emitter.isDisposed) {
                     if (it.isSuccessful) {
+                        val userId: String = firebaseAuth.currentUser?.uid.toString()
+                        val id = userId.filter { it.isUpperCase() }
                         user = User( firstName, surname,id,email, phoneNumber, age, country, sex)
 
-                        firebaseAuth.currentUser?.uid?.let {id->
+                        firebaseAuth.currentUser?.uid?.let {
                             firebaseDatabase.getReference("Users")
-                                .child(id).child("user Info").setValue(user).addOnCompleteListener { t ->
+                                .child(id).child("user info").setValue(user).addOnCompleteListener { t ->
                                     if (t.isSuccessful) {
                                         emitter.onComplete()
                                     } else
@@ -140,10 +141,12 @@ fun login(email: String, password: String) = Completable.create { emitter ->
    }
 
     fun addIncome(income: Income){
-        firebaseAuth.currentUser?.uid?.let {uid->
+        val userId: String = firebaseAuth.currentUser?.uid.toString()
+        val accountId= userId.filter { it.isUpperCase() }
+        firebaseAuth.currentUser?.uid?.let {
             val dbIncome = firebaseDatabase.getReference("Users")
                     income.id = dbIncome.push().key.toString()
-                dbIncome.child(uid).child("income").child(income.id!!).setValue(income).addOnCompleteListener {
+                dbIncome.child(accountId).child("income").child(income.id!!).setValue(income).addOnCompleteListener {
                     if (it.isSuccessful) {
                         _result.value = null
                     } else
@@ -153,8 +156,10 @@ fun login(email: String, password: String) = Completable.create { emitter ->
     }
 
     fun fetchIncome(){
+        val userId: String = firebaseAuth.currentUser?.uid.toString()
+        val accountId= userId.filter { it.isUpperCase() }
         firebaseAuth.currentUser?.uid?.let { firebaseDatabase.getReference("Users")
-            .child(it).child("income") }?.addValueEventListener(object : ValueEventListener {
+            .child(accountId).child("income") }?.addValueEventListener(object : ValueEventListener {
             override fun onCancelled(error: DatabaseError) {
                 TODO("Not yet implemented")
             }
@@ -175,10 +180,12 @@ fun login(email: String, password: String) = Completable.create { emitter ->
     }
 
     fun addExpense(expense: Expense){
-        firebaseAuth.currentUser?.uid?.let {id->
+        val userId: String = firebaseAuth.currentUser?.uid.toString()
+        val accountId= userId.filter { it.isUpperCase() }
+        firebaseAuth.currentUser?.uid?.let {
             val dbExpense = firebaseDatabase.getReference("Users")
             expense.id = dbExpense.push().key.toString()
-            dbExpense.child(id).child("expenses").child(expense.id!!).setValue(expense).addOnCompleteListener {
+            dbExpense.child(accountId).child("expenses").child(expense.id!!).setValue(expense).addOnCompleteListener {
                 if (it.isSuccessful) {
                     _result.value = null
                 } else
@@ -187,8 +194,10 @@ fun login(email: String, password: String) = Completable.create { emitter ->
         }
     }
     fun fetchExpenses(){
+        val userId: String = firebaseAuth.currentUser?.uid.toString()
+        val accountId= userId.filter { it.isUpperCase() }
         firebaseAuth.currentUser?.uid?.let { firebaseDatabase.getReference("Users")
-            .child(it).child("expenses") }?.addValueEventListener(object : ValueEventListener {
+            .child(accountId).child("expenses") }?.addValueEventListener(object : ValueEventListener {
             override fun onCancelled(error: DatabaseError) {
                 TODO("Not yet implemented")
             }
@@ -208,7 +217,53 @@ fun login(email: String, password: String) = Completable.create { emitter ->
         })
     }
 
+    fun sendMoney(sent: Sent){
+//        val userId: String = firebaseAuth.currentUser?.uid.toString()
+//        val accountId= userId.filter { it.isUpperCase() }
+//        val receiversId = firebaseAuth.uid.toString()
+//        val receiversAccountId =receiversId.filter { it.isUpperCase() }
+        var usersId: String? = sent.receiversId
+            val reference = firebaseDatabase.getReference("Users")
+            query = reference.orderByChild(usersId!!).equalTo(sent.receiversId)
+        query.addValueEventListener(object : ValueEventListener{
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onDataChange(snapshot: DataSnapshot) {
+               val receiver = snapshot.value.toString()
+                firebaseAuth.currentUser?.uid?.let {
+                    val sendReference = firebaseDatabase.getReference("Users")
+                     val sendId = sendReference.push().key.toString()
+                  sendReference.child(receiver).child("received").child(sendId).setValue(sent)
+                      .addOnCompleteListener {
+                          if (it.isSuccessful) {
+                              _result.value = null
+                          } else
+                              _result.value = it.exception
+                       }
+                }
+            }
+
+        })
+
+        }
+
+
+    fun addSentMoney(sent: Sent){
+        firebaseAuth.currentUser?.uid?.let {id->
+            val dbExpense = firebaseDatabase.getReference("Users")
+           val receiversId = dbExpense.push().key.toString()
+            dbExpense.child(id).child("sent").child(receiversId).setValue(sent).addOnCompleteListener {
+                if (it.isSuccessful) {
+                    _result.value = null
+                } else
+                    _result.value = it.exception
+            }
+        }
+    }
     fun currentUser()= firebaseAuth.currentUser
+
 }
 
 

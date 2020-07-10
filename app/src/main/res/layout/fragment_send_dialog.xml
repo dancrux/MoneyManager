@@ -1,28 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_height="match_parent"
-    android:layout_width="match_parent"
-    app:behavior_hideable="true"
+    app:behavior_hideable="true">
 
-    >
+    <data>
+        <variable
+            name="sentViewModel"
+            type="com.cruxrepublic.moneymanager.ui.sent.SentViewModel" />
+    </data>
 
-    <!--    <androidx.recyclerview.widget.RecyclerView-->
-    <!--        android:id="@+id/list"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="match_parent"-->
-    <!--        android:clipToPadding="false"-->
-    <!--        android:paddingTop="@dimen/list_item_spacing_half"-->
-    <!--        android:paddingBottom="@dimen/list_item_spacing_half"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toTopOf="parent"-->
-    <!--        tools:context=".ui.income.AddIncomeDialogFragment"-->
-    <!--        tools:listitem="@layout/fragment_item_list_dialog_list_dialog_item" />-->
-
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <EditText
         android:id="@+id/receiversIdEdit"
@@ -33,6 +24,7 @@
         android:layout_marginEnd="16dp"
         android:hint="@string/receivers_id"
         android:inputType="textPersonName"
+        android:text="@={sentViewModel.receiversId}"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/sendMoneyGuideText" />
@@ -46,6 +38,7 @@
         android:layout_marginEnd="16dp"
         android:hint="@string/amount"
         android:inputType="number"
+       android:text="@={sentViewModel.amount}"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/receiversIdEdit" />
@@ -91,9 +84,23 @@
         android:layout_marginBottom="16dp"
         android:text="@string/send"
         android:height="@dimen/button_height"
+        android:onClick="@{sentViewModel::sendMoney}"
         android:textColor="@android:color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/amountEditText" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_centerInParent="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -7,8 +7,6 @@
     android:id="@+id/add_income_layout"
     app:behavior_hideable="true">
 
-
-
     <data>
         <variable
             name="incomeViewModel"

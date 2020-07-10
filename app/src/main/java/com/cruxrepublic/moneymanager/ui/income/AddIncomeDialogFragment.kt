@@ -90,9 +90,7 @@ class AddIncomeDialogFragment : BottomSheetDialogFragment(), AuthListener, Kodei
 
     }
 
-    override fun getGender() {
-        TODO("Not yet implemented")
-    }
+
 
 //    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 //        activity?.findViewById<RecyclerView>(R.id.list)?.layoutManager =

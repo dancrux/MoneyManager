@@ -8,5 +8,5 @@ interface AuthListener {
     fun onSuccess()
     fun notSuccessful()
     fun onFailure(message: String)
-    fun getGender()
+
 }

@@ -11,8 +11,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import com.cruxrepublic.moneymanager.R
 import com.cruxrepublic.moneymanager.databinding.SentFragmentBinding
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.x.kodein
+import org.kodein.di.generic.instance
 
-class SentFragment : Fragment() {
+class SentFragment : Fragment(), KodeinAware {
 
     companion object {
         fun newInstance() = SentFragment()
@@ -20,6 +23,8 @@ class SentFragment : Fragment() {
 
     private lateinit var sentViewModel: SentViewModel
     private lateinit var binding: SentFragmentBinding
+    override val kodein by kodein()
+    private val factory by instance<SentViewModelFactory>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,7 +32,7 @@ class SentFragment : Fragment() {
     ): View? {
         binding = DataBindingUtil.inflate(inflater,R.layout.sent_fragment, container, false)
 
-        sentViewModel = ViewModelProvider(this).get(SentViewModel::class.java)
+        sentViewModel = ViewModelProvider(this, factory).get(SentViewModel::class.java)
         binding.sentViewModel = sentViewModel
 
         binding.sendFab.setOnClickListener {

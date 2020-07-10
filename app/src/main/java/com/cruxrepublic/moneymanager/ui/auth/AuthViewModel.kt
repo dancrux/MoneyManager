@@ -37,6 +37,7 @@ class AuthViewModel(private val repo: UserRepository): ViewModel() {
         repository.currentUser()
     }
 
+
 //    fun onSignUpButtonClick(view: View) {
 //        if (authListener.validateFields()){
 //            authListener.onStarted()

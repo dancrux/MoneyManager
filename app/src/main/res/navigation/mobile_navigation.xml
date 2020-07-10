@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_navigation_home_to_navigation_add_income"
             app:destination="@id/navigation_add_income" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_profile"
+            app:destination="@id/navigation_profile" />
     </fragment>
 
     <fragment
@@ -69,6 +72,6 @@
         android:id="@+id/navigation_send_money"
         android:name="com.cruxrepublic.moneymanager.ui.sent.SendDialogFragment"
         android:label="@string/title_sent"
-        tools:layout="@layout/fragment_send_dialog_list_dialog" />
+        tools:layout="@layout/fragment_send_dialog" />
 
 </navigation>

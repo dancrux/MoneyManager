@@ -41,8 +41,10 @@ class SignUpActivity() : AppCompatActivity(), KodeinAware, AdapterView.OnItemSel
         binding.authViewModel = authViewModel
         authViewModel.authListener = this
 
-        ArrayAdapter.createFromResource(this, R.array.gender_spinner,
-            android.R.layout.simple_spinner_item).also { arrayAdapter ->
+        ArrayAdapter.createFromResource(
+            this, R.array.gender_spinner,
+            android.R.layout.simple_spinner_item
+        ).also { arrayAdapter ->
             arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             binding.genderSpinner.adapter = arrayAdapter
             genderSpinner.onItemSelectedListener = this
@@ -50,53 +52,58 @@ class SignUpActivity() : AppCompatActivity(), KodeinAware, AdapterView.OnItemSel
     }
 
 
-    override fun validateFields(): Boolean{
-            binding.emailEdit.text.trim()
-           binding.passwordEdit.text.trim()
-            if (binding.firstNameEdit.text.isNullOrEmpty()){
-                binding.firstNameEdit.error = "Enter First Name"
-                binding.firstNameEdit.requestFocus()
-                return false
-            }
-            if ( binding.surnameEdit.text.isNullOrEmpty()){
-                binding.surnameEdit.error = "Enter Surname Name"
-                binding.surnameEdit.requestFocus()
-                return false
-            }
-        if (binding.emailEdit.text.isNullOrEmpty()){
-                binding.emailEdit.error = "Email is Required"
-                binding.emailEdit.requestFocus()
-                return false
-
-            }
-        if ( !Patterns.EMAIL_ADDRESS.matcher( binding.emailEdit.text).matches()){
-                binding.emailEdit.error = "Invalid Email"
-                binding.emailEdit.requestFocus()
-                return false
-            }
-        if (binding.phoneEdit.text.isNullOrEmpty() ||  binding.phoneEdit.text.length < 10){
-                binding.phoneEdit.error = "Invalid Phone Number"
-                binding.phoneEdit.requestFocus()
-                return false
-            }
-        if ( binding.ageEdit.text.isNullOrEmpty() ){
-                binding.ageEdit.error = "Enter Your Age"
-                binding.ageEdit.requestFocus()
-                return false
-            }
-        if (binding.countryEdit.text.isNullOrEmpty() ){
-                binding.countryEdit.error = "Enter Your Country"
-                binding.countryEdit.requestFocus()
-                return false
-            }
-        if (binding.passwordEdit.text.isNullOrEmpty() ||  binding.passwordEdit.text.length < 6){
-                binding.passwordEdit.error = "Invalid Password"
-                binding.passwordEdit.requestFocus()
-                return false
-            }
-        return true
+    override fun validateFields(): Boolean {
+        binding.emailEdit.text.trim()
+        binding.passwordEdit.text.trim()
+        if (binding.firstNameEdit.text.isNullOrEmpty()) {
+            binding.firstNameEdit.error = "Enter First Name"
+            binding.firstNameEdit.requestFocus()
+            return false
+        }
+        if (binding.surnameEdit.text.isNullOrEmpty()) {
+            binding.surnameEdit.error = "Enter Surname Name"
+            binding.surnameEdit.requestFocus()
+            return false
+        }
+        if (binding.emailEdit.text.isNullOrEmpty()) {
+            binding.emailEdit.error = "Email is Required"
+            binding.emailEdit.requestFocus()
+            return false
 
         }
+        if (!Patterns.EMAIL_ADDRESS.matcher(binding.emailEdit.text).matches()) {
+            binding.emailEdit.error = "Invalid Email"
+            binding.emailEdit.requestFocus()
+            return false
+        }
+        if (binding.phoneEdit.text.isNullOrEmpty() || binding.phoneEdit.text.length < 10) {
+            binding.phoneEdit.error = "Invalid Phone Number"
+            binding.phoneEdit.requestFocus()
+            return false
+        }
+        if (binding.ageEdit.text.isNullOrEmpty()) {
+            binding.ageEdit.error = "Enter Your Age"
+            binding.ageEdit.requestFocus()
+            return false
+        }
+        if (binding.countryEdit.text.isNullOrEmpty()) {
+            binding.countryEdit.error = "Enter Your Country"
+            binding.countryEdit.requestFocus()
+            return false
+        }
+        if (binding.passwordEdit.text.isNullOrEmpty() || binding.passwordEdit.text.length < 6) {
+            binding.passwordEdit.error = "Invalid Password"
+            binding.passwordEdit.requestFocus()
+            return false
+        }
+        if (genderSpinner.selectedItem.toString() == "Gender") {
+            toast("Invalid Gender Selection")
+           genderSpinner.requestFocus()
+            return false
+        }
+        return true
+
+    }
 
     override fun onStarted() {
         progressBarIn.visibility = View.VISIBLE
@@ -105,7 +112,7 @@ class SignUpActivity() : AppCompatActivity(), KodeinAware, AdapterView.OnItemSel
 
     override fun onSuccess() {
         progressBarIn.visibility = View.GONE
-       startMainActivity()
+        startMainActivity()
     }
 
     override fun notSuccessful() {
@@ -116,22 +123,22 @@ class SignUpActivity() : AppCompatActivity(), KodeinAware, AdapterView.OnItemSel
         toast(message)
     }
 
-    override fun getGender() {
 
-    }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
         TODO("Not yet implemented")
     }
 
-    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long){
-        when(parent!!.id){
-            R.id.genderSpinner -> if (!parent.selectedItem.toString().equals("Gender",
-                    ignoreCase = true)){
+    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        when (parent!!.id) {
+            R.id.genderSpinner -> if (!parent.selectedItem.toString().equals(
+                    "Gender",
+                    ignoreCase = true
+                )
+            ) {
                 authViewModel.sex = parent.selectedItem.toString()
             }
         }
     }
-
 
 }

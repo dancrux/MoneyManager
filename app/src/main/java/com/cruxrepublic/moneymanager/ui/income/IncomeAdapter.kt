@@ -17,6 +17,7 @@ import com.cruxrepublic.moneymanager.data.model.Income
 
      fun setIncome(income: List<Income>){
          this.data = income as MutableList<Income>
+         income.reverse()
          notifyDataSetChanged()
      }
     inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {

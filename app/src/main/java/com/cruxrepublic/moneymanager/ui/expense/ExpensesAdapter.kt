@@ -17,8 +17,9 @@ class ExpensesAdapter: RecyclerView.Adapter<ExpensesAdapter.ViewHolder>() {
 //            notifyDataSetChanged()
 //        }
 
-    fun setExpense(income: List<Expense>){
-        this.data = income as MutableList<Expense>
+    fun setExpense(expense: List<Expense>){
+        this.data = expense as MutableList<Expense>
+        expense.reverse()
         notifyDataSetChanged()
     }
     inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
