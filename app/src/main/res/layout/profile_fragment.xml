@@ -1,13 +1,244 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingTop="?attr/actionBarSize"
     tools:context=".ui.profile.ProfileFragment">
 
-    <TextView
+    <data>
+        <variable
+            name="profileViewModel"
+            type="com.cruxrepublic.moneymanager.ui.profile.ProfileViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Hello" />
+       >
 
-</FrameLayout>
+<!--        <ScrollView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:layout_constraintRight_toRightOf="parent"-->
+<!--            app:layout_constraintLeft_toLeftOf="parent">-->
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="vertical">-->
+
+            <TextView
+                android:id="@+id/firstNameTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="8dp"
+                android:text="TextView"
+                android:textSize="@dimen/profile_small_text"
+                android:textColor="@color/colorPrimary"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/firstNameText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+
+            android:textSize="@dimen/profile_big_text"
+            android:textColor="@color/colorForeground"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="@id/firstNameTitle"
+            app:layout_constraintRight_toRightOf="@id/firstNameTitle"
+            app:layout_constraintTop_toBottomOf="@id/firstNameTitle" />
+
+            <TextView
+                android:id="@+id/surnameTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="8dp"
+                android:text="TextView"
+                android:textSize="@dimen/profile_small_text"
+                android:textColor="@color/colorPrimary"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/firstNameText" />
+
+        <TextView
+            android:id="@+id/surnameText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+
+            android:textSize="@dimen/profile_big_text"
+            android:textColor="@color/colorForeground"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/surnameTitle"
+            app:layout_constraintTop_toBottomOf="@+id/surnameTitle" />
+
+            <TextView
+                android:id="@+id/emailTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:text="TextView"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/profile_small_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/surnameText" />
+
+        <TextView
+            android:id="@+id/emailText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+
+            android:textSize="@dimen/profile_big_text"
+            android:textColor="@color/colorForeground"
+            app:layout_constraintEnd_toEndOf="@+id/emailTitle"
+            app:layout_constraintStart_toStartOf="@+id/emailTitle"
+            app:layout_constraintTop_toBottomOf="@+id/emailTitle" />
+
+            <TextView
+                android:id="@+id/phoneTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:text="TextView"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/profile_small_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/emailText" />
+
+        <TextView
+            android:id="@+id/phoneText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@={profileViewModel.phoneNumber}"
+            android:textSize="@dimen/profile_big_text"
+            android:textColor="@color/colorForeground"
+            app:layout_constraintEnd_toEndOf="@+id/phoneTitle"
+            app:layout_constraintStart_toStartOf="@+id/phoneTitle"
+            app:layout_constraintTop_toBottomOf="@+id/phoneTitle" />
+
+            <TextView
+                android:id="@+id/ageTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:text="TextView"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/profile_small_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/phoneText" />
+
+        <TextView
+            android:id="@+id/ageText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+
+            android:textSize="@dimen/profile_big_text"
+            android:textColor="@color/colorForeground"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/ageTitle"
+            app:layout_constraintTop_toBottomOf="@+id/ageTitle" />
+
+            <TextView
+                android:id="@+id/countryTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:text="TextView"
+                android:textSize="@dimen/profile_small_text"
+                android:textColor="@color/colorPrimary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ageText" />
+
+        <TextView
+            android:id="@+id/countryText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+
+            android:textSize="@dimen/profile_big_text"
+            android:textColor="@color/colorForeground"
+            app:layout_constraintEnd_toEndOf="@+id/countryTitle"
+            app:layout_constraintStart_toStartOf="@+id/countryTitle"
+            app:layout_constraintTop_toBottomOf="@+id/countryTitle" />
+
+            <TextView
+                android:id="@+id/genderTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:text="Gender"
+                android:textSize="@dimen/profile_small_text"
+                android:textColor="@color/colorPrimary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/countryText" />
+
+            <TextView
+                android:id="@+id/genderText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+
+               android:textSize="@dimen/profile_big_text"
+                android:textColor="@color/colorForeground"
+                app:layout_constraintEnd_toEndOf="@+id/genderTitle"
+                app:layout_constraintStart_toStartOf="@+id/genderTitle"
+                app:layout_constraintTop_toBottomOf="@+id/genderTitle" />
+
+            <TextView
+                android:id="@+id/accountIdTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:textSize="@dimen/profile_small_text"
+                android:text="TextView"
+                android:textColor="@color/colorPrimary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/genderText" />
+
+        <TextView
+            android:id="@+id/accountIdText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+
+            android:textColor="@color/colorForeground"
+            android:textSize="@dimen/profile_big_text"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/accountIdTitle"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/accountIdTitle"
+            app:layout_constraintTop_toBottomOf="@+id/accountIdTitle"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <!--            </LinearLayout>-->
+<!--        </ScrollView>-->
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

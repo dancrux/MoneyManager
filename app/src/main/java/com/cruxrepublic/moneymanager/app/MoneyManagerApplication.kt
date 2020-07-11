@@ -9,6 +9,7 @@ import com.cruxrepublic.moneymanager.ui.auth.AuthViewModelFactory
 import com.cruxrepublic.moneymanager.ui.expense.ExpenseViewModelFactory
 import com.cruxrepublic.moneymanager.ui.income.IncomeViewModelFactory
 import com.cruxrepublic.moneymanager.ui.main.MainViewModelFactory
+import com.cruxrepublic.moneymanager.ui.profile.ProfileViewModelFactory
 import com.cruxrepublic.moneymanager.ui.received.ReceivedViewModelFactory
 import com.cruxrepublic.moneymanager.ui.sent.SentViewModelFactory
 import org.kodein.di.Kodein
@@ -34,6 +35,7 @@ class MoneyManagerApplication: Application(), KodeinAware {
         bind() from provider { ExpenseViewModelFactory(instance()) }
         bind() from provider { SentViewModelFactory(instance()) }
         bind() from provider { ReceivedViewModelFactory(instance()) }
+        bind() from provider { ProfileViewModelFactory(instance()) }
 
     }
 }

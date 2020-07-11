@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import com.cruxrepublic.moneymanager.data.model.Expense
 import com.cruxrepublic.moneymanager.data.model.Income
 import com.cruxrepublic.moneymanager.data.model.Sent
+import com.cruxrepublic.moneymanager.data.model.User
 import io.reactivex.Completable
 import kotlin.math.exp
 
@@ -21,8 +22,20 @@ class UserRepository(private val firebase: FireBaseDataSource) {
     var allExpenses = firebase.expenses
     var allReceived = firebase.received
     var allSent = firebase.sent
+//    var userDetails = firebase.userDetails
 
-     fun login(email: String, password: String) = firebase.login(email, password)
+     var userEmail = firebase.userEmail
+    var userFirstName = firebase.userFirstName
+    var userSurname = firebase.userSurname
+    var userCountry = firebase.userCountry
+    var userAge = firebase.userAge
+     var userPhoneNumber = firebase.userPhoneNumber
+      var userSex = firebase.userSex
+      var userId = firebase.userId
+
+
+
+    fun login(email: String, password: String) = firebase.login(email, password)
 
 
    fun register(
@@ -71,6 +84,8 @@ class UserRepository(private val firebase: FireBaseDataSource) {
         val send = Sent(receiversId = receiversId, amount = amount, time = time)
         firebase.sendMoney(send)
     }
+    fun getUserProfile() = firebase.getProfile()
+
 
 //    private fun setLoggedInUser(loggedInUser: Income) {
 //        this.user = loggedInUser
