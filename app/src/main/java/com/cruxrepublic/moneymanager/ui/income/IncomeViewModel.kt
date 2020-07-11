@@ -19,7 +19,6 @@ class IncomeViewModel(private val repository: UserRepository) : ViewModel() {
     var sourceOfIncome: String = ""
     var amount: String = ""
 
-   private var  incomeData = MutableLiveData<Income>()
 
     lateinit var authListener: AuthListener
     private var viewModelJob = Job()

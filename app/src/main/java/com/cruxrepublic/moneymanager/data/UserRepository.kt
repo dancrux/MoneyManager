@@ -19,6 +19,8 @@ class UserRepository(private val firebase: FireBaseDataSource) {
     var exceptionResult = firebase.result
     var allIncome = firebase.income
     var allExpenses = firebase.expenses
+    var allReceived = firebase.received
+    var allSent = firebase.sent
 
      fun login(email: String, password: String) = firebase.login(email, password)
 
@@ -60,6 +62,10 @@ class UserRepository(private val firebase: FireBaseDataSource) {
     fun fetchIncome()  = firebase.fetchIncome()
 
     fun fetchExpenses() = firebase.fetchExpenses()
+
+    fun fetchReceived() = firebase.getReceived()
+
+    fun fetchSent() = firebase.getSentRecord()
 
     fun sendMoney(receiversId: String, amount: String, time: String){
         val send = Sent(receiversId = receiversId, amount = amount, time = time)

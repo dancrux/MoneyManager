@@ -3,9 +3,7 @@ package com.cruxrepublic.moneymanager.data
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.cruxrepublic.moneymanager.data.model.*
-import com.google.android.gms.common.util.Strings
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.FirebaseUserMetadata
 import com.google.firebase.database.*
 import io.reactivex.Completable
@@ -15,13 +13,10 @@ import io.reactivex.Completable
  * Class that handles authentication w/ login credentials and retrieves user information.
  */
 class FireBaseDataSource() {
-//    private val firebaseAuth: FirebaseAuth by lazy {
-////        FirebaseAuth.getInstance()
-////    }
+
     private val firebaseAuth = FirebaseAuth.getInstance()
     private val firebaseDatabase = FirebaseDatabase.getInstance()
 
-    private lateinit var query: Query
     private val _result = MutableLiveData<java.lang.Exception?>()
     val result: LiveData<java.lang.Exception?>
         get() = _result
@@ -33,6 +28,14 @@ class FireBaseDataSource() {
     private val _expenses = MutableLiveData<List<Expense>>()
     val expenses: LiveData<List<Expense>>
         get() = _expenses
+
+    private val _received = MutableLiveData<List<Received>>()
+    val received: LiveData<List<Received>>
+        get() = _received
+
+    private val _sent = MutableLiveData<List<Sent>>()
+    val sent: LiveData<List<Sent>>
+        get() = _sent
     var email : String = ""
     var firstName: String? = null
     var surname: String? = null
@@ -42,22 +45,10 @@ class FireBaseDataSource() {
     var sex = ""
     var id: String = ""
 
-
-
     private lateinit  var user: User
 
 
-//    fun login(email: String, password: String) {
-//    firebaseAuth.signInWithEmailAndPassword(email,password)
-//        .addOnCompleteListener {task->
-//            if (task.isSuccessful)
-//                task.isComplete
-//
-//            else task.exception
-//
-//    }
-//
-//    }
+
 fun login(email: String, password: String) = Completable.create { emitter ->
     firebaseAuth.signInWithEmailAndPassword(email, password)
         .addOnCompleteListener {
@@ -111,8 +102,7 @@ fun login(email: String, password: String) = Completable.create { emitter ->
             .addOnCompleteListener {
                 if (!emitter.isDisposed) {
                     if (it.isSuccessful) {
-                        val userId: String = firebaseAuth.currentUser?.uid.toString()
-                        val id = userId.filter { it.isUpperCase() }
+                        val id = firebaseAuth.currentUser?.uid.toString().filter { it.isUpperCase() }
                         user = User( firstName, surname,id,email, phoneNumber, age, country, sex)
 
                         firebaseAuth.currentUser?.uid?.let {
@@ -141,8 +131,7 @@ fun login(email: String, password: String) = Completable.create { emitter ->
    }
 
     fun addIncome(income: Income){
-        val userId: String = firebaseAuth.currentUser?.uid.toString()
-        val accountId= userId.filter { it.isUpperCase() }
+        val accountId= firebaseAuth.currentUser?.uid.toString().filter { it.isUpperCase() }
         firebaseAuth.currentUser?.uid?.let {
             val dbIncome = firebaseDatabase.getReference("Users")
                     income.id = dbIncome.push().key.toString()
@@ -156,12 +145,11 @@ fun login(email: String, password: String) = Completable.create { emitter ->
     }
 
     fun fetchIncome(){
-        val userId: String = firebaseAuth.currentUser?.uid.toString()
-        val accountId= userId.filter { it.isUpperCase() }
+        val accountId= firebaseAuth.currentUser?.uid.toString().filter { it.isUpperCase() }
         firebaseAuth.currentUser?.uid?.let { firebaseDatabase.getReference("Users")
             .child(accountId).child("income") }?.addValueEventListener(object : ValueEventListener {
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+                _result.value = error.toException()
             }
 
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -180,8 +168,8 @@ fun login(email: String, password: String) = Completable.create { emitter ->
     }
 
     fun addExpense(expense: Expense){
-        val userId: String = firebaseAuth.currentUser?.uid.toString()
-        val accountId= userId.filter { it.isUpperCase() }
+
+        val accountId= firebaseAuth.currentUser?.uid.toString().filter { it.isUpperCase() }
         firebaseAuth.currentUser?.uid?.let {
             val dbExpense = firebaseDatabase.getReference("Users")
             expense.id = dbExpense.push().key.toString()
@@ -194,12 +182,11 @@ fun login(email: String, password: String) = Completable.create { emitter ->
         }
     }
     fun fetchExpenses(){
-        val userId: String = firebaseAuth.currentUser?.uid.toString()
-        val accountId= userId.filter { it.isUpperCase() }
+        val accountId= firebaseAuth.currentUser?.uid.toString().filter { it.isUpperCase() }
         firebaseAuth.currentUser?.uid?.let { firebaseDatabase.getReference("Users")
             .child(accountId).child("expenses") }?.addValueEventListener(object : ValueEventListener {
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+                _result.value = error.toException()
             }
 
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -218,26 +205,14 @@ fun login(email: String, password: String) = Completable.create { emitter ->
     }
 
     fun sendMoney(sent: Sent){
-//        val userId: String = firebaseAuth.currentUser?.uid.toString()
-//        val accountId= userId.filter { it.isUpperCase() }
-//        val receiversId = firebaseAuth.uid.toString()
-//        val receiversAccountId =receiversId.filter { it.isUpperCase() }
-        var usersId: String? = sent.receiversId
-            val reference = firebaseDatabase.getReference("Users")
-            query = reference.orderByChild(usersId!!).equalTo(sent.receiversId)
-        query.addValueEventListener(object : ValueEventListener{
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
-
-            override fun onDataChange(snapshot: DataSnapshot) {
-               val receiver = snapshot.value.toString()
                 firebaseAuth.currentUser?.uid?.let {
                     val sendReference = firebaseDatabase.getReference("Users")
                      val sendId = sendReference.push().key.toString()
-                  sendReference.child(receiver).child("received").child(sendId).setValue(sent)
+                  sendReference.child(sent.receiversId!!).child("received").child(sendId).setValue(sent)
                       .addOnCompleteListener {
                           if (it.isSuccessful) {
+                              val receiversId = sendReference.push().key.toString()
+                              sendReference.child(sent.sendersId).child("sent").child(receiversId).setValue(sent)
                               _result.value = null
                           } else
                               _result.value = it.exception
@@ -245,22 +220,49 @@ fun login(email: String, password: String) = Completable.create { emitter ->
                 }
             }
 
-        })
-
-        }
-
-
-    fun addSentMoney(sent: Sent){
-        firebaseAuth.currentUser?.uid?.let {id->
-            val dbExpense = firebaseDatabase.getReference("Users")
-           val receiversId = dbExpense.push().key.toString()
-            dbExpense.child(id).child("sent").child(receiversId).setValue(sent).addOnCompleteListener {
-                if (it.isSuccessful) {
-                    _result.value = null
-                } else
-                    _result.value = it.exception
+    fun getSentRecord(){
+        val accountId= firebaseAuth.currentUser?.uid.toString().filter { it.isUpperCase() }
+        firebaseAuth.currentUser?.uid?.let { firebaseDatabase.getReference("Users")
+            .child(accountId).child("sent") }?.addValueEventListener(object : ValueEventListener {
+            override fun onCancelled(error: DatabaseError) {
+                _result.value = error.toException()
             }
-        }
+
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()) {
+                    val allSent = mutableListOf<Sent>()
+                    for (sentSnapshot in snapshot.children) {
+                        val sent =sentSnapshot.getValue(Sent::class.java)
+                       sent?.id = sentSnapshot.key.toString()
+                       sent?.let { allSent.add(it) }
+                    }
+                    _sent.value = allSent
+
+                }
+            }
+        })
+    }
+    fun getReceived(){
+        val accountId= firebaseAuth.currentUser?.uid.toString().filter { it.isUpperCase() }
+        firebaseAuth.currentUser?.uid?.let { firebaseDatabase.getReference("Users")
+            .child(accountId).child("received") }?.addValueEventListener(object : ValueEventListener {
+            override fun onCancelled(error: DatabaseError) {
+                _result.value = error.toException()
+            }
+
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()) {
+                    val allReceived = mutableListOf<Received>()
+                    for (incomeSnapshot in snapshot.children) {
+                        val received = incomeSnapshot.getValue(Received::class.java)
+                        received?.id = incomeSnapshot.key.toString()
+                        received?.let { allReceived.add(it) }
+                    }
+                    _received.value = allReceived
+
+                }
+            }
+        })
     }
     fun currentUser()= firebaseAuth.currentUser
 

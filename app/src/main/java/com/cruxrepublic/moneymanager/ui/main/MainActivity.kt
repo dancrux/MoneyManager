@@ -1,6 +1,7 @@
 package com.cruxrepublic.moneymanager.ui.main
 
 import android.app.Activity
+import android.content.Context
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -22,6 +23,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.cruxrepublic.moneymanager.R
 import com.cruxrepublic.moneymanager.data.UserRepository
+import com.cruxrepublic.moneymanager.data.preference.Preferences
 import com.cruxrepublic.moneymanager.databinding.ActivityMainBinding
 import com.cruxrepublic.moneymanager.ui.home.HomeFragmentDirections
 import com.cruxrepublic.moneymanager.ui.income.AddIncomeDialogFragment
@@ -95,13 +97,21 @@ class MainActivity : AppCompatActivity() ,KodeinAware,MainInterface, NavigationV
                 startLoginActivity()
                 return false
             }
+            R.id.navigation_profile -> {
+                findNavController(R.id.nav_host_fragment).navigate(R.id.action_navigation_home_to_navigation_profile)
+            }
+            R.id.navigation_home ->{
+                findNavController(R.id.nav_host_fragment).navigate(R.id.navigation_home)
+            }
         }
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
     }
     override fun onStart() {
         super.onStart()
-      mainViewModel.checkIsNewUser()
+//        val preferences = Preferences(this)
+//       if (preferences.firstTimeLoginBoolean(sharedPref))
+      mainViewModel.showNewUserDialog()
 
     }
     private fun showAddIncome(){

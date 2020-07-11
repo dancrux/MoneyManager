@@ -10,21 +10,11 @@
         android:id="@+id/navigation_profile"
         android:icon="@drawable/ic_baseline_person_24"
         android:title="@string/title_profile" />
-    <item
-        android:id="@+id/navigation_expense"
-        android:icon="@drawable/ic_baseline_attach_money_24"
-        android:title="@string/title_expenses" />
-    <item
-        android:id="@+id/navigation_received"
-        android:icon="@drawable/ic_baseline_move_to_inbox_24"
-        android:title="@string/title_received" />
 
 
 </group>
 
     <group android:checkableBehavior="single">
-
-
     <item android:title="Extras">
         <menu >
             <item

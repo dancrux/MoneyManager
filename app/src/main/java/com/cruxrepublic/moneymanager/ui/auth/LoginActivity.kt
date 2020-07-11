@@ -88,4 +88,9 @@ class LoginActivity() : AppCompatActivity(), KodeinAware, AuthListener {
             startMainActivity()
         }
     }
+
+    override fun onBackPressed() {
+        finish()
+        moveTaskToBack(true)
+    }
 }

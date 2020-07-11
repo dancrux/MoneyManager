@@ -7,10 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.cruxrepublic.moneymanager.R
 import com.cruxrepublic.moneymanager.databinding.SentFragmentBinding
+import com.cruxrepublic.moneymanager.ui.income.IncomeAdapter
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.kodein
 import org.kodein.di.generic.instance
@@ -25,6 +28,7 @@ class SentFragment : Fragment(), KodeinAware {
     private lateinit var binding: SentFragmentBinding
     override val kodein by kodein()
     private val factory by instance<SentViewModelFactory>()
+    private val adapter = SentAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,8 +48,11 @@ class SentFragment : Fragment(), KodeinAware {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        sentViewModel = ViewModelProvider(this).get(SentViewModel::class.java)
-        // TODO: Use the ViewModel
+        binding.sentRecycler.adapter = adapter
+        binding.sentRecycler.layoutManager = LinearLayoutManager(this.activity)
+        sentViewModel.fetchSent()
+        sentViewModel.sentList.observe(viewLifecycleOwner, Observer {
+            adapter.setSent(it)
+        })
     }
-
 }

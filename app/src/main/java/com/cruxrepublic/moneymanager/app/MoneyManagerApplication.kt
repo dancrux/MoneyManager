@@ -3,11 +3,13 @@ package com.cruxrepublic.moneymanager.app
 import android.app.Application
 import com.cruxrepublic.moneymanager.data.FireBaseDataSource
 import com.cruxrepublic.moneymanager.data.UserRepository
+import com.cruxrepublic.moneymanager.data.preference.Preferences
 import com.cruxrepublic.moneymanager.ui.auth.AuthListener
 import com.cruxrepublic.moneymanager.ui.auth.AuthViewModelFactory
 import com.cruxrepublic.moneymanager.ui.expense.ExpenseViewModelFactory
 import com.cruxrepublic.moneymanager.ui.income.IncomeViewModelFactory
 import com.cruxrepublic.moneymanager.ui.main.MainViewModelFactory
+import com.cruxrepublic.moneymanager.ui.received.ReceivedViewModelFactory
 import com.cruxrepublic.moneymanager.ui.sent.SentViewModelFactory
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
@@ -25,11 +27,13 @@ class MoneyManagerApplication: Application(), KodeinAware {
 
         bind() from singleton { FireBaseDataSource()}
         bind() from singleton { UserRepository(instance()) }
+        bind() from singleton { Preferences(instance()) }
         bind() from provider { AuthViewModelFactory(instance())}
-        bind() from provider { MainViewModelFactory(instance()) }
+        bind() from provider { MainViewModelFactory(instance(), instance()) }
         bind() from provider { IncomeViewModelFactory(instance()) }
         bind() from provider { ExpenseViewModelFactory(instance()) }
         bind() from provider { SentViewModelFactory(instance()) }
+        bind() from provider { ReceivedViewModelFactory(instance()) }
 
     }
 }

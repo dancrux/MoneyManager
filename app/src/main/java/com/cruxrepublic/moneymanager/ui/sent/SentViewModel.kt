@@ -19,7 +19,8 @@ class SentViewModel(private val repository: UserRepository) : ViewModel() {
     lateinit var authListener: AuthListener
     private var viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
-    var exceptionResult = repository.exceptionResult
+   var sentList = repository.allSent
+
 
     fun sendMoney(view: View) {
         if (authListener.validateFields()) {
@@ -40,6 +41,9 @@ class SentViewModel(private val repository: UserRepository) : ViewModel() {
         }
     }
 
+    fun fetchSent(){
+        repository.fetchSent()
+    }
     private fun formatTime(): String {
         val dateFormat = DateFormat.getDateTimeInstance()
         val date = Date()

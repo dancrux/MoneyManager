@@ -63,16 +63,6 @@ class AuthViewModel(private val repo: UserRepository): ViewModel() {
 //
 //
 //    }
-
-    fun onItemSelected(
-        parent: AdapterView<*>,
-        view: View?,
-        position: Int,
-        id: Long
-    ) {
-        val text = parent.getItemAtPosition(position).toString()
-        Toast.makeText(parent.context, text, Toast.LENGTH_SHORT).show()
-    }
     fun onSignUpButtonClick(view: View) {
     if (authListener.validateFields()) {
             authListener.onStarted()
@@ -80,8 +70,8 @@ class AuthViewModel(private val repo: UserRepository): ViewModel() {
         val disposable = repository.register(
             email,
             password,
-            firstName!!,
-            surname!!,
+            firstName,
+            surname,
             country,
             age,
             phoneNumber,
