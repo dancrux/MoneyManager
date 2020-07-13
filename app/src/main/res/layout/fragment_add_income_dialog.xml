@@ -17,19 +17,6 @@
 
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-<!--    <androidx.recyclerview.widget.RecyclerView-->
-<!--        android:id="@+id/list"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:clipToPadding="false"-->
-<!--        android:paddingTop="@dimen/list_item_spacing_half"-->
-<!--        android:paddingBottom="@dimen/list_item_spacing_half"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        tools:context=".ui.income.AddIncomeDialogFragment"-->
-<!--        tools:listitem="@layout/fragment_item_list_dialog_list_dialog_item" />-->
 
 
     <EditText

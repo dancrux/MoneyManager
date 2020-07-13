@@ -23,6 +23,7 @@ class MainViewModel(private val repository: UserRepository, private val prefs: P
     fun showNewUserDialog(){
         val isNewUser = prefs.firstTimeLoginBoolean(sharedPref)
         if (isNewUser){
+            prefs.saveFirstTimeLoginBoolean(sharedPref, false)
             mainInterface.promptNewUser()
             return
         }else mainInterface.promptOldUser("Welcome Back")

@@ -88,6 +88,7 @@ class MainActivity : AppCompatActivity() ,KodeinAware,MainInterface, NavigationV
         ))
         setupActionBarWithNavController(navController, appBarConfiguration)
         bottomNavView.setupWithNavController(navController)
+
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -137,6 +138,15 @@ class MainActivity : AppCompatActivity() ,KodeinAware,MainInterface, NavigationV
 
     override fun promptOldUser(message: String) {
         toast(message)
+    }
+    fun showUserPrompt(){
+        val isNewUser = Preferences(this).firstTimeLoginBoolean(sharedPref)
+        if (isNewUser){
+            mainViewModel.mainInterface.promptNewUser()
+            Preferences(this).saveFirstTimeLoginBoolean(sharedPref, false)
+        }else {
+            mainViewModel.mainInterface.promptOldUser("Welcome Back")
+        }
     }
 
 }
