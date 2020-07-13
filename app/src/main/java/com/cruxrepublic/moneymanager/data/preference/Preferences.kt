@@ -11,12 +11,12 @@ class Preferences (context: Context){
    get() = PreferenceManager.getDefaultSharedPreferences(appContext)
 
     fun firstTimeLoginBoolean(key: String): Boolean{
-      return preference.getBoolean(key, false)
+      return preference.getBoolean(key, true)
     }
-    fun saveFirstTimeLoginBoolean(key:String, savedAt: Boolean?) {
+    fun saveFirstTimeLoginBoolean(key:String, firstTime: Boolean?) {
         preference.edit().putBoolean(
             key,
-            savedAt!!
+            firstTime!!
         ).apply()
     }
 }

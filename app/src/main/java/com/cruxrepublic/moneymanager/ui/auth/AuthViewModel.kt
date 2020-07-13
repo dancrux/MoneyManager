@@ -6,6 +6,8 @@ import android.widget.AdapterView
 import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import com.cruxrepublic.moneymanager.data.UserRepository
+import com.cruxrepublic.moneymanager.data.preference.Preferences
+import com.cruxrepublic.moneymanager.ui.main.sharedPref
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -14,7 +16,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 
 
-class AuthViewModel(private val repo: UserRepository): ViewModel() {
+class AuthViewModel(private val repo: UserRepository, private val pref: Preferences): ViewModel() {
 
 //    var auth: FirebaseAuth = FirebaseAuth.getInstance()
     var email : String = ""
@@ -80,6 +82,7 @@ class AuthViewModel(private val repo: UserRepository): ViewModel() {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
+                pref.saveFirstTimeLoginBoolean(sharedPref, true)
                 authListener.onSuccess()
             }, {
                 authListener.notSuccessful()
@@ -113,6 +116,7 @@ class AuthViewModel(private val repo: UserRepository): ViewModel() {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
+                pref.saveFirstTimeLoginBoolean(sharedPref, false)
                 authListener.onSuccess()
             }, {
                 authListener.notSuccessful()

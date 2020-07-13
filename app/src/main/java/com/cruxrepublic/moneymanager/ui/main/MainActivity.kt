@@ -107,12 +107,12 @@ class MainActivity : AppCompatActivity() ,KodeinAware,MainInterface, NavigationV
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
     }
-    override fun onStart() {
-        super.onStart()
+
+    override fun onResume() {
+        super.onResume()
+        mainViewModel.showNewUserDialog()
 //        val preferences = Preferences(this)
 //       if (preferences.firstTimeLoginBoolean(sharedPref))
-      mainViewModel.showNewUserDialog()
-
     }
     private fun showAddIncome(){
 //        val view = layoutInflater.inflate(R.layout.fragment_add_income_dialog, null)

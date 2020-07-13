@@ -27,9 +27,9 @@ class MoneyManagerApplication: Application(), KodeinAware {
 
 
         bind() from singleton { FireBaseDataSource()}
-        bind() from singleton { UserRepository(instance()) }
+        bind() from singleton { UserRepository(instance())}
         bind() from singleton { Preferences(instance()) }
-        bind() from provider { AuthViewModelFactory(instance())}
+        bind() from provider { AuthViewModelFactory(instance(), instance())}
         bind() from provider { MainViewModelFactory(instance(), instance()) }
         bind() from provider { IncomeViewModelFactory(instance()) }
         bind() from provider { ExpenseViewModelFactory(instance()) }
