@@ -16,8 +16,8 @@ import kotlin.math.exp
 class UserRepository(private val firebase: FireBaseDataSource) {
 
 
-    var income: String = ""
-    var exceptionResult = firebase.result
+//    var income: String =
+//    var exceptionResult = firebase.result
     var allIncome = firebase.income
     var allExpenses = firebase.expenses
     var allReceived = firebase.received

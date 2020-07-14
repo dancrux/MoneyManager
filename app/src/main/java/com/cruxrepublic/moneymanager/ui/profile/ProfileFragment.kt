@@ -44,12 +44,13 @@ class ProfileFragment : Fragment(), KodeinAware {
         super.onActivityCreated(savedInstanceState)
        profileViewModel.getUserProfile()
         binding.firstNameText.text = profileViewModel.firstName
-        binding.surnameText.text = profileViewModel.firstName
-        binding.emailText.text = profileViewModel.firstName
-        binding.ageText.text = profileViewModel.firstName
-        binding.countryText.text = profileViewModel.firstName
-        binding.genderText.text = profileViewModel.firstName
-        binding.accountIdText.text = profileViewModel.firstName
+        binding.surnameText.text = profileViewModel.surname
+        binding.emailText.text = profileViewModel.email
+        binding.ageText.text = profileViewModel.age
+        binding.phoneText.text = profileViewModel.phoneNumber
+        binding.countryText.text = profileViewModel.country
+        binding.genderText.text = profileViewModel.gender
+        binding.accountIdText.text = profileViewModel.id
     }
 
 }

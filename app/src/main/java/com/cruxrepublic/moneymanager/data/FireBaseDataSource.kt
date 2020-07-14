@@ -285,6 +285,15 @@ fun login(email: String, password: String) = Completable.create { emitter ->
 
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
+//                    val map: Map<String, String> = snapshot.getValue(User::class.java)!!
+//                    userFirstName = map["firstName"].toString()
+//                    userSurname = map["surName"].toString()
+//                    userEmail = map["email"].toString()
+//                    userPhoneNumber = map["phoneNumber"].toString()
+//                    userAge = map["age"].toString()
+//                    userCountry = map["country"].toString()
+//                    userSex = map["sex"].toString()
+//                    userId = map["id"].toString()
                   val  userDetails = snapshot.getValue(User::class.java)
                         userFirstName = userDetails?.firstName.toString()
                         userSurname = userDetails?.surname.toString()
@@ -294,7 +303,6 @@ fun login(email: String, password: String) = Completable.create { emitter ->
                         userCountry = userDetails?.country.toString()
                         userSex = userDetails?.sex.toString()
                         userId = userDetails?.id.toString()
-
 //                    val allReceived = mutableListOf<Received>()
 //                    for (incomeSnapshot in snapshot.children) {
 //                        val received = incomeSnapshot.getValue(Received::class.java)
