@@ -1,5 +1,6 @@
 package com.cruxrepublic.moneymanager.data
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.cruxrepublic.moneymanager.data.model.*
@@ -28,17 +29,36 @@ class FireBaseDataSource() {
     private val _expenses = MutableLiveData<List<Expense>>()
     val expenses: LiveData<List<Expense>>
         get() = _expenses
-
     private val _received = MutableLiveData<List<Received>>()
     val received: LiveData<List<Received>>
         get() = _received
-//    private val _userDetails = MutableLiveData<User>()
-//    val userDetails: LiveData<User>
-//        get() = _userDetails
-
     private val _sent = MutableLiveData<List<Sent>>()
     val sent: LiveData<List<Sent>>
         get() = _sent
+    private val _profileFirstName = MutableLiveData<Any>()
+    val profileFirstName: LiveData<Any>
+        get() = _profileFirstName
+    private val _profileSurName = MutableLiveData<Any>()
+    val profileSurName: LiveData<Any>
+        get() = _profileSurName
+    private val _profileEmail = MutableLiveData<Any>()
+    val profileEmail: LiveData<Any>
+        get() = _profileEmail
+    private val _profilePhoneNumber = MutableLiveData<Any>()
+    val profilePhoneNumber: LiveData<Any>
+        get() =_profilePhoneNumber
+    private val _profileCountry = MutableLiveData<Any>()
+    val profileCountry: LiveData<Any>
+        get() = _profileCountry
+    private val _profileAge = MutableLiveData<Any>()
+    val profileAge: LiveData<Any>
+        get() = _profileAge
+    private val _profileGender = MutableLiveData<Any>()
+    val profileGender: LiveData<Any>
+        get() = _profileGender
+    private val _profileId = MutableLiveData<Any>()
+    val profileId: LiveData<Any>
+        get() = _profileId
     var email : String = ""
     var firstName: String? = ""
     var surname: String? = ""
@@ -48,15 +68,6 @@ class FireBaseDataSource() {
     var sex = ""
     var id: String = ""
 
-    var userEmail : String = ""
-    var userFirstName: String = ""
-     var userSurname: String = ""
-     var userCountry: String = ""
-   var userAge: String = ""
-    var userPhoneNumber: String = ""
-      var userSex: String = ""
-      var userId: String = ""
-//      var userDetails :User? = null
     private lateinit  var user: User
 
 
@@ -72,18 +83,6 @@ fun login(email: String, password: String) = Completable.create { emitter ->
         }
 
 }
-//    fun login(email: String, password: String) = Completable.create {
-//            emitter ->  firebaseAuth.signInWithEmailAndPassword(email,password)
-//        .addOnCompleteListener {
-//            if (!emitter.isDisposed){
-//                if (it.isSuccessful)
-////                it.isComplete
-//                    emitter.onComplete()
-//                else emitter.onError(it.exception!!)
-//            }
-//        }
-//
-//    }
 
 //    fun register(email: String, password: String) {
 //        firebaseAuth.createUserWithEmailAndPassword(email, password)
@@ -284,26 +283,39 @@ fun login(email: String, password: String) = Completable.create { emitter ->
             }
 
             override fun onDataChange(snapshot: DataSnapshot) {
-                if (snapshot.exists()) {
-//                    val map: Map<String, String> = snapshot.getValue(User::class.java)!!
-//                    userFirstName = map["firstName"].toString()
-//                    userSurname = map["surName"].toString()
-//                    userEmail = map["email"].toString()
-//                    userPhoneNumber = map["phoneNumber"].toString()
-//                    userAge = map["age"].toString()
-//                    userCountry = map["country"].toString()
-//                    userSex = map["sex"].toString()
-//                    userId = map["id"].toString()
-                  val  userDetails = snapshot.getValue(User::class.java)
-                        userFirstName = userDetails?.firstName.toString()
-                        userSurname = userDetails?.surname.toString()
-                        userEmail = userDetails?.email.toString()
-                        userPhoneNumber = userDetails?.phoneNumber.toString()
-                        userAge = userDetails?.age.toString()
-                        userCountry = userDetails?.country.toString()
-                        userSex = userDetails?.sex.toString()
-                        userId = userDetails?.id.toString()
-//                    val allReceived = mutableListOf<Received>()
+                for (profileSnapshot in snapshot.children){
+                    when(profileSnapshot.key){
+                        "firstName" -> _profileFirstName.value = profileSnapshot.value.toString()
+                        "surname" ->   _profileSurName.value = profileSnapshot.value.toString()
+                        "email" ->   _profileEmail.value = profileSnapshot.value.toString()
+                        "phoneNumber" ->   _profilePhoneNumber.value = profileSnapshot.value.toString()
+                        "country" ->   _profileCountry.value = profileSnapshot.value.toString()
+                        "age" ->   _profileAge.value = profileSnapshot.value.toString()
+                        "sex" ->   _profileGender.value = profileSnapshot.value.toString()
+                        "id" ->   _profileId.value = profileSnapshot.value.toString()
+
+                    }
+//                    if (profileSnapshot.key.equals("firstName")){
+//                       val userFirstName =profileSnapshot.value
+//                        _profileFirstName.value = userFirstName
+////                        Log.d("First Name  :",  userFirstName )
+//                    }else if (profileSnapshot.key.equals("surname")){
+//                        val userSurname = profileSnapshot.value.toString()
+////                        user.surname = userSurname
+//                    }
+//                  val  userDetails: User? = snapshot.getValue(User::class.java)
+
+
+//                      val  userSurname = snapshot.child("surname").value.toString()
+//                       val userEmail = snapshot.child("email").value.toString()
+//                       val userAge = snapshot.child("phoneNumber").value.toString()
+//                       val userCountry = snapshot.child("country").value.toString()
+//                       val userSex = snapshot.child("sex").value.toString()
+//                        val userId = snapshot.child("id").value.toString()
+
+                    }
+
+                //                    val allReceived = mutableListOf<Received>()
 //                    for (incomeSnapshot in snapshot.children) {
 //                        val received = incomeSnapshot.getValue(Received::class.java)
 //                        received?.id = incomeSnapshot.key.toString()
@@ -311,9 +323,10 @@ fun login(email: String, password: String) = Completable.create { emitter ->
 //                    }
 //                    _received.value = allReceived
                 }
-            }
+
+
         })
-    }
+}
 
     fun currentUser()= firebaseAuth.currentUser
 

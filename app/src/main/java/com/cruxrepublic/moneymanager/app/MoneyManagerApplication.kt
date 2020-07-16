@@ -3,6 +3,7 @@ package com.cruxrepublic.moneymanager.app
 import android.app.Application
 import com.cruxrepublic.moneymanager.data.FireBaseDataSource
 import com.cruxrepublic.moneymanager.data.UserRepository
+import com.cruxrepublic.moneymanager.data.model.User
 import com.cruxrepublic.moneymanager.data.preference.Preferences
 import com.cruxrepublic.moneymanager.ui.auth.AuthListener
 import com.cruxrepublic.moneymanager.ui.auth.AuthViewModelFactory

@@ -26,9 +26,6 @@ class SignUpActivity() : AppCompatActivity(), KodeinAware, AdapterView.OnItemSel
     private lateinit var authViewModel: AuthViewModel
     override val kodein by kodein()
     private val factory by instance<AuthViewModelFactory>()
-    private var mAuth: FirebaseAuth? = null
-
-    var sex: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

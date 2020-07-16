@@ -7,8 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.cruxrepublic.moneymanager.R
+import com.cruxrepublic.moneymanager.data.model.User
 import com.cruxrepublic.moneymanager.databinding.FragmentIncomeBinding
 import com.cruxrepublic.moneymanager.databinding.ProfileFragmentBinding
 import com.cruxrepublic.moneymanager.ui.income.IncomeViewModel
@@ -42,15 +44,34 @@ class ProfileFragment : Fragment(), KodeinAware {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-       profileViewModel.getUserProfile()
-        binding.firstNameText.text = profileViewModel.firstName
-        binding.surnameText.text = profileViewModel.surname
-        binding.emailText.text = profileViewModel.email
-        binding.ageText.text = profileViewModel.age
-        binding.phoneText.text = profileViewModel.phoneNumber
-        binding.countryText.text = profileViewModel.country
-        binding.genderText.text = profileViewModel.gender
-        binding.accountIdText.text = profileViewModel.id
+       showProfileInfo()
     }
+    private fun showProfileInfo(){
+        profileViewModel.getUserProfile()
+        profileViewModel.firstName.observe(viewLifecycleOwner, Observer {
+            binding.firstNameText.text = it.toString()
+        })
+        profileViewModel.surname.observe(viewLifecycleOwner, Observer {
+            binding.surnameText.text = it.toString()
+        })
+        profileViewModel.email.observe(viewLifecycleOwner, Observer {
+            binding.emailText.text = it.toString()
+        })
+        profileViewModel.id.observe(viewLifecycleOwner, Observer {
+            binding.accountIdText.text = it.toString()
+        })
+        profileViewModel.phoneNumber.observe(viewLifecycleOwner, Observer {
+            binding.phoneText.text = it.toString()
+        })
+        profileViewModel.country.observe(viewLifecycleOwner, Observer {
+            binding.countryText.text = it.toString()
+        })
+        profileViewModel.age.observe(viewLifecycleOwner, Observer {
+            binding.ageText.text = it.toString()
+        })
+        profileViewModel.gender.observe(viewLifecycleOwner, Observer {
+            binding.genderText.text = it.toString()
+        })
 
+    }
 }

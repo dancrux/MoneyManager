@@ -7,6 +7,6 @@
     <dimen name="button_height">60dp</dimen>
     <dimen name="view_height">45dp</dimen>
     <dimen name="padding_for_profile_text">10dp</dimen>
-    <dimen name="profile_big_text">24sp</dimen>
-    <dimen name="profile_small_text">18sp</dimen>
+    <dimen name="profile_big_text">22sp</dimen>
+    <dimen name="profile_small_text">16sp</dimen>
 </resources>

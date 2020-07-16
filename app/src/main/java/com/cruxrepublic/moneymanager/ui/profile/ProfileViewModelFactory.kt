@@ -3,6 +3,7 @@ package com.cruxrepublic.moneymanager.ui.profile
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.cruxrepublic.moneymanager.data.UserRepository
+import com.cruxrepublic.moneymanager.data.model.User
 import com.cruxrepublic.moneymanager.ui.income.IncomeViewModel
 
 class ProfileViewModelFactory (private val repository: UserRepository):

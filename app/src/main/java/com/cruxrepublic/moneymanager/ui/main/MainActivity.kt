@@ -1,8 +1,7 @@
 package com.cruxrepublic.moneymanager.ui.main
 
-import android.app.Activity
-import android.content.Context
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
@@ -11,13 +10,8 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.Navigation.findNavController
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
@@ -25,13 +19,9 @@ import com.cruxrepublic.moneymanager.R
 import com.cruxrepublic.moneymanager.data.UserRepository
 import com.cruxrepublic.moneymanager.data.preference.Preferences
 import com.cruxrepublic.moneymanager.databinding.ActivityMainBinding
-import com.cruxrepublic.moneymanager.ui.home.HomeFragmentDirections
-import com.cruxrepublic.moneymanager.ui.income.AddIncomeDialogFragment
-import com.cruxrepublic.moneymanager.ui.income.IncomeFragmentDirections
 import com.cruxrepublic.moneymanager.ui.utils.startLoginActivity
 import com.cruxrepublic.moneymanager.ui.utils.toast
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.view.*
@@ -70,6 +60,8 @@ class MainActivity : AppCompatActivity() ,KodeinAware,MainInterface, NavigationV
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
         navView.setNavigationItemSelectedListener(this)
+        val menu: Menu = navView.menu
+        menu.findItem(R.id.navigation_home).isChecked = true
 
         val bottomNavView: BottomNavigationView = findViewById(R.id.bottom_nav_view)
 
@@ -112,8 +104,6 @@ class MainActivity : AppCompatActivity() ,KodeinAware,MainInterface, NavigationV
     override fun onResume() {
         super.onResume()
         mainViewModel.showNewUserDialog()
-//        val preferences = Preferences(this)
-//       if (preferences.firstTimeLoginBoolean(sharedPref))
     }
     private fun showAddIncome(){
 //        val view = layoutInflater.inflate(R.layout.fragment_add_income_dialog, null)

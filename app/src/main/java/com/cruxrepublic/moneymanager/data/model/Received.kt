@@ -5,6 +5,7 @@ import com.google.firebase.database.Exclude
 data class Received(
     @get:Exclude
     var id: String? = "",
+
     var receiversId: String? ="",
     var sendersId: String? = "",
     var amount: String? = "",

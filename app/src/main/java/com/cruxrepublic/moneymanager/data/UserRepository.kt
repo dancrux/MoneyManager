@@ -1,12 +1,9 @@
 package com.cruxrepublic.moneymanager.data
 
-import androidx.lifecycle.LiveData
 import com.cruxrepublic.moneymanager.data.model.Expense
 import com.cruxrepublic.moneymanager.data.model.Income
 import com.cruxrepublic.moneymanager.data.model.Sent
-import com.cruxrepublic.moneymanager.data.model.User
 import io.reactivex.Completable
-import kotlin.math.exp
 
 /**
  * Class that requests authentication and user information from the remote data source and
@@ -18,21 +15,18 @@ class UserRepository(private val firebase: FireBaseDataSource) {
 
 //    var income: String =
 //    var exceptionResult = firebase.result
-    var allIncome = firebase.income
-    var allExpenses = firebase.expenses
-    var allReceived = firebase.received
-    var allSent = firebase.sent
-//    var userDetails = firebase.userDetails
-
-     var userEmail = firebase.userEmail
-    var userFirstName = firebase.userFirstName
-    var userSurname = firebase.userSurname
-    var userCountry = firebase.userCountry
-    var userAge = firebase.userAge
-     var userPhoneNumber = firebase.userPhoneNumber
-      var userSex = firebase.userSex
-      var userId = firebase.userId
-
+    val allIncome = firebase.income
+    val allExpenses = firebase.expenses
+    val allReceived = firebase.received
+    val allSent = firebase.sent
+    val firstName = firebase.profileFirstName
+    val surname = firebase.profileSurName
+    val profileEmail = firebase.profileEmail
+    val country = firebase.profileCountry
+    val profilePhoneNumber = firebase.profilePhoneNumber
+    val age = firebase.profileAge
+    val gender = firebase.profileGender
+    val profileId = firebase.profileId
 
 
     fun login(email: String, password: String) = firebase.login(email, password)

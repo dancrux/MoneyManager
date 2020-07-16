@@ -6,14 +6,17 @@ import com.cruxrepublic.moneymanager.data.model.User
 
 class ProfileViewModel(private val repository: UserRepository) : ViewModel() {
 //        private var getUserDetails = repository.userDetails
-     var firstName =repository.userFirstName
-    var surname = repository.userSurname
-    var email =repository.userEmail
-     var phoneNumber =repository.userPhoneNumber
-    var age = repository.userAge
-     var country = repository.userCountry
-    var gender = repository.userSex
-     var id = repository.userId
+
+
+     var firstName = repository.firstName
+    var surname = repository.surname
+    var email =repository.profileEmail
+     var phoneNumber =repository.profilePhoneNumber
+    var age = repository.age
+     var country = repository.country
+    var gender = repository.gender
+     var id = repository.profileId
+
     fun getUserProfile(){
         repository.getUserProfile()
 
