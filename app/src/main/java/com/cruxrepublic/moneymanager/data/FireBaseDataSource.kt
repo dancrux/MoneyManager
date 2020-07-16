@@ -295,17 +295,6 @@ fun login(email: String, password: String) = Completable.create { emitter ->
                         "id" ->   _profileId.value = profileSnapshot.value.toString()
 
                     }
-//                    if (profileSnapshot.key.equals("firstName")){
-//                       val userFirstName =profileSnapshot.value
-//                        _profileFirstName.value = userFirstName
-////                        Log.d("First Name  :",  userFirstName )
-//                    }else if (profileSnapshot.key.equals("surname")){
-//                        val userSurname = profileSnapshot.value.toString()
-////                        user.surname = userSurname
-//                    }
-//                  val  userDetails: User? = snapshot.getValue(User::class.java)
-
-
 //                      val  userSurname = snapshot.child("surname").value.toString()
 //                       val userEmail = snapshot.child("email").value.toString()
 //                       val userAge = snapshot.child("phoneNumber").value.toString()
@@ -314,14 +303,6 @@ fun login(email: String, password: String) = Completable.create { emitter ->
 //                        val userId = snapshot.child("id").value.toString()
 
                     }
-
-                //                    val allReceived = mutableListOf<Received>()
-//                    for (incomeSnapshot in snapshot.children) {
-//                        val received = incomeSnapshot.getValue(Received::class.java)
-//                        received?.id = incomeSnapshot.key.toString()
-//                        received?.let { allReceived.add(it) }
-//                    }
-//                    _received.value = allReceived
                 }
 
 

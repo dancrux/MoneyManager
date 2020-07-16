@@ -18,7 +18,7 @@ import kotlinx.coroutines.Job
 
 class AuthViewModel(private val repo: UserRepository, private val pref: Preferences): ViewModel() {
 
-//    var auth: FirebaseAuth = FirebaseAuth.getInstance()
+
     var email : String = ""
     var password: String = ""
     var firstName: String = ""
@@ -62,8 +62,6 @@ class AuthViewModel(private val repo: UserRepository, private val pref: Preferen
 //            }
 //
 //            }
-//
-//
 //    }
     fun onSignUpButtonClick(view: View) {
     if (authListener.validateFields()) {
@@ -91,22 +89,6 @@ class AuthViewModel(private val repo: UserRepository, private val pref: Preferen
         disposables.add(disposable)
     }
 
-
-//    fun signin(view: View) {
-//        if (authListener.validateFields()) {
-//            authListener.onStarted()
-//        } else return
-//        uiScope.launch {
-//            try {
-//                val authResponse = repository.login(email, password)
-//                authResponse.let { authListener.onSuccess() }
-//
-//            } catch (e: ApiException) {
-//                authListener.onFailure(e.message!!)
-//            }
-//
-//        }
-//    }
 
     fun signin(view: View) {
         if (authListener.validateFields()) {
