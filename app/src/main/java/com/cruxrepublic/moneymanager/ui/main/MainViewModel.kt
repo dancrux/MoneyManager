@@ -14,7 +14,7 @@ class MainViewModel(private val repository: UserRepository, private val prefs: P
 ) : ViewModel() {
 
     lateinit var mainInterface: MainInterface
-    private val firebaseAuth = FirebaseAuth.getInstance()
+
 
     fun logout(){
         repository.logout()
@@ -26,6 +26,6 @@ class MainViewModel(private val repository: UserRepository, private val prefs: P
             prefs.saveFirstTimeLoginBoolean(sharedPref, false)
             mainInterface.promptNewUser()
             return
-        }else mainInterface.promptOldUser("Welcome Back")
+        }
     }
 }
