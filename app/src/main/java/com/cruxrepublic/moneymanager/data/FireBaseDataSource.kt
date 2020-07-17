@@ -19,49 +19,48 @@ class FireBaseDataSource() {
     private val firebaseDatabase = FirebaseDatabase.getInstance()
 
     private val _result = MutableLiveData<java.lang.Exception?>()
-    val result: LiveData<java.lang.Exception?>
-        get() = _result
+    val result: LiveData<java.lang.Exception?> = _result
+
 
     private val _income = MutableLiveData<List<Income>>()
-            val income: LiveData<List<Income>>
-        get() = _income
+            val income: LiveData<List<Income>> = _income
 
     private val _expenses = MutableLiveData<List<Expense>>()
-    val expenses: LiveData<List<Expense>>
-        get() = _expenses
+    val expenses: LiveData<List<Expense>> = _expenses
+
     private val _received = MutableLiveData<List<Received>>()
-    val received: LiveData<List<Received>>
-        get() = _received
+    val received: LiveData<List<Received>> = _received
+
     private val _sent = MutableLiveData<List<Sent>>()
-    val sent: LiveData<List<Sent>>
-        get() = _sent
+    val sent: LiveData<List<Sent>> = _sent
+
     private val _profileFirstName = MutableLiveData<Any>()
-    val profileFirstName: LiveData<Any>
-        get() = _profileFirstName
+    val profileFirstName: LiveData<Any> = _profileFirstName
+
     private val _profileSurName = MutableLiveData<Any>()
-    val profileSurName: LiveData<Any>
-        get() = _profileSurName
+    val profileSurName: LiveData<Any> = _profileSurName
+
     private val _profileEmail = MutableLiveData<Any>()
-    val profileEmail: LiveData<Any>
-        get() = _profileEmail
+    val profileEmail: LiveData<Any> = _profileEmail
+
     private val _profilePhoneNumber = MutableLiveData<Any>()
-    val profilePhoneNumber: LiveData<Any>
-        get() =_profilePhoneNumber
+    val profilePhoneNumber: LiveData<Any> =_profilePhoneNumber
+
     private val _profileCountry = MutableLiveData<Any>()
-    val profileCountry: LiveData<Any>
-        get() = _profileCountry
+    val profileCountry: LiveData<Any> = _profileCountry
+
     private val _profileAge = MutableLiveData<Any>()
-    val profileAge: LiveData<Any>
-        get() = _profileAge
+    val profileAge: LiveData<Any> = _profileAge
+
     private val _profileGender = MutableLiveData<Any>()
-    val profileGender: LiveData<Any>
-        get() = _profileGender
+    val profileGender: LiveData<Any>  = _profileGender
+
     private val _profileId = MutableLiveData<Any>()
-    val profileId: LiveData<Any>
-        get() = _profileId
+    val profileId: LiveData<Any> = _profileId
+
     var email : String = ""
-    var firstName: String? = ""
-    var surname: String? = ""
+    var firstName: String = ""
+    var surname: String = ""
     var country: String = ""
     var age: String = ""
     var phoneNumber = ""

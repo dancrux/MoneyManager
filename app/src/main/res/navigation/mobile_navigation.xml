@@ -26,6 +26,9 @@
         <action
             android:id="@+id/action_navigation_income_to_navigation_add_income"
             app:destination="@id/navigation_add_income" />
+        <action
+            android:id="@+id/action_navigation_income_to_navigation_profile"
+            app:destination="@id/navigation_profile" />
     </fragment>
 
     <fragment
@@ -36,12 +39,19 @@
         <action
             android:id="@+id/action_navigation_expense_to_navigation_add_expense"
             app:destination="@id/navigation_add_expense" />
+        <action
+            android:id="@+id/action_navigation_expense_to_navigation_profile"
+            app:destination="@id/navigation_profile" />
     </fragment>
     <fragment
         android:id="@+id/navigation_received"
         android:name="com.cruxrepublic.moneymanager.ui.received.ReceivedFragment"
         android:label="@string/title_received"
-        tools:layout="@layout/received_fragment" />
+        tools:layout="@layout/received_fragment" >
+        <action
+            android:id="@+id/action_navigation_received_to_navigation_profile"
+            app:destination="@id/navigation_profile" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_sent"
         android:name="com.cruxrepublic.moneymanager.ui.sent.SentFragment"
@@ -50,6 +60,9 @@
         <action
             android:id="@+id/action_navigation_sent_to_navigation_send_money"
             app:destination="@id/navigation_send_money"/>
+        <action
+            android:id="@+id/action_navigation_sent_to_navigation_profile"
+            app:destination="@id/navigation_profile" />
     </fragment>
 
     <fragment
