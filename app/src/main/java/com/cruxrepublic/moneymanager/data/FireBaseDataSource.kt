@@ -143,7 +143,8 @@ fun login(email: String, password: String) = Completable.create { emitter ->
         firebaseAuth.currentUser?.uid?.let {
             val dbIncome = firebaseDatabase.getReference("Users")
                     income.id = dbIncome.push().key.toString()
-                dbIncome.child(accountId).child("income").child(income.id!!).setValue(income).addOnCompleteListener {
+                dbIncome.child(accountId).child("income").child(income.id!!)
+                    .setValue(income).addOnCompleteListener {
                     if (it.isSuccessful) {
                         _result.value = null
                     } else
@@ -180,8 +181,9 @@ fun login(email: String, password: String) = Completable.create { emitter ->
         val accountId= firebaseAuth.currentUser?.uid.toString().filter { it.isUpperCase() }
         firebaseAuth.currentUser?.uid?.let {
             val dbExpense = firebaseDatabase.getReference("Users")
-            expense.id = dbExpense.push().key.toString()
-            dbExpense.child(accountId).child("expenses").child(expense.id!!).setValue(expense).addOnCompleteListener {
+             expense.id = dbExpense.push().key.toString()
+            dbExpense.child(accountId).child("expenses").child(expense.id!!)
+                .setValue(expense).addOnCompleteListener {
                 if (it.isSuccessful) {
                     _result.value = null
                 } else
@@ -202,7 +204,7 @@ fun login(email: String, password: String) = Completable.create { emitter ->
                     val allExpense = mutableListOf<Expense>()
                     for (incomeSnapshot in snapshot.children) {
                         val expense = incomeSnapshot.getValue(Expense::class.java)
-                        expense?.id = incomeSnapshot.key.toString()
+//                        val expenseId = incomeSnapshot.key.toString()
                         expense?.let { allExpense.add(it) }
                     }
                     _expenses.value = allExpense

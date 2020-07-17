@@ -90,7 +90,7 @@ class MainActivity : AppCompatActivity() ,KodeinAware,MainInterface, NavigationV
                 return false
             }
             R.id.navigation_profile -> {
-                findNavController(R.id.nav_host_fragment).navigate(R.id.action_navigation_home_to_navigation_profile)
+                findNavController(R.id.nav_host_fragment).navigate(R.id.navigation_profile)
             }
             R.id.navigation_home ->{
                 findNavController(R.id.nav_host_fragment).navigate(R.id.navigation_home)
