@@ -139,7 +139,7 @@ fun login(email: String, password: String) = Completable.create { emitter ->
        return metadata?.creationTimestamp == metadata?.lastSignInTimestamp
    }
 
-    fun addIncome(income: Income){
+     fun addIncome(income: Income){
         val accountId= firebaseAuth.currentUser?.uid.toString().filter { it.isUpperCase() }
         firebaseAuth.currentUser?.uid?.let {
             val dbIncome = firebaseDatabase.getReference("Users")

@@ -13,6 +13,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.cruxrepublic.moneymanager.R
@@ -42,9 +43,6 @@ class MainActivity : AppCompatActivity() ,KodeinAware,MainInterface, NavigationV
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this,R.layout.activity_main)
 
-//        val firebaseDataSource= FireBaseDataSource()
-//        val repository = UserRepository(firebaseDataSource)
-//        val factory = MainViewModelFactory(repository  )
         mainViewModel = ViewModelProvider(this, factory).get(MainViewModel::class.java)
         binding.mainViewModel = mainViewModel
         mainViewModel.mainInterface = this
@@ -80,6 +78,7 @@ class MainActivity : AppCompatActivity() ,KodeinAware,MainInterface, NavigationV
         ))
         setupActionBarWithNavController(navController, appBarConfiguration)
         bottomNavView.setupWithNavController(navController)
+
 
     }
 
@@ -129,14 +128,14 @@ class MainActivity : AppCompatActivity() ,KodeinAware,MainInterface, NavigationV
     override fun promptOldUser(message: String) {
         toast(message)
     }
-    fun showUserPrompt(){
-        val isNewUser = Preferences(this).firstTimeLoginBoolean(sharedPref)
-        if (isNewUser){
-            mainViewModel.mainInterface.promptNewUser()
-            Preferences(this).saveFirstTimeLoginBoolean(sharedPref, false)
-        }else {
-            mainViewModel.mainInterface.promptOldUser("Welcome Back")
-        }
-    }
+//    fun showUserPrompt(){
+//        val isNewUser = Preferences(this).firstTimeLoginBoolean(sharedPref)
+//        if (isNewUser){
+//            mainViewModel.mainInterface.promptNewUser()
+//            Preferences(this).saveFirstTimeLoginBoolean(sharedPref, false)
+//        }else {
+//            mainViewModel.mainInterface.promptOldUser("Welcome Back")
+//        }
+//    }
 
 }

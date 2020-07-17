@@ -4,6 +4,7 @@ import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.cruxrepublic.moneymanager.data.UserRepository
 import com.cruxrepublic.moneymanager.data.model.Income
 import com.cruxrepublic.moneymanager.ui.auth.AuthListener
@@ -16,14 +17,21 @@ import java.text.DateFormat
 import java.util.*
 
 class IncomeViewModel(private val repository: UserRepository) : ViewModel() {
+
     var sourceOfIncome: String = ""
     var amount: String = ""
-
 
     lateinit var authListener: AuthListener
     private var viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
     var incomeList = repository.allIncome
+
+    init {
+        viewModelScope.launch {
+            incomeList
+        }
+    }
+
     fun addIncome(view: View) {
         if (authListener.validateFields()) {
             authListener.onStarted()
@@ -44,7 +52,8 @@ class IncomeViewModel(private val repository: UserRepository) : ViewModel() {
     }
 
     fun fetchIncome(){
-       repository.fetchIncome()
+        viewModelScope.launch { repository.fetchIncome()  }
+
     }
     private fun formatTime(): String {
         val dateFormat = DateFormat.getDateTimeInstance()
