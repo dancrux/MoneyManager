@@ -13,14 +13,14 @@ import io.reactivex.Completable
 class UserRepository(private val firebase: FireBaseDataSource) {
 
 
-//    var income: String =
+
 //    var exceptionResult = firebase.result
     val allIncome = firebase.income
     val allExpenses = firebase.expenses
     val allReceived = firebase.received
     val allSent = firebase.sent
     val firstName = firebase.profileFirstName
-    val surname = firebase.profileSurName
+    val surname = firebase.profileSurname
     val profileEmail = firebase.profileEmail
     val country = firebase.profileCountry
     val profilePhoneNumber = firebase.profilePhoneNumber

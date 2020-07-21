@@ -47,7 +47,7 @@ class ProfileFragment : Fragment(), KodeinAware {
        showProfileInfo()
     }
     private fun showProfileInfo(){
-        profileViewModel.getUserProfile()
+
         profileViewModel.firstName.observe(viewLifecycleOwner, Observer {
             binding.firstNameText.text = it.toString()
         })

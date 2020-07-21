@@ -10,15 +10,14 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.cruxrepublic.moneymanager.R
 import com.cruxrepublic.moneymanager.data.UserRepository
-import com.cruxrepublic.moneymanager.data.preference.Preferences
 import com.cruxrepublic.moneymanager.databinding.ActivityMainBinding
 import com.cruxrepublic.moneymanager.ui.utils.startLoginActivity
 import com.cruxrepublic.moneymanager.ui.utils.toast
@@ -26,6 +25,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.view.*
+import kotlinx.android.synthetic.main.nav_header.*
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.kodein
 import org.kodein.di.generic.instance
@@ -57,11 +57,13 @@ class MainActivity : AppCompatActivity() ,KodeinAware,MainInterface, NavigationV
             0,0)
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
+
+
         navView.setNavigationItemSelectedListener(this)
         val menu: Menu = navView.menu
         menu.findItem(R.id.navigation_home).isChecked = true
 
-        val bottomNavView: BottomNavigationView = findViewById(R.id.bottom_nav_view)
+        val bottomNavView: BottomNavigationView = binding.container.bottomNavView
 
         val navController = findNavController(R.id.nav_host_fragment)
 //        NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout)
@@ -103,6 +105,17 @@ class MainActivity : AppCompatActivity() ,KodeinAware,MainInterface, NavigationV
     override fun onResume() {
         super.onResume()
         mainViewModel.showNewUserDialog()
+//        mainViewModel.showNavHeaderText()
+        mainViewModel.firstName!!.observe(this, Observer { text->
+            if (text != null) {
+                profileNameText.text = text.toString()
+            }
+        })
+        mainViewModel.id!!.observe(this, Observer { text->
+            if (text != null) {
+                profileAccountIdText.text = text.toString()
+            }
+        })
     }
     private fun showAddIncome(){
 //        val view = layoutInflater.inflate(R.layout.fragment_add_income_dialog, null)
@@ -128,14 +141,9 @@ class MainActivity : AppCompatActivity() ,KodeinAware,MainInterface, NavigationV
     override fun promptOldUser(message: String) {
         toast(message)
     }
-//    fun showUserPrompt(){
-//        val isNewUser = Preferences(this).firstTimeLoginBoolean(sharedPref)
-//        if (isNewUser){
-//            mainViewModel.mainInterface.promptNewUser()
-//            Preferences(this).saveFirstTimeLoginBoolean(sharedPref, false)
-//        }else {
-//            mainViewModel.mainInterface.promptOldUser("Welcome Back")
-//        }
-//    }
 
+    override fun onStart() {
+        super.onStart()
+
+    }
 }

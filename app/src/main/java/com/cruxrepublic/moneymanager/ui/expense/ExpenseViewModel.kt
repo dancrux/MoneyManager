@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.cruxrepublic.moneymanager.data.UserRepository
+import com.cruxrepublic.moneymanager.data.model.Expense
 import com.cruxrepublic.moneymanager.data.model.Income
 import com.cruxrepublic.moneymanager.ui.auth.AuthListener
 import com.google.android.gms.common.api.ApiException
@@ -23,7 +24,8 @@ class ExpenseViewModel(private val repository: UserRepository) : ViewModel() {
     lateinit var authListener: AuthListener
     private var viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
-    var expenseList = repository.allExpenses
+
+    val expenseList: LiveData<List<Expense>> = repository.allExpenses
     fun addExpense(view: View) {
         if (authListener.validateFields()) {
             authListener.onStarted()

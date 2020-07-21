@@ -1,6 +1,5 @@
 package com.cruxrepublic.moneymanager.data
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.cruxrepublic.moneymanager.data.model.*
@@ -22,41 +21,29 @@ class FireBaseDataSource() {
     val result: LiveData<java.lang.Exception?> = _result
 
 
-    private val _income = MutableLiveData<List<Income>>()
-            val income: LiveData<List<Income>> = _income
+    val income = MutableLiveData<List<Income>>()
 
-    private val _expenses = MutableLiveData<List<Expense>>()
-    val expenses: LiveData<List<Expense>> = _expenses
+     val expenses = MutableLiveData<List<Expense>>()
 
-    private val _received = MutableLiveData<List<Received>>()
-    val received: LiveData<List<Received>> = _received
+    val received = MutableLiveData<List<Received>>()
 
-    private val _sent = MutableLiveData<List<Sent>>()
-    val sent: LiveData<List<Sent>> = _sent
+    val sent = MutableLiveData<List<Sent>>()
 
-    private val _profileFirstName = MutableLiveData<Any>()
-    val profileFirstName: LiveData<Any> = _profileFirstName
+     val profileFirstName = MutableLiveData<Any>()
 
-    private val _profileSurName = MutableLiveData<Any>()
-    val profileSurName: LiveData<Any> = _profileSurName
+    val profileSurname = MutableLiveData<Any>()
 
-    private val _profileEmail = MutableLiveData<Any>()
-    val profileEmail: LiveData<Any> = _profileEmail
+     val profileEmail = MutableLiveData<Any>()
 
-    private val _profilePhoneNumber = MutableLiveData<Any>()
-    val profilePhoneNumber: LiveData<Any> =_profilePhoneNumber
+     val profilePhoneNumber = MutableLiveData<Any>()
 
-    private val _profileCountry = MutableLiveData<Any>()
-    val profileCountry: LiveData<Any> = _profileCountry
+    val profileCountry = MutableLiveData<Any>()
 
-    private val _profileAge = MutableLiveData<Any>()
-    val profileAge: LiveData<Any> = _profileAge
+     val profileAge = MutableLiveData<Any>()
 
-    private val _profileGender = MutableLiveData<Any>()
-    val profileGender: LiveData<Any>  = _profileGender
+     val profileGender = MutableLiveData<Any>()
 
-    private val _profileId = MutableLiveData<Any>()
-    val profileId: LiveData<Any> = _profileId
+    val profileId = MutableLiveData<Any>()
 
     var email : String = ""
     var firstName: String = ""
@@ -169,7 +156,7 @@ fun login(email: String, password: String) = Completable.create { emitter ->
                         income?.id = incomeSnapshot.key.toString()
                         income?.let { allIncome.add(it) }
                     }
-                    _income.value = allIncome
+                    income.value = allIncome
 
                 }
             }
@@ -207,7 +194,7 @@ fun login(email: String, password: String) = Completable.create { emitter ->
 //                        val expenseId = incomeSnapshot.key.toString()
                         expense?.let { allExpense.add(it) }
                     }
-                    _expenses.value = allExpense
+                    expenses.value = allExpense
 
                 }
             }
@@ -246,7 +233,7 @@ fun login(email: String, password: String) = Completable.create { emitter ->
                        sent?.id = sentSnapshot.key.toString()
                        sent?.let { allSent.add(it) }
                     }
-                    _sent.value = allSent
+                    sent.value = allSent
 
                 }
             }
@@ -268,7 +255,7 @@ fun login(email: String, password: String) = Completable.create { emitter ->
                         received?.id = incomeSnapshot.key.toString()
                         received?.let { allReceived.add(it) }
                     }
-                    _received.value = allReceived
+                    received.value = allReceived
 
                 }
             }
@@ -286,14 +273,14 @@ fun login(email: String, password: String) = Completable.create { emitter ->
             override fun onDataChange(snapshot: DataSnapshot) {
                 for (profileSnapshot in snapshot.children){
                     when(profileSnapshot.key){
-                        "firstName" -> _profileFirstName.value = profileSnapshot.value.toString()
-                        "surname" ->   _profileSurName.value = profileSnapshot.value.toString()
-                        "email" ->   _profileEmail.value = profileSnapshot.value.toString()
-                        "phoneNumber" ->   _profilePhoneNumber.value = profileSnapshot.value.toString()
-                        "country" ->   _profileCountry.value = profileSnapshot.value.toString()
-                        "age" ->   _profileAge.value = profileSnapshot.value.toString()
-                        "sex" ->   _profileGender.value = profileSnapshot.value.toString()
-                        "id" ->   _profileId.value = profileSnapshot.value.toString()
+                        "firstName" -> profileFirstName.value = profileSnapshot.value.toString()
+                        "surname" ->   profileSurname.value = profileSnapshot.value.toString()
+                        "email" ->   profileEmail.value = profileSnapshot.value.toString()
+                        "phoneNumber" ->   profilePhoneNumber.value = profileSnapshot.value.toString()
+                        "country" ->   profileCountry.value = profileSnapshot.value.toString()
+                        "age" ->   profileAge.value = profileSnapshot.value.toString()
+                        "sex" ->   profileGender.value = profileSnapshot.value.toString()
+                        "id" ->   profileId.value = profileSnapshot.value.toString()
 
                     }
 //                      val  userSurname = snapshot.child("surname").value.toString()

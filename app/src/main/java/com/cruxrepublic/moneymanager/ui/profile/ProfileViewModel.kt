@@ -1,5 +1,6 @@
 package com.cruxrepublic.moneymanager.ui.profile
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cruxrepublic.moneymanager.data.UserRepository
@@ -21,14 +22,16 @@ class ProfileViewModel(private val repository: UserRepository) : ViewModel() {
         }
     }
 
-     var firstName = repository.firstName
-    var surname = repository.surname
-    var email =repository.profileEmail
-     var phoneNumber =repository.profilePhoneNumber
-    var age = repository.age
-     var country = repository.country
-    var gender = repository.gender
-     var id = repository.profileId
+
+    val firstName: LiveData<Any> = repository.firstName
+    val surname: LiveData<Any> = repository.surname
+    val email: LiveData<Any> = repository.profileEmail
+    val phoneNumber: LiveData<Any> = repository.profilePhoneNumber
+    val country: LiveData<Any> = repository.country
+    val age: LiveData<Any> = repository.age
+    val gender: LiveData<Any>  =  repository.gender
+    val id: LiveData<Any> = repository.profileId
+
 
     fun getUserProfile(){
         repository.getUserProfile()

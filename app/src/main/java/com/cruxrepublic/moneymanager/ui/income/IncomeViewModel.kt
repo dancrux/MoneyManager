@@ -24,7 +24,8 @@ class IncomeViewModel(private val repository: UserRepository) : ViewModel() {
     lateinit var authListener: AuthListener
     private var viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
-    var incomeList = repository.allIncome
+
+    var incomeList: LiveData<List<Income>> = repository.allIncome
 
     init {
         viewModelScope.launch {

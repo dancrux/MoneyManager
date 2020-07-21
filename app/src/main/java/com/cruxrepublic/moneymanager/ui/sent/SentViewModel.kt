@@ -1,8 +1,10 @@
 package com.cruxrepublic.moneymanager.ui.sent
 
 import android.view.View
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.cruxrepublic.moneymanager.data.UserRepository
+import com.cruxrepublic.moneymanager.data.model.Sent
 import com.cruxrepublic.moneymanager.ui.auth.AuthListener
 import com.google.android.gms.common.api.ApiException
 import kotlinx.coroutines.CoroutineScope
@@ -19,7 +21,8 @@ class SentViewModel(private val repository: UserRepository) : ViewModel() {
     lateinit var authListener: AuthListener
     private var viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
-   var sentList = repository.allSent
+
+    val sentList: LiveData<List<Sent>> = repository.allSent
 
 
     fun sendMoney(view: View) {
