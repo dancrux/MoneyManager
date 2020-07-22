@@ -3,6 +3,7 @@ package com.cruxrepublic.moneymanager.ui.main
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -16,6 +17,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.cruxrepublic.moneymanager.R
 import com.cruxrepublic.moneymanager.data.UserRepository
 import com.cruxrepublic.moneymanager.databinding.ActivityMainBinding
@@ -58,6 +60,8 @@ class MainActivity : AppCompatActivity() ,KodeinAware,MainInterface, NavigationV
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
+        mainViewModel.showNavHeaderText()
+        displayNavHeaderText()
 
         navView.setNavigationItemSelectedListener(this)
         val menu: Menu = navView.menu
@@ -106,16 +110,6 @@ class MainActivity : AppCompatActivity() ,KodeinAware,MainInterface, NavigationV
         super.onResume()
         mainViewModel.showNewUserDialog()
 //        mainViewModel.showNavHeaderText()
-        mainViewModel.firstName!!.observe(this, Observer { text->
-            if (text != null) {
-                profileNameText.text = text.toString()
-            }
-        })
-        mainViewModel.id!!.observe(this, Observer { text->
-            if (text != null) {
-                profileAccountIdText.text = text.toString()
-            }
-        })
     }
     private fun showAddIncome(){
 //        val view = layoutInflater.inflate(R.layout.fragment_add_income_dialog, null)
@@ -141,9 +135,19 @@ class MainActivity : AppCompatActivity() ,KodeinAware,MainInterface, NavigationV
     override fun promptOldUser(message: String) {
         toast(message)
     }
-
-    override fun onStart() {
-        super.onStart()
-
+    private fun displayNavHeaderText(){
+        val name: String = ""
+        val id: String = ""
+        mainViewModel.firstName!!.observe(this, Observer { text->
+            if (text != null) {
+                profileNameText.text = text.toString()
+            }else profileNameText.text = name
+        })
+        mainViewModel.id!!.observe(this, Observer { text->
+            if (text != null) {
+                profileAccountIdText.text = text.toString()
+            }else profileAccountIdText.text = id
+        })
     }
+
 }

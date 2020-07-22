@@ -14,14 +14,16 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cruxrepublic.moneymanager.R
+import com.cruxrepublic.moneymanager.data.model.Income
 import com.cruxrepublic.moneymanager.databinding.FragmentIncomeBinding
 import com.cruxrepublic.moneymanager.ui.auth.AuthViewModelFactory
+import com.cruxrepublic.moneymanager.ui.utils.IncomeRecyclerClickListener
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.kodein
 import org.kodein.di.generic.instance
 
-class IncomeFragment : Fragment(), KodeinAware {
+class IncomeFragment : Fragment(), KodeinAware, IncomeRecyclerClickListener {
 
     private lateinit var incomeViewModel: IncomeViewModel
     lateinit var binding: FragmentIncomeBinding
@@ -56,12 +58,23 @@ class IncomeFragment : Fragment(), KodeinAware {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
+        adapter.listener = this
         binding.incomeRecycler.adapter = adapter
         binding.incomeRecycler.layoutManager = LinearLayoutManager(this.activity)
         incomeViewModel.fetchIncome()
         incomeViewModel.incomeList.observe(viewLifecycleOwner, Observer {
             adapter.setIncome(it)
         })
+    }
+
+    override fun onItemClicked(view: View, income: Income) {
+        when(view.id){
+            R.id.editImage ->{
+
+            }
+            R.id.deleteImage ->{
+
+            }
+        }
     }
 }

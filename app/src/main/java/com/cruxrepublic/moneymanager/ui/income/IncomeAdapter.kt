@@ -7,9 +7,12 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.cruxrepublic.moneymanager.R
 import com.cruxrepublic.moneymanager.data.model.Income
+import com.cruxrepublic.moneymanager.ui.utils.IncomeRecyclerClickListener
+import kotlinx.android.synthetic.main.income_item_view.view.*
 
- class IncomeAdapter: RecyclerView.Adapter<IncomeAdapter.ViewHolder>() {
+class IncomeAdapter: RecyclerView.Adapter<IncomeAdapter.ViewHolder>() {
     var data = mutableListOf<Income>()
+     var listener: IncomeRecyclerClickListener? = null
 //        set(value) {
 //            field = value
 //            notifyDataSetChanged()
@@ -40,5 +43,7 @@ import com.cruxrepublic.moneymanager.data.model.Income
         holder.source.text = income.sourceOfIncome.toString()
         holder.amount.text = income.amount.toString()
         holder.time.text = income.time.toString()
+        holder.itemView.editImage.setOnClickListener { listener?.onItemClicked(it, income) }
+        holder.itemView.deleteImage.setOnClickListener {listener?.onItemClicked(it, income)  }
     }
 }

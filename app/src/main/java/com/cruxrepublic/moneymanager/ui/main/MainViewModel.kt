@@ -36,7 +36,7 @@ class MainViewModel(private val repository: UserRepository, private val prefs: P
             return
         }
     }
-//    fun showNavHeaderText(){
-//        repository.getUserProfile()
-//    }
+    fun showNavHeaderText(){
+        repository.getUserProfile()
+    }
 }
