@@ -5,28 +5,33 @@
     <item
         android:id="@+id/navigation_home"
         android:icon="@drawable/ic_home_black_24dp"
+        android:contentDescription="@string/title_home"
         android:title="@string/title_home"
         />
 
     <item
         android:id="@+id/navigation_income"
         android:icon="@drawable/ic_baseline_account_balance_wallet_24"
+
         android:title="@string/title_income"
-       />
+        android:visible="true" />
 
     <item
         android:id="@+id/navigation_expense"
         android:icon="@drawable/ic_baseline_attach_money_24"
+
         android:title="@string/title_expenses"
        />
     <item
         android:id="@+id/navigation_received"
         android:icon="@drawable/ic_baseline_move_to_inbox_24"
+
         android:title="@string/title_received"
        />
     <item
         android:id="@+id/navigation_sent"
         android:icon="@drawable/ic_baseline_send_24"
+
         android:title="@string/title_sent"
         />
 

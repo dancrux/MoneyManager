@@ -72,6 +72,10 @@
         android:label="@string/title_add_income"
         tools:layout="@layout/fragment_add_income_dialog" />
     <dialog
+        android:id="@+id/navigation_edit_income"
+        android:name="com.cruxrepublic.moneymanager.ui.income.EditIncomeDialogFragment"
+        tools:layout="@layout/fragment_add_income_dialog" />
+    <dialog
         android:id="@+id/navigation_add_expense"
         android:name="com.cruxrepublic.moneymanager.ui.expense.AddExpenseDialogFragment"
         android:label="@string/title_expenses"
@@ -81,5 +85,6 @@
         android:name="com.cruxrepublic.moneymanager.ui.sent.SendDialogFragment"
         android:label="@string/title_sent"
         tools:layout="@layout/fragment_send_dialog" />
+
 
 </navigation>

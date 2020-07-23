@@ -1,8 +1,11 @@
 package com.cruxrepublic.moneymanager.ui.main
 
+import android.content.Context
 import android.os.Bundle
+import android.util.AttributeSet
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
@@ -24,6 +27,7 @@ import com.cruxrepublic.moneymanager.databinding.ActivityMainBinding
 import com.cruxrepublic.moneymanager.ui.utils.startLoginActivity
 import com.cruxrepublic.moneymanager.ui.utils.toast
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.bottomnavigation.LabelVisibilityMode
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.view.*
@@ -69,23 +73,15 @@ class MainActivity : AppCompatActivity() ,KodeinAware,MainInterface, NavigationV
 
         val bottomNavView: BottomNavigationView = binding.container.bottomNavView
 
+
         val navController = findNavController(R.id.nav_host_fragment)
-//        NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout)
-//        NavigationUI.setupWithNavController(toolbar, navController)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(setOf(
-            R.id.navigation_home,
-            R.id.navigation_income,
-            R.id.navigation_expense,
-            R.id.navigation_received,
-            R.id.navigation_sent,
-            R.id.navigation_profile
+            R.id.navigation_home, R.id.navigation_income,
+            R.id.navigation_expense, R.id.navigation_received,
+            R.id.navigation_sent, R.id.navigation_profile
         ))
         setupActionBarWithNavController(navController, appBarConfiguration)
         bottomNavView.setupWithNavController(navController)
-
-
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -149,5 +145,4 @@ class MainActivity : AppCompatActivity() ,KodeinAware,MainInterface, NavigationV
             }else profileAccountIdText.text = id
         })
     }
-
 }

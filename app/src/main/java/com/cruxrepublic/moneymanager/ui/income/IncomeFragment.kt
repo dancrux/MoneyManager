@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cruxrepublic.moneymanager.R
 import com.cruxrepublic.moneymanager.data.model.Income
@@ -70,11 +71,12 @@ class IncomeFragment : Fragment(), KodeinAware, IncomeRecyclerClickListener {
     override fun onItemClicked(view: View, income: Income) {
         when(view.id){
             R.id.editImage ->{
-
+            findNavController().navigate(R.id.navigation_edit_income)
             }
             R.id.deleteImage ->{
 
             }
         }
     }
+
 }
