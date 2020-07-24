@@ -20,6 +20,7 @@ import com.cruxrepublic.moneymanager.databinding.FragmentIncomeBinding
 import com.cruxrepublic.moneymanager.ui.auth.AuthViewModelFactory
 import com.cruxrepublic.moneymanager.ui.utils.IncomeRecyclerClickListener
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import kotlinx.android.synthetic.main.income_item_view.*
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.kodein
 import org.kodein.di.generic.instance
@@ -71,12 +72,17 @@ class IncomeFragment : Fragment(), KodeinAware, IncomeRecyclerClickListener {
     override fun onItemClicked(view: View, income: Income) {
         when(view.id){
             R.id.editImage ->{
-            findNavController().navigate(R.id.navigation_edit_income)
+                passArgumentsToEditIncome()
             }
             R.id.deleteImage ->{
 
             }
         }
     }
-
+    private fun passArgumentsToEditIncome(){
+        val incomeSource = sourceText.text.toString()
+        val amount = amountText.text.toString()
+        val action = IncomeFragmentDirections.actionNavigationIncomeToNavigationEditIncome(incomeSource, amount)
+        findNavController().navigate(action)
+    }
 }

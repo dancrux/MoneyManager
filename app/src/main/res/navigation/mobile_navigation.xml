@@ -26,6 +26,9 @@
         <action
             android:id="@+id/action_navigation_income_to_navigation_add_income"
             app:destination="@id/navigation_add_income" />
+        <action
+            android:id="@+id/action_navigation_income_to_navigation_edit_income"
+            app:destination="@id/navigation_edit_income" />
     </fragment>
 
     <fragment
@@ -59,7 +62,6 @@
         tools:layout="@layout/profile_fragment" >
         <action
             android:id="@+id/action_navigation_profile_to_navigation_home"
-
             app:destination="@id/navigation_home"
             app:launchSingleTop="true"
             app:popUpTo="@id/navigation_profile"
@@ -74,7 +76,15 @@
     <dialog
         android:id="@+id/navigation_edit_income"
         android:name="com.cruxrepublic.moneymanager.ui.income.EditIncomeDialogFragment"
-        tools:layout="@layout/fragment_add_income_dialog" />
+        tools:layout="@layout/fragment_add_income_dialog" >
+        <argument
+            android:name="sourceText"
+            app:argType="string"
+            />
+        <argument
+            android:name="amountText"
+            app:argType="string" />
+    </dialog>
     <dialog
         android:id="@+id/navigation_add_expense"
         android:name="com.cruxrepublic.moneymanager.ui.expense.AddExpenseDialogFragment"
