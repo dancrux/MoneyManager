@@ -136,13 +136,13 @@ class MainActivity : AppCompatActivity() ,KodeinAware,MainInterface, NavigationV
         val id: String = ""
         mainViewModel.firstName!!.observe(this, Observer { text->
             if (text != null) {
-                profileNameText.text = text.toString()
-            }else profileNameText.text = name
+                profileNameText?.text = text.toString()
+            }else profileNameText?.text = name
         })
         mainViewModel.id!!.observe(this, Observer { text->
             if (text != null) {
-                profileAccountIdText.text = text.toString()
-            }else profileAccountIdText.text = id
+                profileAccountIdText?.text = text.toString()
+            }else profileAccountIdText?.text = id
         })
     }
 }

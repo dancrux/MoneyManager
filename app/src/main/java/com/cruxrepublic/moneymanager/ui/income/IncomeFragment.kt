@@ -72,14 +72,14 @@ class IncomeFragment : Fragment(), KodeinAware, IncomeRecyclerClickListener {
     override fun onItemClicked(view: View, income: Income) {
         when(view.id){
             R.id.editImage ->{
-                passArgumentsToEditIncome()
+                passArgumentsToEditIncome(income)
             }
             R.id.deleteImage ->{
 
             }
         }
     }
-    private fun passArgumentsToEditIncome(){
+    private fun passArgumentsToEditIncome(income: Income){
         val incomeSource = sourceText.text.toString()
         val amount = amountText.text.toString()
         val action = IncomeFragmentDirections.actionNavigationIncomeToNavigationEditIncome(incomeSource, amount)
