@@ -68,6 +68,11 @@ class UserRepository(private val firebase: FireBaseDataSource) {
     }
     fun fetchIncome()  = firebase.fetchIncome()
 
+    fun editIncome(sourceOfIncome: String, amount: String, time: String) {
+        val income = Income(sourceOfIncome, amount, time)
+        firebase.editIncome(income)
+    }
+
     fun fetchExpenses() = firebase.fetchExpenses()
 
     fun fetchReceived() = firebase.getReceived()

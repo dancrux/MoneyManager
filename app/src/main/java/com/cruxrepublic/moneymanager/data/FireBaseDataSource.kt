@@ -139,7 +139,19 @@ fun login(email: String, password: String) = Completable.create { emitter ->
                 }
         }
     }
-
+    fun editIncome(income: Income){
+        val accountId= firebaseAuth.currentUser?.uid.toString().filter { it.isUpperCase() }
+        firebaseAuth.currentUser?.uid?.let {
+            val dbIncome = firebaseDatabase.getReference("Users")
+            dbIncome.child(accountId).child("income").child(income.id!!)
+                .setValue(income).addOnCompleteListener {
+                    if (it.isSuccessful) {
+                        _result.value = null
+                    } else
+                        _result.value = it.exception
+                }
+        }
+    }
     fun fetchIncome(){
         val accountId= firebaseAuth.currentUser?.uid.toString().filter { it.isUpperCase() }
         firebaseAuth.currentUser?.uid?.let { firebaseDatabase.getReference("Users")
