@@ -15,11 +15,10 @@ import io.reactivex.Completable
 class FireBaseDataSource() {
 
     private val firebaseAuth = FirebaseAuth.getInstance()
-    private val firebaseDatabase = FirebaseDatabase.getInstance()
+    private var firebaseDatabase = FirebaseDatabase.getInstance()
 
     private val _result = MutableLiveData<java.lang.Exception?>()
     val result: LiveData<java.lang.Exception?> = _result
-
 
     val income = MutableLiveData<List<Income>>()
 
@@ -152,6 +151,22 @@ fun login(email: String, password: String) = Completable.create { emitter ->
                 }
         }
     }
+
+    fun deleteIncome(income: Income){
+        val accountId= firebaseAuth.currentUser?.uid.toString().filter { it.isUpperCase() }
+        firebaseAuth.currentUser?.uid?.let {
+            val dbIncome = firebaseDatabase.getReference("Users")
+            dbIncome.child(accountId).child("income").child(income.id!!)
+                .setValue(null).addOnCompleteListener {
+                    if (it.isSuccessful) {
+                        _result.value = null
+                    } else
+                        _result.value = it.exception
+                }
+        }
+    }
+
+
     fun fetchIncome(){
         val accountId= firebaseAuth.currentUser?.uid.toString().filter { it.isUpperCase() }
         firebaseAuth.currentUser?.uid?.let { firebaseDatabase.getReference("Users")

@@ -72,6 +72,9 @@ class UserRepository(private val firebase: FireBaseDataSource) {
         val income = Income(sourceOfIncome, amount, time)
         firebase.editIncome(income)
     }
+    fun deleteIncome(income: Income) {
+        firebase.deleteIncome(income)
+    }
 
     fun fetchExpenses() = firebase.fetchExpenses()
 

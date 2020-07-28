@@ -52,6 +52,8 @@ class IncomeViewModel(private val repository: UserRepository) : ViewModel() {
         }
     }
 
+    fun deleteIncome(income: Income) = repository.deleteIncome(income)
+
     fun fetchIncome(){
         viewModelScope.launch { repository.fetchIncome()  }
 

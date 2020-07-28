@@ -1,5 +1,6 @@
 package com.cruxrepublic.moneymanager.ui.income
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -70,7 +71,15 @@ class IncomeFragment : Fragment(), KodeinAware, IncomeRecyclerClickListener {
                 openEditIncome(income)
             }
             R.id.deleteImage ->{
-
+                AlertDialog.Builder(requireContext()).also {
+                    it.setTitle(getString(R.string.delete_confirmation))
+                    it.setPositiveButton("Yes"){
+                        dialog, which -> incomeViewModel.deleteIncome(income)
+                    }
+                    it.setNegativeButton("No"){
+                        dialog, which -> dialog.cancel()
+                    }
+                }.create().show()
             }
         }
     }
