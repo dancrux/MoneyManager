@@ -47,6 +47,7 @@ class SentViewModel(private val repository: UserRepository) : ViewModel() {
     fun fetchSent(){
         repository.fetchSent()
     }
+    fun deleteSentItem(sent: Sent) = repository.deleteSentItem(sent)
     private fun formatTime(): String {
         val dateFormat = DateFormat.getDateTimeInstance()
         val date = Date()

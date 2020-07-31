@@ -9,9 +9,12 @@ import com.cruxrepublic.moneymanager.R
 import com.cruxrepublic.moneymanager.data.model.Income
 import com.cruxrepublic.moneymanager.data.model.Sent
 import com.cruxrepublic.moneymanager.ui.income.IncomeAdapter
+import com.cruxrepublic.moneymanager.ui.utils.SentRecyclerClickListener
+import kotlinx.android.synthetic.main.received_item_view.view.*
 
 class SentAdapter : RecyclerView.Adapter<SentAdapter.ViewHolder>() {
     var data = mutableListOf<Sent>()
+    var listener: SentRecyclerClickListener? = null
 //        set(value) {
 //            field = value
 //            notifyDataSetChanged()
@@ -42,5 +45,6 @@ class SentAdapter : RecyclerView.Adapter<SentAdapter.ViewHolder>() {
         holder.receiversId.text = sent.receiversId.toString()
         holder.amount.text = sent.amount.toString()
         holder.time.text = sent.time.toString()
+        holder.itemView.deleteButton.setOnClickListener { listener?.onItemClicked(it, sent) }
     }
 }

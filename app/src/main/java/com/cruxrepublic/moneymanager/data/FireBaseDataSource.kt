@@ -191,7 +191,6 @@ fun login(email: String, password: String) = Completable.create { emitter ->
     }
 
     fun addExpense(expense: Expense){
-
         val accountId= firebaseAuth.currentUser?.uid.toString().filter { it.isUpperCase() }
         firebaseAuth.currentUser?.uid?.let {
             val dbExpense = firebaseDatabase.getReference("Users")
@@ -227,16 +226,29 @@ fun login(email: String, password: String) = Completable.create { emitter ->
             }
         })
     }
+    fun deleteExpenses(expense: Expense){
+        val accountId= firebaseAuth.currentUser?.uid.toString().filter { it.isUpperCase() }
+        firebaseAuth.currentUser?.uid?.let {
+            val dbIncome = firebaseDatabase.getReference("Users")
+            dbIncome.child(accountId).child("expenses").child(expense.id!!)
+                .setValue(null).addOnCompleteListener {
+                    if (it.isSuccessful) {
+                        _result.value = null
+                    } else
+                        _result.value = it.exception
+                }
+        }
+    }
 
     fun sendMoney(sent: Sent){
                 firebaseAuth.currentUser?.uid?.let {
                     val sendReference = firebaseDatabase.getReference("Users")
-                     val sendId = sendReference.push().key.toString()
-                  sendReference.child(sent.receiversId!!).child("received").child(sendId).setValue(sent)
+                      Received().id = sendReference.push().key.toString()
+                  sendReference.child(sent.receiversId!!).child("received").child(Received().id!!).setValue(sent)
                       .addOnCompleteListener {
                           if (it.isSuccessful) {
-                              val receiversId = sendReference.push().key.toString()
-                              sendReference.child(sent.sendersId).child("sent").child(receiversId).setValue(sent)
+                             sent.id = sendReference.push().key.toString()
+                              sendReference.child(sent.sendersId).child("sent").child(sent.id!!).setValue(sent)
                               _result.value = null
                           } else
                               _result.value = it.exception
@@ -266,6 +278,19 @@ fun login(email: String, password: String) = Completable.create { emitter ->
             }
         })
     }
+    fun deleteSentItem(sent: Sent){
+        val accountId= firebaseAuth.currentUser?.uid.toString().filter { it.isUpperCase() }
+        firebaseAuth.currentUser?.uid?.let {
+            val dbIncome = firebaseDatabase.getReference("Users")
+            dbIncome.child(accountId).child("sent").child(sent.id!!)
+                .setValue(null).addOnCompleteListener {
+                    if (it.isSuccessful) {
+                        _result.value = null
+                    } else
+                        _result.value = it.exception
+                }
+        }
+    }
     fun getReceived(){
         val accountId= firebaseAuth.currentUser?.uid.toString().filter { it.isUpperCase() }
         firebaseAuth.currentUser?.uid?.let { firebaseDatabase.getReference("Users")
@@ -288,8 +313,20 @@ fun login(email: String, password: String) = Completable.create { emitter ->
             }
         })
     }
+    fun deleteReceivedItem(received: Received){
+        val accountId= firebaseAuth.currentUser?.uid.toString().filter { it.isUpperCase() }
+        firebaseAuth.currentUser?.uid?.let {
+            val dbIncome = firebaseDatabase.getReference("Users")
+            dbIncome.child(accountId).child("received").child(received.id!!)
+                .setValue(null).addOnCompleteListener {
+                    if (it.isSuccessful) {
+                        _result.value = null
+                    } else
+                        _result.value = it.exception
+                }
+        }
+    }
     fun getProfile(){
-//        userDetails = User( firstName, surname,id,email, phoneNumber, age, country, sex)
         val accountId= firebaseAuth.currentUser?.uid.toString().filter { it.isUpperCase() }
         firebaseAuth.currentUser?.uid?.let { firebaseDatabase.getReference("Users")
             .child(accountId).child("user info") }?.addListenerForSingleValueEvent(object : ValueEventListener {
@@ -319,8 +356,6 @@ fun login(email: String, password: String) = Completable.create { emitter ->
 
                     }
                 }
-
-
         })
 }
 

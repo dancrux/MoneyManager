@@ -44,7 +44,7 @@ class ExpenseViewModel(private val repository: UserRepository) : ViewModel() {
 
         }
     }
-
+    fun deleteExpense(expense: Expense) = repository.deleteExpenses(expense)
     fun fetchExpenses(){
         repository.fetchExpenses()
     }

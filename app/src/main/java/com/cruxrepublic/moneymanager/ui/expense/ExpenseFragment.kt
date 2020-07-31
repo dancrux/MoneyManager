@@ -1,5 +1,6 @@
 package com.cruxrepublic.moneymanager.ui.expense
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,13 +15,17 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cruxrepublic.moneymanager.R
+import com.cruxrepublic.moneymanager.data.model.Expense
 import com.cruxrepublic.moneymanager.databinding.FragmentExpenseBinding
 import com.cruxrepublic.moneymanager.ui.income.IncomeViewModelFactory
+import com.cruxrepublic.moneymanager.ui.utils.ExpenseRecyclerClickListener
+import com.google.android.gms.common.data.DataHolder
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.kodein
 import org.kodein.di.generic.instance
+import kotlin.math.exp
 
-class ExpenseFragment : Fragment(), KodeinAware {
+class ExpenseFragment : Fragment(),ExpenseRecyclerClickListener, KodeinAware {
 
     private lateinit var expenseViewModel: ExpenseViewModel
     private lateinit var binding: FragmentExpenseBinding
@@ -55,11 +60,29 @@ class ExpenseFragment : Fragment(), KodeinAware {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        adapter.listener = this
         binding.expensesRecycler.adapter = adapter
         binding.expensesRecycler.layoutManager = LinearLayoutManager(this.activity)
         expenseViewModel.fetchExpenses()
         expenseViewModel.expenseList.observe(viewLifecycleOwner, Observer {
             adapter.setExpense(it)
         })
+    }
+
+    override fun onItemClicked(view: View, expense:Expense) {
+        when(view.id){
+            R.id.deleteImage ->{
+                AlertDialog.Builder(requireContext()).also {
+                    it.setTitle(getString(R.string.delete_confirmation))
+                    it.setPositiveButton("Yes"){
+                            dialog, which -> expenseViewModel.deleteExpense(expense)
+                    }
+                    it.setNegativeButton("No"){
+                            dialog, which -> dialog.cancel()
+                    }
+                }.create().show()
+            }
+        }
+
     }
 }

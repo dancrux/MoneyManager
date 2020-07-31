@@ -2,6 +2,7 @@ package com.cruxrepublic.moneymanager.data
 
 import com.cruxrepublic.moneymanager.data.model.Expense
 import com.cruxrepublic.moneymanager.data.model.Income
+import com.cruxrepublic.moneymanager.data.model.Received
 import com.cruxrepublic.moneymanager.data.model.Sent
 import io.reactivex.Completable
 
@@ -77,10 +78,19 @@ class UserRepository(private val firebase: FireBaseDataSource) {
     }
 
     fun fetchExpenses() = firebase.fetchExpenses()
+    fun deleteExpenses(expense: Expense){
+        firebase.deleteExpenses(expense)
+    }
 
     fun fetchReceived() = firebase.getReceived()
+    fun deleteReceivedItem(received: Received){
+        firebase.deleteReceivedItem(received)
+    }
 
     fun fetchSent() = firebase.getSentRecord()
+    fun deleteSentItem(sent: Sent){
+        firebase.deleteSentItem(sent)
+    }
 
     fun sendMoney(receiversId: String, amount: String, time: String){
         val send = Sent(receiversId = receiversId, amount = amount, time = time)

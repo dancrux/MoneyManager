@@ -11,4 +11,5 @@ class ReceivedViewModel(private val repository: UserRepository) : ViewModel() {
     fun fetchReceived(){
         repository.fetchReceived()
     }
+    fun deleteReceivedItem(received: Received) = repository.deleteReceivedItem(received)
 }

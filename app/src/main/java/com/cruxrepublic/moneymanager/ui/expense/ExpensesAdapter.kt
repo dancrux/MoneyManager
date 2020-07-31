@@ -9,9 +9,13 @@ import com.cruxrepublic.moneymanager.R
 import com.cruxrepublic.moneymanager.data.model.Expense
 import com.cruxrepublic.moneymanager.data.model.Income
 import com.cruxrepublic.moneymanager.ui.income.IncomeAdapter
+import com.cruxrepublic.moneymanager.ui.utils.ExpenseRecyclerClickListener
+import kotlinx.android.synthetic.main.income_item_view.view.*
+import kotlinx.android.synthetic.main.received_item_view.view.*
 
 class ExpensesAdapter: RecyclerView.Adapter<ExpensesAdapter.ViewHolder>() {
     var data = mutableListOf<Expense>()
+    var listener: ExpenseRecyclerClickListener? = null
 //        set(value) {
 //            field = value
 //            notifyDataSetChanged()
@@ -42,5 +46,6 @@ class ExpensesAdapter: RecyclerView.Adapter<ExpensesAdapter.ViewHolder>() {
         holder.reason.text = expense.reasonForExpenses.toString()
         holder.amount.text = expense.amount.toString()
         holder.time.text = expense.time.toString()
+        holder.itemView.deleteImage.setOnClickListener { listener?.onItemClicked(it, expense) }
     }
 }
