@@ -1,11 +1,9 @@
 package com.cruxrepublic.moneymanager.app
 
 import android.app.Application
-import com.cruxrepublic.moneymanager.data.FireBaseDataSource
+import com.cruxrepublic.moneymanager.data.firebase.FireBaseDataSource
 import com.cruxrepublic.moneymanager.data.UserRepository
-import com.cruxrepublic.moneymanager.data.model.User
 import com.cruxrepublic.moneymanager.data.preference.Preferences
-import com.cruxrepublic.moneymanager.ui.auth.AuthListener
 import com.cruxrepublic.moneymanager.ui.auth.AuthViewModelFactory
 import com.cruxrepublic.moneymanager.ui.expense.ExpenseViewModelFactory
 import com.cruxrepublic.moneymanager.ui.income.IncomeViewModelFactory
@@ -27,9 +25,9 @@ class MoneyManagerApplication: Application(), KodeinAware {
         import(androidXModule(this@MoneyManagerApplication))
 
 
-        bind() from singleton { FireBaseDataSource()}
+        bind() from singleton { FireBaseDataSource() }
         bind() from singleton { UserRepository(instance())}
-        bind() from singleton { Preferences(instance()) }
+        bind() from singleton { Preferences(instance())}
         bind() from provider { AuthViewModelFactory(instance(), instance())}
         bind() from provider { MainViewModelFactory(instance(), instance()) }
         bind() from provider { IncomeViewModelFactory(instance()) }

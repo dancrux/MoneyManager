@@ -7,8 +7,6 @@ import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.cruxrepublic.moneymanager.R
-import com.cruxrepublic.moneymanager.data.FireBaseDataSource
-import com.cruxrepublic.moneymanager.data.UserRepository
 import com.cruxrepublic.moneymanager.databinding.ActivityLoginBinding
 import com.cruxrepublic.moneymanager.ui.utils.startMainActivity
 import com.cruxrepublic.moneymanager.ui.utils.toast

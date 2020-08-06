@@ -1,4 +1,4 @@
-package com.cruxrepublic.moneymanager.data
+package com.cruxrepublic.moneymanager.data.firebase
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

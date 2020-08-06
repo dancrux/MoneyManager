@@ -50,8 +50,6 @@ class ExpenseFragment : Fragment(),ExpenseRecyclerClickListener, KodeinAware {
 //            findNavController().navigate(R.id.action_navigation_expense_to_navigation_add_expense)
         }
 
-
-//        val textView: TextView = root.findViewById(R.id.text_notifications)
 //        expenseViewModel.text.observe(viewLifecycleOwner, Observer {
 //            textView.text = it
 //        })
