@@ -243,8 +243,9 @@ fun login(email: String, password: String) = Completable.create { emitter ->
     fun sendMoney(sent: Sent){
                 firebaseAuth.currentUser?.uid?.let {
                     val sendReference = firebaseDatabase.getReference("Users")
-                      Received().id = sendReference.push().key.toString()
-                  sendReference.child(sent.receiversId!!).child("received").child(Received().id!!).setValue(sent)
+                    val received =  Received()
+                      received.id = sendReference.push().key.toString()
+                  sendReference.child(sent.receiversId!!).child("received").child(received.id!!).setValue(sent)
                       .addOnCompleteListener {
                           if (it.isSuccessful) {
                              sent.id = sendReference.push().key.toString()
