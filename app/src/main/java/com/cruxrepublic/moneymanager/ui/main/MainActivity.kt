@@ -29,6 +29,7 @@ import com.cruxrepublic.moneymanager.ui.utils.toast
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomnavigation.LabelVisibilityMode
 import com.google.android.material.navigation.NavigationView
+import com.onesignal.OneSignal
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.view.*
 import kotlinx.android.synthetic.main.nav_header.*
@@ -43,11 +44,16 @@ class MainActivity : AppCompatActivity() ,KodeinAware,MainInterface, NavigationV
     private val factory by instance<MainViewModelFactory>()
     private lateinit var mainViewModel : MainViewModel
     private lateinit var binding: ActivityMainBinding
-    private lateinit var repo: UserRepository
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this,R.layout.activity_main)
+        OneSignal.setLogLevel(OneSignal.LOG_LEVEL.VERBOSE, OneSignal.LOG_LEVEL.NONE)
+        OneSignal.startInit(this)
+            .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
+            .unsubscribeWhenNotificationsAreDisabled(true)
+            .init()
 
         mainViewModel = ViewModelProvider(this, factory).get(MainViewModel::class.java)
         binding.mainViewModel = mainViewModel
