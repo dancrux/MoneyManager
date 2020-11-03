@@ -12,3 +12,7 @@ The app uses leverages on Modern Android technologies, like Firebase for authent
 
 * The ui is built leveraging on the material design components
 Other libraries used: Kodein for dependency Injection 
+
+# App Architecture
+The project uses the mvvm Architecture with Firebase Database
+
