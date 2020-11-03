@@ -16,5 +16,5 @@ Other libraries used: Kodein for dependency Injection
 # App Architecture
 The project uses the mvvm Architecture with Firebase Database
 
-![Architecture Flow Diagram](file:///C:/Users/HP/Downloads/Mvvm%20Arch%20with%20Firebase%20Diagram.png)
+![Architecture Flow Diagram](https://user-images.githubusercontent.com/43187153/97998764-cf282700-1dea-11eb-9c32-dedfc14a1084.png)
 
