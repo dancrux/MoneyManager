@@ -82,8 +82,8 @@
             app:cardBackgroundColor="@color/colorWhite"
             app:cardCornerRadius="18dp"
             app:cardElevation="5dp"
-            app:cardUseCompatPadding="true"
             app:contentPadding="4dp"
+            app:cardUseCompatPadding="true"
             app:layout_constraintBottom_toTopOf="@+id/receivedCard"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/totalFundsCard">

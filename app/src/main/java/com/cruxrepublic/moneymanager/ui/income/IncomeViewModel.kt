@@ -9,6 +9,7 @@ import com.cruxrepublic.moneymanager.data.UserRepository
 import com.cruxrepublic.moneymanager.data.model.Income
 import com.cruxrepublic.moneymanager.ui.auth.AuthListener
 import com.google.android.gms.common.api.ApiException
+import com.google.firebase.database.FirebaseDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -20,7 +21,7 @@ class IncomeViewModel(private val repository: UserRepository) : ViewModel() {
 
     var sourceOfIncome: String = ""
     var amount: String = ""
-
+    private var firebaseDatabase = FirebaseDatabase.getInstance().getReference("Users")
     lateinit var authListener: AuthListener
     private var viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
@@ -31,6 +32,7 @@ class IncomeViewModel(private val repository: UserRepository) : ViewModel() {
         viewModelScope.launch {
             incomeList
         }
+        firebaseDatabase.keepSynced(true)
     }
 
     fun addIncome(view: View) {

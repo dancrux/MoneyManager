@@ -86,9 +86,9 @@ class IncomeFragment : Fragment(), KodeinAware, IncomeRecyclerClickListener {
     private fun openEditIncome(income: Income){
 //        val incomeSource = sourceText.text.toString()
 //        val amount = amountText.text.toString()
-                    val action = IncomeFragmentDirections.actionNavigationIncomeToNavigationEditIncome(
-                    income.sourceOfIncome!!, income.amount!!)
-                findNavController().navigate(action)
+        val action = IncomeFragmentDirections.actionNavigationIncomeToNavigationEditIncome(
+            income.sourceOfIncome!!, income.amount!!)
+            findNavController().navigate(action)
 
     }
 }

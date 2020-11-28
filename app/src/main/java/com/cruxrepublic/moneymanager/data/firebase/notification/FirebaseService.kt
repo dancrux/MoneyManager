@@ -53,6 +53,7 @@ class FirebaseService : FirebaseMessagingService() {
         val channel = NotificationChannel(CHANNEL_ID, channelName, IMPORTANCE_HIGH).apply {
             description = "My Channel description"
             enableLights(true)
+            enableVibration(true)
         }
         notificationManager.createNotificationChannel(channel)
     }
